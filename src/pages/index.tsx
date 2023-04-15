@@ -21,7 +21,7 @@ const Home = () => {
               <ul className='flex flex-col gap-5'>
                 {
                   col.tasks.map((task) => (
-                    <li className={`w-72 h-20 ${theme === "light" ? "bg-_white" : "bg-dark_Gray"} px-4 py-5`}>
+                    <li style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg w-72 min-h-20 ${theme === "light" ? "bg-_white" : "bg-dark_Gray"} px-4 py-5`}>
                       <h4 className={`font-bold text-base/5 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{task.title}</h4>
                     </li>
                   ))
