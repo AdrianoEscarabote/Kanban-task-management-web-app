@@ -24,7 +24,8 @@ module.exports = {
         almost_White: "#F4F7FD",
         _white: "#FFFFFF",
         _red: "#EA5555",
-        light_Red: "#FF9898"
+        light_Red: "#FF9898",
+        modalParentBgLight: "#0000007f",
       }
     },
   },
