@@ -1,4 +1,4 @@
-import { rootState } from "@/components/Header/HeaderProps"
+import { rootState } from "@/redux/reduxTypes"
 import { useSelector } from "react-redux"
 import { DeleteModalTypes } from "./DeleteModalTypes"
 import { useEffect } from "react"

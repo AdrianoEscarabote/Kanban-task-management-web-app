@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { rootState } from "../Header/HeaderProps"
+import { rootState } from "@/redux/reduxTypes"
 import InputToggle from "../InputToggle/InputToggle"
 import Image from "next/image"
 import { useEffect, useState } from "react"

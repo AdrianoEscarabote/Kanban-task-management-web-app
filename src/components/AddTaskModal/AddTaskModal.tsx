@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { rootState } from "../Header/HeaderProps"
+import { rootState } from "@/redux/reduxTypes"
 import { AddTaskModalTypes } from "./AddTask"
 import { useEffect, useState } from "react"
 import Button from "../shared/Button/Button"

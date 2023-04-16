@@ -1,5 +1,4 @@
-import { rootState } from "@/components/Header/HeaderProps";
-import rootReducer from "@/redux/root-reducer";
+import { rootState } from "@/redux/reduxTypes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import DeleteModal from "../DeleteModal/DeleteModal";
