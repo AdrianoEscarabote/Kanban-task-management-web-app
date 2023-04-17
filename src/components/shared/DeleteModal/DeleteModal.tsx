@@ -24,7 +24,7 @@ const DeleteModal: React.FC<DeleteModalTypes> = ({ closeModal, itemDelete, name 
 
       <div className="flex items-center gap-5">
         <Button backgroundColor="#EA5555" label="Delete" size="small" textColor="#FFF" />
-        <Button backgroundColor="#FFF" textColor="#635FC7" label="Cancel" size="small" />
+        <Button backgroundColor="#FFF" textColor="#635FC7" label="Cancel" size="small" onClick={() => closeModal()} />
       </div>
     </section>
 

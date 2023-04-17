@@ -18,6 +18,19 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
 
   const [subtasks, setSubtasks] = useState([{id: 1, value: ""}, {id: 2, value: ""}])
 
+  const handleChangeInput = (id: number, value: string) => {
+    const updatedSubtasks = subtasks.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          value: value
+        }
+      }
+      return task
+    })
+    setSubtasks(updatedSubtasks)
+  }
+
   const handleAddSubtask = () => {
     const newId = subtasks.length + 1
     const newSubtask = { id: newId, value: ""}
@@ -61,7 +74,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                 subtasks.map((task) => (
                   <label key={task.id} htmlFor={`subtasks${task.id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
 
-                    <input className={`px-4 py-2 rounded-md bg-transparent h-10 max-w-sm w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" name="subtask" id={`subtasks${task.id}`} placeholder="e.g. Make coffee" />
+                    <input value={task.value} onChange={(ev) => handleChangeInput(task.id, ev.currentTarget.value)} className={`px-4 py-2 rounded-md bg-transparent h-10 max-w-sm w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" name="subtask" id={`subtasks${task.id}`} placeholder="e.g. Make coffee" />
 
                     <button type="button" className="w-10 grid place-content-center" onClick={() => handleRemoveSubtask(task.id)}>
                       <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
