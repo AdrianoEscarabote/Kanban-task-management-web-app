@@ -2,4 +2,13 @@ interface AddBoardModalProps {
   closeModal: () => void
 }
 
-export { AddBoardModalProps }
+interface Column {
+  name: string;
+}
+
+interface ActionProps {
+  name: string
+  columns: Column[]
+}
+
+export { AddBoardModalProps, ActionProps }

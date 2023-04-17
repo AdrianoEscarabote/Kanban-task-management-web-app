@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react"
-import { AddBoardModalProps } from "./AddBoardModalProps"
+import { ActionProps, AddBoardModalProps } from "./AddBoardModalProps"
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import Image from "next/image"
 import Button from "../Button/Button"
+import { useDispatch } from "react-redux"
+import { CreateNewBoard } from "@/redux/board/action"
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
+  const [columns, setColumns] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
+  const [nameInput, setNameInput] = useState<string>("");
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     window.addEventListener("keydown", (ev) => {
@@ -16,10 +22,24 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
     })
   })
 
-  const [subtasks, setSubtasks] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
+  const handleAddBoard = () => {
+    const strings = columns.map(item => item.value)
+
+    const arrStringsFormatted = strings.map(item => {
+      return {
+        name: item
+      }
+    })
+
+    const object: ActionProps = {
+      name: nameInput,
+      columns: arrStringsFormatted
+    } 
+    dispatch(CreateNewBoard(object))
+  }
 
   const handleChangeInput = (id: number, value: string) => {
-    const updatedSubtasks = subtasks.map(task => {
+    const updatedColumns = columns.map(task => {
       if (task.id === id) {
         return {
           ...task,
@@ -28,18 +48,18 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
       }
       return task
     })
-    setSubtasks(updatedSubtasks)
+    setColumns(updatedColumns)
   }
 
-  const handleAddSubtask = () => {
-    const newId = subtasks.length + 1
-    const newSubtask = { id: newId, value: ""}
-    setSubtasks([...subtasks, newSubtask])
+  const handleAddColumn = () => {
+    const newId = columns.length + 1
+    const newColumns = { id: newId, value: ""}
+    setColumns([...columns, newColumns])
   }
 
-  const handleRemoveSubtask = (id: number) => {
-    const newSubtasks = subtasks.filter((task) => task.id !== id) 
-    setSubtasks(newSubtasks)
+  const handleRemoveColumn = (id: number) => {
+    const newColumns = columns.filter((col) => col.id !== id) 
+    setColumns(newColumns)
   } 
 
   return (
@@ -48,17 +68,17 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add new board</h2>
         <label htmlFor="name" className={`flex flex-col my-4 gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
           Name
-          <input className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" name="name" id="name" placeholder="e.g. Web Design" />
+          <input value={nameInput} onChange={(e) => setNameInput(e.currentTarget.value)} className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" name="name" id="name" placeholder="e.g. Web Design" />
         </label>
 
           <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
 
           {
-            subtasks.map((task) => (
-              <label key={task.id} htmlFor={`subtasks${task.id}`} className={`my-4 gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+            columns.map(({ id, value }) => (
+              <label key={id} htmlFor={`subtasks${id}`} className={`my-4 gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
                 <div className="flex items-center my-2">
-                  <input value={task.value} onChange={(ev) => handleChangeInput(task.id, ev.currentTarget.value)} className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" id={`subtasks${task.id}`} />
-                  <button type="button" className="w-10 grid place-content-center" onClick={() => handleRemoveSubtask(task.id)}>
+                  <input value={value} onChange={(ev) => handleChangeInput(id, ev.currentTarget.value)} className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" id={`subtasks${id}`} />
+                  <button type="button" className="w-10 grid place-content-center" onClick={() => handleRemoveColumn(id)}>
                     <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
                   </button>
                 </div>
@@ -67,9 +87,9 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
           }
 
           <div className="mt-4 flex flex-col gap-4">
-            <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddSubtask} />
+            <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddColumn} />
 
-            <Button size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" />
+            <Button size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" onClick={handleAddBoard} />
           </div>
 
       </section>

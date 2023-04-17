@@ -6,20 +6,19 @@ import { useSelector } from "react-redux";
 import Sidebar from "../SideBar/Sidebar";
 import Ellipsis from "../shared/Ellipsis/Ellipsis";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
-import useBoardNames from "@/custom/boardNames/useBoardNames";
  
 const Header: React.FC<HeaderProps> = ({ open }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
-  const { boardNames } = useBoardNames()
+  const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
 
   const handleClickOpenModal = () => {
     setModalOpen(!modalOpen)
   }
 
   return (
-    <header className={`w-full border-b flex ${theme === "light" ? "bg-_white border-light_Blue" : "bg-dark_Gray border-medium_Gray"}`}>
+    <header className={`w-full border-b fixed flex ${theme === "light" ? "bg-_white border-light_Blue" : "bg-dark_Gray border-medium_Gray"}`}>
 
       <nav aria-label="main" className="w-full flex items-center justify-between">
         <Sidebar />

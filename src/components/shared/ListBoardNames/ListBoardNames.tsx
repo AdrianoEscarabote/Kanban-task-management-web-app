@@ -1,5 +1,4 @@
 import { rootState } from "@/redux/reduxTypes";
-import useBoardNames from "@/custom/boardNames/useBoardNames";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -9,8 +8,7 @@ import AddBoardModal from "../AddBoardModal/AddBoardModal";
 
 const ListBoardNames = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const { boardNames } = useBoardNames()
-  const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
+  const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const dispatch = useDispatch()
 
   const handleClickButton = (payload: string) => {

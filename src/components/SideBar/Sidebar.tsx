@@ -31,7 +31,7 @@ const Sidebar = () => {
     <>
       {
         sidebarOpen ? (
-          <div className={`absolute left-0 top-0 min-h-full w-80 flex flex-col ${theme === "light" ? "bg-_white border-r border-light_Blue" : "bg-dark_Gray border-r border-medium_Gray"}`} >
+          <div className={`fixed left-0 top-0 min-h-full w-80 flex flex-col ${theme === "light" ? "bg-_white border-r border-light_Blue" : "bg-dark_Gray border-r border-medium_Gray"}`} >
             <Image className="my-8 mx-5" src={theme === "light" ? "/assets/logo-dark.svg" : "/assets/logo-light.svg"} height="25" width="152" alt="Kanban - Home" />
 
             <ListBoardNames />
@@ -45,7 +45,7 @@ const Sidebar = () => {
             </div>
           </div>  
         ) : (
-          <button onClick={handleClickOpenSidebar} className="w-28 h-12 rounded-3xl absolute bottom-8 -left-14 bg-purple_Dark flex items-center justify-center">
+          <button style={{ bottom: "-84vh" }} onClick={handleClickOpenSidebar} className="w-28 h-12 rounded-3xl absolute -left-14 bg-purple_Dark flex items-center justify-center">
             <Image className="ml-14 h-auto w-6" src="/assets/icon-show-sidebar.svg" width="26" height="20" alt="" />            
           </button>
         )
