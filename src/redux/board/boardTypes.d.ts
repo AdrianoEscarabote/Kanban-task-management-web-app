@@ -29,7 +29,7 @@ interface Subtask {
 
 interface Column {
   name: string;
-  tasks: Task[];
+  tasks?: Task[];
 }
 
 interface Board {
@@ -40,14 +40,17 @@ interface Board {
 interface BoardDataType {
   boards: Board[]; 
 }
+interface NameToDelete {
+  name: string
+}
+
+interface createNewBoardType {
+  name: string;
+  boards: Board[]
+}
 
 interface ColumnNewBoard {
   name: string;
 }
 
-interface PayloadNewBoadTypes {
-  name: string
-  columns: ColumnNewBoard[]
-}
-
-export { intialState, ActionProps, BoardDataType, PayloadNewBoadTypes }
+export { intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete }

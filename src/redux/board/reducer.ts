@@ -1,4 +1,4 @@
-import { BoardDataType } from "./boardTypes";
+import { BoardDataType, createNewBoardType, NameToDelete } from "./boardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"; 
 
 // estado inicial 
@@ -10,12 +10,18 @@ const boardSlice = createSlice({
   initialState,
   reducers: {
     setBoards: (state, action: PayloadAction<BoardDataType>) => {
-      // Atualiza o estado com os dados recebidos da ação
-      state.boards = action.payload.boards
+      state.boards = action.payload.boards;
+    },
+    createNewBoard: (state, action: PayloadAction<createNewBoardType>) => {
+      const { name, boards } = action.payload;
+      state.boards.push({ name: name, columns: boards })
+    },
+    deleteBoard: (state, action: PayloadAction<NameToDelete>) => {
+      state.boards = state.boards.filter((board) => board.name !== action.payload.name)
     }
   }
-})
+});
 
-export const { setBoards } = boardSlice.actions
+export const { setBoards, createNewBoard, deleteBoard } = boardSlice.actions
 
 export default boardSlice.reducer
