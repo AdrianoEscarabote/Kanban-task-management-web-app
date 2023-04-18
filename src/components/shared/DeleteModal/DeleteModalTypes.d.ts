@@ -1,7 +1,6 @@
 interface DeleteModalTypes {
   closeModal: () => void
-  name: string
-  itemDelete: string
+  NameToDelete: string
 }
 
 export { DeleteModalTypes }

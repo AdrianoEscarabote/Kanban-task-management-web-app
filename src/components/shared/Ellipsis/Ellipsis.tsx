@@ -2,18 +2,25 @@ import { rootState } from "@/redux/reduxTypes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import EditBoard from "../EditBoard/EditBoard";
 
 const Ellipsis = () => {
+  const { nameBoard } = useSelector((rootReducer:rootState) => rootReducer.reducerNameBoard)
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const [optionsOpen, setOpitonsOpen] = useState<boolean>(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+  const [editBoardModalOpen, setEditBoardModalOpen] = useState<boolean>(false)
 
   const handleClickOptions = () => {
     setOpitonsOpen(!optionsOpen)
   }
 
-  const handleClickModal = () => {
+  const handleClickDeleteModal = () => {
     setDeleteModalOpen(!deleteModalOpen)
+  }
+
+  const handleClickEditModal = () => {
+    setEditBoardModalOpen(!editBoardModalOpen)
   }
 
   return (
@@ -23,10 +30,13 @@ const Ellipsis = () => {
         {
           optionsOpen ? (
             <div className={`h-24 w-48 flex items-start justify-center flex-col rounded-lg absolute right-1 top-20 ${theme === "light" ? "bg-_white" : "bg-almost_Dark" }`} style={{ boxShadow:  '0px 10px 20px rgba(54, 78, 126, 0.25)' }} >
-              <button className={`text-#828FA3`}>Edit Board</button>
-              <button className={`text-_red`} onClick={handleClickModal}>Delete Board</button>
+              <button className={`text-#828FA3`} onClick={handleClickEditModal}>Edit Board</button>
+              <button className={`text-_red`} onClick={handleClickDeleteModal}>Delete Board</button>
               {
-                deleteModalOpen ? <DeleteModal closeModal={handleClickModal} itemDelete="Board" name="Platform Laucnh" /> : null
+                deleteModalOpen ? <DeleteModal closeModal={handleClickDeleteModal} NameToDelete={nameBoard} /> : null
+              }
+              {
+                editBoardModalOpen ? <EditBoard closeModal={handleClickEditModal} /> : null 
               }
             </div>
           ) : null 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { ActionProps, AddBoardModalProps } from "./AddBoardModalProps"
+import { AddBoardModalProps } from "./AddBoardModalProps"
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import Image from "next/image"
 import Button from "../Button/Button"
 import { useDispatch } from "react-redux"
-import { CreateNewBoard } from "@/redux/board/action"
+import { createNewBoard } from "@/redux/board/reducer"
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   const [columns, setColumns] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
@@ -13,6 +13,16 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const dispatch = useDispatch()
 
+  const handleAddNewBoard = () => {
+    const arrFormatted = columns.map(item => {
+      const obj = {
+        name: item.value,
+        columns: []
+      };
+      return obj;
+    });
+    dispatch(createNewBoard({ name: nameInput, boards: arrFormatted }));
+  };
 
   useEffect(() => {
     window.addEventListener("keydown", (ev) => {
@@ -21,22 +31,6 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
       }
     })
   })
-
-  const handleAddBoard = () => {
-    const strings = columns.map(item => item.value)
-
-    const arrStringsFormatted = strings.map(item => {
-      return {
-        name: item
-      }
-    })
-
-    const object: ActionProps = {
-      name: nameInput,
-      columns: arrStringsFormatted
-    } 
-    dispatch(CreateNewBoard(object))
-  }
 
   const handleChangeInput = (id: number, value: string) => {
     const updatedColumns = columns.map(task => {
@@ -89,7 +83,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
           <div className="mt-4 flex flex-col gap-4">
             <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddColumn} />
 
-            <Button size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" onClick={handleAddBoard} />
+            <Button size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" onClick={handleAddNewBoard} />
           </div>
 
       </section>
