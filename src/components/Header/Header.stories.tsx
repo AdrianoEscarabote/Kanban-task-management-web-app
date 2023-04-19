@@ -24,7 +24,6 @@ export default {
   ]
 } as Meta<HeaderProps>
 
-
 export const Primary: StoryObj = {}
 
 export const HeaderNoTrue: StoryObj = {

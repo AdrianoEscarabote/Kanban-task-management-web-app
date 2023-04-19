@@ -35,7 +35,6 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
     const newId = subtasks.length + 1
     const newSubtask = { id: newId, value: ""}
     setSubtasks([...subtasks, newSubtask])
-    console.log(subtasks)
   }
 
   const handleRemoveSubtask = (id: number) => {

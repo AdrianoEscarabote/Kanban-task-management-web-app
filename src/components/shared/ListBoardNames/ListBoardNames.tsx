@@ -10,6 +10,7 @@ const ListBoardNames = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const dispatch = useDispatch()
+  const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
 
   const handleClickButton = (payload: string) => {
     dispatch(setNameBoard(payload))
@@ -26,7 +27,7 @@ const ListBoardNames = () => {
           {
             boardNames.boards.map((board, index) => (
               <li key={index} className="w-full p-0">
-                <button onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} className="pl-5 w-full mr-3 hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
+                <button onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} className={`${nameBoard === board.name ? "bg-purple_Dark text-_white" : "" } pl-5 w-full mr-3 hover:text-purple_Dark hover:bg-_white rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12`}>
                   <Image src="/assets/icon-board.svg" height="16" alt="" width="16" />
                   {board.name}
                 </button>

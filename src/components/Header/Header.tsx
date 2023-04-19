@@ -19,11 +19,16 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
 
   return (
     <header className={`w-full border-b fixed flex ${theme === "light" ? "bg-_white border-light_Blue" : "bg-dark_Gray border-medium_Gray"}`}>
-
       <nav aria-label="main" className="w-full flex items-center justify-between">
         <Sidebar />
-
-        <Image className="my-5 mx-5" src={theme === "light" ? "/assets/logo-dark.svg" : "/assets/logo-light.svg"} height="25" width="152" alt="Kanban - Home" />
+        <Image 
+          style={{ width: "auto" }} 
+          className="my-5 mx-5" 
+          src={theme === "light" ? "/assets/logo-dark.svg" : "/assets/logo-light.svg"} height="25" 
+          width="152" 
+          alt="Kanban - Home" 
+          priority={true} 
+        />
 
         <div className={`py-5 relative px-5 border-l content flex items-center justify-between w-full ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"}`}>
 

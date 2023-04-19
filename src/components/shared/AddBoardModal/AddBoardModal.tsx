@@ -83,7 +83,10 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
           <div className="mt-4 flex flex-col gap-4">
             <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddColumn} />
 
-            <Button size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" onClick={handleAddNewBoard} />
+            <Button size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" onClick={() => {
+              handleAddNewBoard()  
+              closeModal()
+            }} />
           </div>
 
       </section>

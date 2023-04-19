@@ -23,7 +23,7 @@ const InputToggle = () => {
 
       <Image src="/assets/icon-light-theme.svg" width="18" height="18" alt="" />
 
-      <div className={`relative inline-block w-10 h-6 bg-purple_Dark rounded-full`}>
+      <div className={`relative inline-block w-10 h-6 bg-purple_Dark rounded-full hover:bg-purple_Light`}>
        
         <label htmlFor="toggle" className="block w-full h-full cursor-pointer">
           
@@ -38,8 +38,6 @@ const InputToggle = () => {
           
           <div
             className={`absolute left-1 w-4 h-4 bg-white rounded-full top-1 transform transition-all duration-200 ${isToggled ? 'translate-x-4' : ''}`}
-            // Use classes condicionais para aplicar a transformação com base no valor de isToggled
-            // No exemplo abaixo, a classe 'translate-x-full' é aplicada quando isToggled é verdadeiro (ativado)
           >
           </div>
         </label>
