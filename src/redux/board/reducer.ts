@@ -28,7 +28,19 @@ const boardSlice = createSlice({
           return {
             ...board,
             name: nameToAdd,
-            columns: boards.map(board => ({ name: board.name }))
+            columns: boards.map(newBoard => {
+              const existingColumn = board.columns.find(col => col.name === newBoard.name)
+
+              if (existingColumn){
+                return { 
+                  ...existingColumn,
+                  name: newBoard.name
+                 }
+              } else {
+                return { ...board, name: newBoard.name }
+              }      
+               
+            })
           }
         }
         return board
