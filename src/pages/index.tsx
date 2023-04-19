@@ -19,17 +19,27 @@ const Home = () => {
         <section className='flex items-start gap-6 p-6'>
           {
             boardNames.boards.filter((board) => board.name === (!nameBoard ? boardNames.boards[0].name : nameBoard)).map((board) => (
+              board &&
               board.columns.map((col, index) => (
-                <ul key={index} className='flex flex-col gap-5'>
-                  <h3 className={`font-bold uppercase tracking-wide text-xs/4 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.name} ( {col.tasks.length} )</h3>
-                  {
-                    col.tasks.map((col, index) => (
-                      <li key={index} style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg w-72 min-h-20 ${theme === "light" ? "bg-_white" : "bg-dark_Gray"} px-4 py-5`}>
-                        <h4 className={`font-bold text-base/5 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.title}</h4>
-                      </li>
-                    ))
-                  }
-                </ul>
+                <div className='flex flex-col gap-4'>
+
+                  <h3 className={`font-bold uppercase tracking-wide text-xs/4 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.name} ( {col.tasks ? col.tasks.length : 0 } )</h3>
+                  
+                  <ul key={index} style={{ height: "80vh" }} className={`flex flex-col gap-5 w-72 ${col?.tasks?.length === 0 || !col.tasks ? "rounded-md col-gradient" : ""}`}>
+
+                    {
+
+                      col?.tasks?.map((col, index) => (
+
+                        <li key={index} style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg w-72 min-h-20 ${theme === "light" ? "bg-_white" : "bg-dark_Gray"} px-4 py-5`}>
+                          <h4 className={`font-bold text-base/5 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.title}</h4>
+                        </li>
+
+                      ))
+
+                    }
+                  </ul>
+                </div>
               ))
             ))        
           }
