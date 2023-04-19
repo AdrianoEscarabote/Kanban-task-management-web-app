@@ -4,7 +4,7 @@ interface intialState {
 }
 
 interface boardTypes {
-  board: []
+  boards: Board[];
 }
 
 interface ActionProps {
@@ -44,13 +44,25 @@ interface NameToDelete {
   name: string
 }
 
+// createNewBoard
 interface createNewBoardType {
   name: string;
   boards: Board[]
+}
+
+// EditBoard
+interface EditBoardType {
+  nameBoard: string
+  nameToAdd: string
+  boards: BoardEditNewType[]
+}
+
+interface BoardEditNewType {
+  name: string
 }
 
 interface ColumnNewBoard {
   name: string;
 }
 
-export { intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete }
+export { BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
