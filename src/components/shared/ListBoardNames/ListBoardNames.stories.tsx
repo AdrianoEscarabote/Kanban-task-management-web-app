@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import ListBoardNames from "./ListBoardNames";
+import ListBoardNames from ".";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
 

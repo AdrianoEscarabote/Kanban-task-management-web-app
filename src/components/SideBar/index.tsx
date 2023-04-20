@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
-import InputToggle from "../InputToggle/InputToggle"
+import InputToggle from "../shared/InputToggle"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-import ListBoardNames from "../shared/ListBoardNames/ListBoardNames"
+import ListBoardNames from "../shared/ListBoardNames"
 
 const Sidebar = () => {
 

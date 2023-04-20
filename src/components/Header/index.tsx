@@ -3,9 +3,9 @@ import { HeaderProps } from "./HeaderProps";
 import { rootState } from "@/redux/reduxTypes";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import Sidebar from "../SideBar/Sidebar";
-import Ellipsis from "../shared/Ellipsis/Ellipsis";
-import AddTaskModal from "../AddTaskModal/AddTaskModal";
+import Sidebar from "../SideBar";
+import Ellipsis from "../shared/EllipsisBoard";
+import AddTaskModal from "../AddTaskModal";
  
 const Header: React.FC<HeaderProps> = ({ open }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import Header from "./Header"
+import Header from "."
 import { Provider } from "react-redux"
 import store from "../../redux/store"
 import { HeaderProps } from "./HeaderProps"

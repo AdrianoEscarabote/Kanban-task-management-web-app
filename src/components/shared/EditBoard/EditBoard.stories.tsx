@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/react"
-import EditBoard from "./EditBoard"
+import EditBoard from "."
 import { EditBoardProps } from "./EditBoardProps"
 import { Provider } from "react-redux"
 import store from "@/redux/store"

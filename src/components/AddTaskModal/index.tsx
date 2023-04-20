@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import { AddTaskModalTypes } from "./AddTask"
 import { useEffect, useState } from "react"
-import Button from "../shared/Button/Button"
+import Button from "../shared/Button"
 import Image from "next/image"
 
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {

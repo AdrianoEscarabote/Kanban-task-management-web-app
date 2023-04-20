@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
 import { DeleteModalTypes } from "./DeleteModalTypes";
 import { action } from "@storybook/addon-actions"
-import DeleteModal from "./DeleteModal";
+import DeleteModal from ".";
 
 export default {
   title: "shared/DeleteModal",

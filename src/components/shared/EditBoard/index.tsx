@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { EditBoardProps } from "./EditBoardProps";
 import { rootState } from "@/redux/reduxTypes";
-import Button from "../Button/Button";
+import Button from "../Button";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
@@ -60,9 +60,9 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
     const columnsObj: BoardEditNewType[] = []
     columns.map(col => columnsObj.push({ name: col.value }) )
 
-
-    dispatch(editBoard({ nameToAdd: inputNameValue, nameBoard: nameBoard, boards: columnsObj }))
+    
     dispatch(setNameBoard(inputNameValue))
+    dispatch(editBoard({ nameToAdd: inputNameValue, nameBoard: nameBoard, boards: columnsObj }))
   }
   
   return (
@@ -95,7 +95,10 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
         <div className="flex flex-col items-center gap-4">
           <Button size="small" label="+ Add New Column" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddInput}  />
 
-          <Button size="small" label="Save Changes" backgroundColor="#635FC7" textColor="#FFF" onClick={handleClickButtonEditBoard} />
+          <Button size="small" label="Save Changes" backgroundColor="#635FC7" textColor="#FFF" onClick={() => {
+            closeModal()
+            handleClickButtonEditBoard()
+          }} />
         </div>
 
       </section>

@@ -3,7 +3,7 @@ import { AddBoardModalProps } from "./AddBoardModalProps"
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import Image from "next/image"
-import Button from "../Button/Button"
+import Button from "../Button"
 import { useDispatch } from "react-redux"
 import { createNewBoard } from "@/redux/board/reducer"
 

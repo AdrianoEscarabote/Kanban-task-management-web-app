@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setNameBoard } from "@/redux/nameBoard/actions";
 import { useState } from "react";
-import AddBoardModal from "../AddBoardModal/AddBoardModal";
+import AddBoardModal from "../AddBoardModal";
 
 const ListBoardNames = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)

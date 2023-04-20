@@ -2,7 +2,7 @@ import { rootState } from "@/redux/reduxTypes"
 import { useSelector } from "react-redux"
 import { DeleteModalTypes } from "./DeleteModalTypes"
 import { useEffect } from "react"
-import Button from "../Button/Button"
+import Button from "../Button"
 import { useDispatch } from "react-redux"
 import { deleteBoard } from "@/redux/board/reducer"
 

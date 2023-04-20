@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { rootState } from "@/redux/reduxTypes";
-import { themeDark, themeLight } from "../../redux/theme/actions"
+import { themeDark, themeLight } from "../../../redux/theme/actions"
 import Image from "next/image";
 
 const InputToggle = () => {

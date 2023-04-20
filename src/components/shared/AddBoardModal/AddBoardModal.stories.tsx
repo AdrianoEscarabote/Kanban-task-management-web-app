@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/react"
 import { AddBoardModalProps } from "./AddBoardModalProps"
-import AddBoardModal from "./AddBoardModal"
+import AddBoardModal from "."
 import { Provider } from "react-redux"
 import store from "@/redux/store"
 import { action } from "@storybook/addon-actions"

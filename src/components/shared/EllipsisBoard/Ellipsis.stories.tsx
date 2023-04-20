@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Ellipsis from "./Ellipsis";
+import Ellipsis from ".";
 import { Provider } from "react-redux";
 import store from "../../../redux/store";
 
