@@ -65,4 +65,4 @@ interface ColumnNewBoard {
   name: string;
 }
 
-export { BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
+export { Task, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
