@@ -4,9 +4,15 @@ import { AddTaskModalTypes } from "./AddTask"
 import { useEffect, useState } from "react"
 import Button from "../shared/Button"
 import Image from "next/image"
+import { addNewTask } from "@/redux/board/reducer"
+import { useDispatch } from "react-redux"
+import { Task } from "@/redux/board/boardTypes"
 
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
+  const [title, setTitle] = useState<string>("")
+  const [description, setDescription] = useState<string>("")
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)  
+  const dispatch = useDispatch()
 
   useEffect(() => {
     window.addEventListener("keydown", (ev) => {
@@ -41,6 +47,15 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
     const newSubtasks = subtasks.filter((task) => task.id !== id) 
     setSubtasks(newSubtasks)
   } 
+
+  const handleAddNewTask = () => {
+    const obj: Task = {
+      title: title,
+      description: description,
+      status: "done",
+      subtasks: subtasks.map(sub => { title: sub.value })
+    }
+  }
  
   return (
     <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
@@ -54,14 +69,28 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
             <label htmlFor="title" className={`flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
               Title
 
-              <input className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" id="title" name="title" placeholder="e.g. Take coffee break" />
+              <input 
+                value={title}
+                onChange={(e) => setTitle(e.currentTarget.value)}
+                className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} 
+                type="text" 
+                id="title" 
+                name="title" 
+                placeholder="e.g. Take coffee break" 
+              />
 
             </label>
 
             <label htmlFor="description" className={`flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
               Description
 
-              <textarea className={`px-4 py-2 rounded-md bg-transparent h-28 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} name="description" id="description" placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."></textarea>
+              <textarea 
+                value={description}
+                onChange={(e) => setDescription(e.currentTarget.value)}
+                className={`px-4 py-2 rounded-md bg-transparent h-28 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} 
+                name="description" id="description" 
+                placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.">
+              </textarea>
 
             </label>
 

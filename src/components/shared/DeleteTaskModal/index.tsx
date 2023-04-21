@@ -31,11 +31,18 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({ closeModal, NameToDel
   
         <section className={`max-w-lg flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
           <h3 className="text-_red font-bold text-lg/6">Delete this task ?</h3>
-          <p className="text-_gray">Are you sure you want to delete the ‘{NameToDelete}’ task and its subtasks? This action cannot be reversed.</p>
+          <p className="text-_gray font-medium text-sm/6">Are you sure you want to delete the ‘{NameToDelete}’ task and its subtasks? This action cannot be reversed.</p>
           
           <div className="flex items-center gap-5">
             <Button backgroundColor="#EA5555" label="Delete" size="small" textColor="#FFF" onClick={handleClickDeleteTask} />
-            <Button backgroundColor="#FFF" textColor="#635FC7" label="Cancel" size="small" onClick={() => closeModal()} />
+            <Button 
+              backgroundColor={`${theme === "light" ? "#625fc71a" : "#FFF"}`} 
+              textColor="#635FC7" 
+              label="Cancel" 
+              size="small" 
+              hover={`${theme === "light" }`}
+              onClick={() => closeModal()} 
+            />
           </div>
 
         </section>

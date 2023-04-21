@@ -7,7 +7,7 @@ import ListBoardNames from "../shared/ListBoardNames"
 
 const Sidebar = () => {
 
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
 
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
 

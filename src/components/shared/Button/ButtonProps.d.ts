@@ -6,6 +6,7 @@ interface ButtonProps {
   size: SizeButton
   textColor: string
   type?: string
+  hover?: string
   onClick?: () => void
 }
 
