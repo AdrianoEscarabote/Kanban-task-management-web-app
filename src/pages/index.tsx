@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setNameBoard } from '@/redux/nameBoard/actions'
 import ViewTaskModal from '@/components/shared/ViewTaskModal'
+import EditBoard from '@/components/shared/EditBoard'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -26,6 +27,11 @@ const Home = () => {
 
   const [openViewTaskModal, setOpenViewTaskModal] = useState<boolean>()
   const [task, setTask] = useState<string>("")
+  const [editBoardModalOpen, setEditBoardModalOpen] = useState<boolean>(false)
+
+  const handleOpenEditBoardModal = () => {
+    setEditBoardModalOpen(!editBoardModalOpen)
+  }
 
   const handleOpenViewTaskModal = () => {
     setOpenViewTaskModal(!openViewTaskModal)
@@ -52,7 +58,7 @@ const Home = () => {
 
                   <h3 className={`font-bold uppercase tracking-wide text-xs/4 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.name} ( {col.tasks ? col.tasks.length : 0 } )</h3>
                   
-                  <ul key={index} style={{ height: "80vh" }} className={`flex flex-col gap-5 w-72 ${col?.tasks?.length === 0 || !col.tasks ? "rounded-md col-gradient" : ""}`}>
+                  <ul key={index} style={{ height: "80vh" }} className={`flex flex-col gap-5 w-72 rounded-md ${col?.tasks?.length === 0 || !col.tasks ? theme === "light" ? "col-gradient" : "col-gradient-dark" : "" }`}>
 
                     {
 
@@ -72,8 +78,19 @@ const Home = () => {
                     }
                   </ul>
                 </div>
+
               ))
             )) 
+          }
+          <button 
+            style={{ height: "80vh" }} 
+            className={`${theme === "light" ? "col-gradient" : "col-gradient-dark"} font-bold text-2xl/8 text-center text-_gray flex flex-col items-center justify-center gap-5 w-72 rounded-md relative top-8`}
+            onClick={handleOpenEditBoardModal}
+          >
+            + New Column
+          </button>
+          {
+            editBoardModalOpen ? <EditBoard closeModal={handleOpenEditBoardModal} /> : null 
           }
           {
             openViewTaskModal ? <ViewTaskModal closeModal={handleOpenViewTaskModal} taskTarget={task}  /> : null
