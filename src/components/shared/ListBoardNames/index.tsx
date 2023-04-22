@@ -5,8 +5,10 @@ import { useDispatch } from "react-redux";
 import { setNameBoard } from "@/redux/nameBoard/actions";
 import { useState } from "react";
 import AddBoardModal from "../AddBoardModal";
+import rootReducer from "@/redux/root-reducer";
 
 const ListBoardNames = () => {
+  const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const dispatch = useDispatch()
@@ -27,7 +29,9 @@ const ListBoardNames = () => {
           {
             boardNames.boards.map((board, index) => (
               <li key={index} className="w-full p-0">
-                <button onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} className={`${nameBoard === board.name ? "bg-purple_Dark text-_white" : "" } pl-5 w-full mr-3 hover:text-purple_Dark hover:bg-_white rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12`}>
+                <button 
+                onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} 
+                className={`${nameBoard === board.name ? "bg-purple_Dark text-_white" : "" } pl-5 w-full mr-3 ${theme === "light" ? "hover:text-purple_Dark hover:bg-purple_superLight" : "hover:text-purple_Dark hover:bg-_white"} rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12`}>
                   <Image src="/assets/icon-board.svg" height="16" alt="" width="16" />
                   {board.name}
                 </button>

@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
           <h2 className={`text-2xl font-bold ${theme === "light" ? "text-black" : "text-white"}`}>{!nameBoard ? boardNames.boards[0]?.name : nameBoard }</h2>
 
           <div className="wrapper_buttons flex items-center justify-center">
-            <button onClick={handleClickOpenModal} className={`bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-5 text-sm font-bold`}>+ Add new Task</button>
+            <button onClick={handleClickOpenModal} className={`bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-5 text-sm font-bold hover:bg-purple_Light`}>+ Add new Task</button>
 
             <Ellipsis />
 

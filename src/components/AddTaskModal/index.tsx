@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import { AddTaskModalTypes } from "./AddTask"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Button from "../shared/Button"
 import Image from "next/image"
 import { addNewTask } from "@/redux/board/reducer"
@@ -48,14 +48,14 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
     setSubtasks(newSubtasks)
   } 
 
-  const handleAddNewTask = () => {
+ /*  const handleAddNewTask = () => {
     const obj: Task = {
       title: title,
       description: description,
       status: "done",
-      subtasks: subtasks.map(sub => { title: sub.value })
-    }
-  }
+      /* subtasks: subtasks.map(sub => { title: sub.value })
+    } 
+  } */
  
   return (
     <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
