@@ -1,6 +1,7 @@
 interface ViewTaskModalProps {
   taskTarget: string;
   closeModal: () => void;
+  closeElipsis: () => void;
 }
 
 interface sideTaskTypes {

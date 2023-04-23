@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import { rootState } from "@/redux/reduxTypes";
 import EllipsisTask from "../EllipsisTask"
 
-const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ closeModal, taskTarget }) => {
+const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ closeModal, taskTarget, closeElipsis }) => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
 
   const [sideTasks, setSideTasks] = useState<sideTaskTypes[]>([])
   
   useEffect(() => {
-    boardNames.boards.map(board => board.columns.map(col => col.tasks.filter(task => task.title === taskTarget ? setSideTasks([...sideTasks, task]) : null)))
+    boardNames.boards.map(board => board.columns.map(col => col.tasks?.filter(task => task.title === taskTarget ? setSideTasks([...sideTasks, task]) : null)))
   }, [])
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ closeModal, taskTarget })
       }
     })
   })
-  
+    
   return (
     <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
   
@@ -32,7 +32,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ closeModal, taskTarget })
             <>
               <div className="flex items-center relative w-full overflow-visible justify-between">
                 <h2 className={`font-bold text-lg ${theme === "light" ? "text-_dark" : "text-_white"}`}>{task.title}</h2>
-                <EllipsisTask NameToDelete={taskTarget} />
+                <EllipsisTask closeElipsis={closeElipsis} closeModal={closeModal} />
               </div>
               <p className={`font-medium text-sm text-_gray`}>{task.description}</p>
               <p className={`font-medium text-sm text-_gray`}>Subtask ({task.subtasks.length})</p>

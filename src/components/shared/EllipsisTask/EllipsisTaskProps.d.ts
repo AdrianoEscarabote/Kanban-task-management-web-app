@@ -1,5 +1,6 @@
-interface EllipsisTaskProps {
-  NameToDelete: string;
+interface EllipsisTaskProps { 
+  closeElipsis: () => void
+  closeModal: () => void
 }
 
 export { EllipsisTaskProps }
