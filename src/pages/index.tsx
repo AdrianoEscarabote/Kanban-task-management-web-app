@@ -7,13 +7,13 @@ import { useDispatch } from 'react-redux'
 import { setNameBoard } from '@/redux/nameBoard/actions'
 import ViewTaskModal from '@/components/shared/ViewTaskModal'
 import EditBoard from '@/components/shared/EditBoard'
+import DeleteTaskModal from '@/components/shared/DeleteTaskModal'
 
 const Home = () => {
   const dispatch = useDispatch()
   useBoardNames()
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
-  const [DeleteTaskModalOpen, setDeleteTaskModalOpen] = useState<boolean>(false)
   const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
 
   useEffect(() => {
@@ -25,20 +25,25 @@ const Home = () => {
   },[])
 
 
-  const [openViewTaskModal, setOpenViewTaskModal] = useState<boolean>()
   const [task, setTask] = useState<string>("")
-  const [editBoardModalOpen, setEditBoardModalOpen] = useState<boolean>(false)
 
+
+  const [editBoardOpen, setEditBoardOpen] = useState<boolean>(false)
+  const [viewTaskModalOpen, setViewTaskModalOpen] = useState<boolean>(false)
+  const [deleteTaskModalOpen, setDeleteTaskModalOpen] = useState<boolean>(false)
+
+  // edit board open
   const handleOpenEditBoardModal = () => {
-    setEditBoardModalOpen(!editBoardModalOpen)
+    setEditBoardOpen(!editBoardOpen)
   }
-
+  // view task modal open
   const handleOpenViewTaskModal = () => {
-    setOpenViewTaskModal(!openViewTaskModal)
+    setViewTaskModalOpen(!viewTaskModalOpen)
   }
 
+  // delete task modal open
   const handleTaskModalOpen = () => {
-    setDeleteTaskModalOpen(!DeleteTaskModalOpen)
+    setDeleteTaskModalOpen(!deleteTaskModalOpen)
   }
 
   return (
@@ -56,7 +61,21 @@ const Home = () => {
               board.columns.map((col, index) => (
                 <div className='flex flex-col gap-4'>
 
-                  <h3 className={`font-bold uppercase tracking-wide text-xs/4 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.name} ( {col.tasks ? col.tasks.length : 0 } )</h3>
+                  <h3 
+                  className={`font-bold uppercase tracking-wide text-xs/4 
+                  ${theme === "light" 
+                  ? "text-_dark" 
+                  : "text-_white"} 
+                  ${col.name === "Todo" 
+                  ? "todo pl-6 relative" 
+                  : ""}
+                  ${col.name === "Doing" 
+                  ? "doing pl-6 relative"
+                  : ""}
+                  ${col.name === "Done" 
+                  ? "done relative pl-6"
+                  : ""}
+                  `}>{col.name} ( {col.tasks ? col.tasks.length : 0 } )</h3>
                   
                   <ul key={index} style={{ height: "80vh" }} className={`flex flex-col gap-5 w-72 rounded-md ${col?.tasks?.length === 0 || !col.tasks ? theme === "light" ? "col-gradient" : "col-gradient-dark" : "" }`}>
 
@@ -90,11 +109,17 @@ const Home = () => {
             + New Column
           </button>
           {
-            editBoardModalOpen ? <EditBoard closeModal={handleOpenEditBoardModal} /> : null 
+            editBoardOpen ? <EditBoard closeModal={() => setEditBoardOpen(false)} /> : null
           }
+
           {
-            openViewTaskModal ? <ViewTaskModal closeModal={handleOpenViewTaskModal} taskTarget={task}  /> : null
+            viewTaskModalOpen ? <ViewTaskModal taskTarget={task} closeElipsis={() => setDeleteTaskModalOpen(!deleteTaskModalOpen)} closeModal={() => setViewTaskModalOpen(false)} /> : null
           }
+
+          { 
+            deleteTaskModalOpen ? <DeleteTaskModal NameToDelete={task} closeModal={() => setDeleteTaskModalOpen(!deleteTaskModalOpen)} /> : null 
+          }
+
         </section>     
       </main>
     </>
