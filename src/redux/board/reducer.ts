@@ -1,4 +1,5 @@
-import { BoardDataType, createNewBoardType, EditBoardType, NameToDelete } from "./boardTypes";
+import { useSelector } from "react-redux";
+import { BoardDataType, createNewBoardType, createNewTask, EditBoardType, NameToDelete } from "./boardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"; 
 
 // estado inicial 
@@ -66,8 +67,15 @@ const boardSlice = createSlice({
         return board
       })
     },
-    addNewTask: (state, action: PayloadAction<EditBoardType>) => {
+    addNewTask: (state, action: PayloadAction<createNewTask>) => {
+      const { Task, nameColumn } = action.payload 
       
+      state.boards = state.boards.map(board => {
+        if (board.name === nameColumn) {
+          board.columns.filter(col => col.name === Task.status ? col.tasks?.push(Task) : col)
+        }
+        return board
+      })
     }
   }
 });

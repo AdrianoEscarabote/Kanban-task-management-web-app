@@ -16,7 +16,6 @@ const useBoardNames = () => {
         console.log(err);
       }
     }
-    console.log("entrei no use effect")
 
     fetchData()
   }, [])

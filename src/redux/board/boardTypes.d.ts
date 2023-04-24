@@ -24,7 +24,14 @@ interface Task {
 
 interface Subtask {
   title: string;
-  isCompleted: boolean;
+  isCompleted?: boolean;
+}
+
+
+// create new task interface
+interface createNewTask {
+  nameColumn: string;
+  Task: Task
 }
 
 interface Column {
@@ -65,4 +72,4 @@ interface ColumnNewBoard {
   name: string;
 }
 
-export { Task, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
+export { createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }

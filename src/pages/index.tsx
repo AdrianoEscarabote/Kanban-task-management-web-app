@@ -59,7 +59,7 @@ const Home = () => {
             .map((board) => (
               board &&
               board.columns.map((col, index) => (
-                <div className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-4' key={index}>
 
                   <h3 
                   className={`font-bold uppercase tracking-wide text-xs/4 
@@ -83,7 +83,7 @@ const Home = () => {
 
                       col?.tasks?.map((col, index) => (
 
-                        <li  key={index} style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`}>
+                        <li key={index} style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`}>
                           <button className={`px-4 py-5 w-72 min-h-20 flex flex-start`} onClick={() => {
                             handleOpenViewTaskModal()
                             setTask(col.title)

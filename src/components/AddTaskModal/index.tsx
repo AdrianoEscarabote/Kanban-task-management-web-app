@@ -6,12 +6,15 @@ import Button from "../shared/Button"
 import Image from "next/image"
 import { addNewTask } from "@/redux/board/reducer"
 import { useDispatch } from "react-redux"
-import { Task } from "@/redux/board/boardTypes"
+import { createNewTask } from "@/redux/board/boardTypes"
 
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
+  const [status, setStatus] = useState<string>("")
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)  
+  const boardSlice = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+  const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -48,14 +51,19 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
     setSubtasks(newSubtasks)
   } 
 
- /*  const handleAddNewTask = () => {
-    const obj: Task = {
-      title: title,
-      description: description,
-      status: "done",
-      /* subtasks: subtasks.map(sub => { title: sub.value })
-    } 
-  } */
+  const handleAddNewTask = () => {
+    const obj: createNewTask = {
+      nameColumn: nameBoard,
+      Task: {
+        title: title,
+        description: description,
+        status: status,
+        subtasks: subtasks.map(sub => { return { title: sub.value }}) 
+      }
+    }
+    dispatch(addNewTask(obj))  
+    closeModal()
+  }
  
   return (
     <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
@@ -93,9 +101,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
               </textarea>
 
             </label>
-
             <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Subtasks</h3>
-
             <div className="subtask flex flex-col gap-4">
 
               {
@@ -112,19 +118,35 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
               }
             </div>
             <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddSubtask} />
-
             <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Status</h3>
-
             <label htmlFor="status">
-              <select className={`px-4 py-2 h-10 font-medium text-sm/6 border-1 border rounded-lg ${theme === "light" ? "border-light_Blue text-_gray" : "border-medium_Gray text-_white"} w-full bg-transparent`} name="status" id="status">
-                <option className={`rounded-lg ${theme === "light" ? "text-_gray bg-_white" : "text-_white bg-almost_Dark"}`} value="Doing">Doing</option>
-                <option className={`rounded-lg ${theme === "light" ? "text-_gray bg-_white" : "text-_white bg-almost_Dark"}`} value="Todo">Todo</option>
-                <option className={`rounded-lg ${theme === "light" ? "text-_gray bg-_white" : "text-_white bg-almost_Dark"}`} value="Done">Done</option>
+              <select value={status} onChange={(e) => setStatus(e.currentTarget.value)} className={`px-4 py-2 h-10 font-medium text-sm/6 border-1 border rounded-lg ${theme === "light" ? "border-light_Blue text-_gray" : "border-medium_Gray text-_white"} w-full bg-transparent`} name="status" id="status">
+                {boardSlice.boards.map((board) => {
+                  if (board.name !== nameBoard) {
+                    return null;
+                  }
+
+                  return board.columns.map((col, index) => (
+                    <option
+                      key={index}
+                      value={col.name}
+                      className={`rounded-lg ${
+                        theme === "light" ? "text-gray-700 bg-white" : "text-white bg-gray-700"
+                      }`}
+                    >
+                      {col.name}
+                    </option>
+                  ));
+                })}
               </select>
             </label>
-
-            <Button size="small" label="Create Task" backgroundColor="#635FC7" textColor="#FFF" />
-
+            <Button 
+              size="small" 
+              label="Create Task" 
+              backgroundColor="#635FC7" 
+              textColor="#FFF" 
+              onClick={handleAddNewTask} 
+            />
           </fieldset>
         </form>
       </section>
