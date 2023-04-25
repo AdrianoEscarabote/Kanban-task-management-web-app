@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
   }
 
   return (
-    <header className={`w-full border-b fixed flex ${theme === "light" ? "bg-_white border-light_Blue" : "bg-dark_Gray border-medium_Gray"}`}>
+    <header className={`w-full z-20 border-b fixed flex ${theme === "light" ? "bg-_white border-light_Blue" : "bg-dark_Gray border-medium_Gray"}`}>
       <nav aria-label="main" className="w-full flex items-center justify-between">
         <Sidebar />
         <Image 

@@ -1,6 +1,7 @@
 interface EllipsisTaskProps { 
-  closeElipsis: () => void
-  closeModal: () => void
+  openDeleteTaskModal: () => void;
+  openEditTaskModal: () => void;
+  closeModal: () => void;
 }
 
 export { EllipsisTaskProps }

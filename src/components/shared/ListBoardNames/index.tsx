@@ -38,8 +38,8 @@ const ListBoardNames = () => {
               </li>
             ))
           }
-          <button onClick={handleClickButtonModalBoard} className="pl-5 w-full mr-3 hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
-            <Image src="/assets/icon-board.svg" height="16" alt="" width="16" />
+          <button onClick={handleClickButtonModalBoard} className="pl-5 w-full mr-3 text-purple_Dark hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
+            <Image className="filter_purple" src="/assets/icon-board.svg" height="16" alt="" width="16" />
             + Create New Board
           </button>
           {

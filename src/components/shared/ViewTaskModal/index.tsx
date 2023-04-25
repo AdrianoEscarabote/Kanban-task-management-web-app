@@ -6,7 +6,7 @@ import EllipsisTask from "../EllipsisTask"
 import { useDispatch } from "react-redux";
 import { changeStatus } from "@/redux/board/reducer";
 
-const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ closeModal, taskTarget, closeElipsis }) => {
+const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeModal, taskTarget, openDeleteTaskModal }) => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
@@ -45,7 +45,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ closeModal, taskTarget, c
             <div key={index}>
               <div className="flex items-center relative w-full overflow-visible justify-between">
                 <h2 className={`font-bold text-lg ${theme === "light" ? "text-_dark" : "text-_white"}`}>{task.title}</h2>
-                <EllipsisTask closeElipsis={closeElipsis} closeModal={closeModal} />
+                <EllipsisTask openEditTaskModal={() => openEditTaskModal()} openDeleteTaskModal={openDeleteTaskModal} closeModal={closeModal} />
               </div>
               <p className={`font-medium text-sm text-_gray`}>{task.description}</p>
               <p className={`font-medium text-sm text-_gray`}>Subtask ({task.subtasks.length})</p>
