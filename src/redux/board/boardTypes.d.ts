@@ -27,6 +27,12 @@ interface Subtask {
   isCompleted?: boolean;
 }
 
+// change status task interface
+interface ChangeStatusType {
+  boardName: string;
+  name: string;
+  status: string;
+}
 
 // create new task interface
 interface createNewTask {
@@ -36,7 +42,7 @@ interface createNewTask {
 
 interface Column {
   name: string;
-  tasks?: Task[];
+  tasks: Task[];
 }
 
 interface Board {
@@ -54,7 +60,7 @@ interface NameToDelete {
 // createNewBoard
 interface createNewBoardType {
   name: string;
-  boards: Board[]
+  columns: Column[]
 }
 
 // EditBoard
@@ -72,4 +78,4 @@ interface ColumnNewBoard {
   name: string;
 }
 
-export { createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
+export { Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }

@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import { BoardDataType, createNewBoardType, createNewTask, EditBoardType, NameToDelete } from "./boardTypes";
+import { BoardDataType, ChangeStatusType, createNewBoardType, createNewTask, EditBoardType, NameToDelete, Task } from "./boardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"; 
 
 // estado inicial 
@@ -10,16 +9,20 @@ const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
+    
     setBoards: (state, action: PayloadAction<BoardDataType>) => {
       state.boards = action.payload.boards;
     },
+
     createNewBoard: (state, action: PayloadAction<createNewBoardType>) => {
-      const { name, boards } = action.payload;
-      state.boards.push({ name: name, columns: boards })
+      const { name, columns } = action.payload;
+      state.boards.push({ name: name, columns: columns })
     },
+
     deleteBoard: (state, action: PayloadAction<NameToDelete>) => {
       state.boards = state.boards.filter((board) => board.name !== action.payload.name)
     },
+
     deleteTask: (state, action: PayloadAction<NameToDelete>) => {
       const { name } = action.payload
       state.boards = state.boards.map((board) => {
@@ -30,7 +33,7 @@ const boardSlice = createSlice({
 
           return {
             ...col,
-            tasks: newTasks.length ? newTasks : undefined
+            tasks: newTasks.length ? newTasks : []
           }
         })
 
@@ -40,6 +43,7 @@ const boardSlice = createSlice({
         }
       })
     },
+    
     editBoard: (state, action: PayloadAction<EditBoardType>) => {
 
       const { nameBoard, nameToAdd, boards } = action.payload
@@ -58,7 +62,7 @@ const boardSlice = createSlice({
                   name: newBoard.name
                  }
               } else {
-                return { ...board, name: newBoard.name }
+                return { ...board, name: newBoard.name, tasks: [] }
               }      
                
             })
@@ -76,10 +80,53 @@ const boardSlice = createSlice({
         }
         return board
       })
-    }
+    },
+    changeStatus: (state, action: PayloadAction<ChangeStatusType>) => {
+      const { boardName, name, status } = action.payload
+      
+      state.boards = state.boards.map(board => {
+
+    
+
+        if (board.name === boardName) {         
+          
+          const newColumns = board.columns.map(col => {
+                        
+            
+           /* if (col.name !== status) {
+              
+              return {
+                ...col,
+                tasks: col.tasks?.filter(task => task.title !== name)
+              }
+            }  */
+            
+            if (col.name === status) {
+              const newTasks = board.columns.map(collumn => collumn.tasks?.filter(tasks => tasks.title === name))[0]
+              
+              const obj = {
+                title: newTasks[0].title,
+                description: newTasks[0].description,
+                status: newTasks[0].status,
+                subtasks: newTasks[0].subtasks
+              }
+              return { 
+                ...col, 
+                tasks: [...col.tasks, obj]
+              }
+
+            }
+
+            return col
+          })
+          return { ...board, columns: newColumns }
+        }
+        return board
+      })
+    },
   }
 });
 
-export const { setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
+export const { changeStatus, setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
 
 export default boardSlice.reducer

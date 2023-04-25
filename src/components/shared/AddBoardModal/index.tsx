@@ -6,6 +6,7 @@ import Image from "next/image"
 import Button from "../Button"
 import { useDispatch } from "react-redux"
 import { createNewBoard } from "@/redux/board/reducer"
+import { Column } from "@/redux/board/boardTypes"
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   const [columns, setColumns] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
@@ -15,13 +16,13 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
 
   const handleAddNewBoard = () => {
     const arrFormatted = columns.map(item => {
-      const obj = {
+      const obj: Column = {
         name: item.value,
-        columns: []
+        tasks: []
       };
       return obj;
     });
-    dispatch(createNewBoard({ name: nameInput, boards: arrFormatted }));
+    dispatch(createNewBoard({ name: nameInput, columns: arrFormatted }));
   };
 
   useEffect(() => {
