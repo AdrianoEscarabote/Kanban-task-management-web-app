@@ -80,17 +80,18 @@ select {
   clip: rect(0,0,0,0);
   border: 0;
 }
-body::-webkit-scrollbar {
-  width: 0.75rem;              
+*::-webkit-scrollbar {
+  width: 12px;              
 }
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: transparent;        
 }
-body::-webkit-scrollbar-thumb {
-  background: #E7816B; 
+*::-webkit-scrollbar-thumb {
+  background: #635FC7; 
+  border-radius: 12px;
 }
-body::-webkit-scrollbar-thumb:hover {
-  background: #FFAD9B; 
+*::-webkit-scrollbar-thumb:hover {
+  background: #8b88f7; 
 }
 .sidebarOpen {
   margin-left: 126px;
@@ -98,4 +99,40 @@ body::-webkit-scrollbar-thumb:hover {
 }
 .mainSidebarOpen {
   margin-left: 320px;
+}
+
+.col-gradient {
+  background: linear-gradient(180deg, #E9EFFA 0%, #e9effa80 100%);
+}
+
+.col-gradient-dark {
+  background: linear-gradient(180deg, #2b2c3740 0%, #2b2c3720 100%);
+}
+
+.doing::before,
+.done::before,
+.todo::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.doing::before {
+  background: #8471F2;
+}
+
+.todo::before {
+  background: #49C4E5;
+}
+
+.done::before {
+  background: #67E2AE;
+}
+
+.filter_purple {
+  filter: invert(36%) sepia(73%) saturate(830%) hue-rotate(211deg) brightness(88%) contrast(82%);
 }
