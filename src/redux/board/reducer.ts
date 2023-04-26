@@ -101,18 +101,22 @@ const boardSlice = createSlice({
             const targetColumn = board.columns.filter(col => col.name === status)[0]
 
             if (targetColumn) {
-              const newTasks = board.columns.map(collumn => collumn.tasks?.filter(tasks => tasks.title === name))[0]
 
-              const obj = {
-                title: name,
-                description: description,
-                status: status,
-                subtasks: subtasks
+              if (!targetColumn.tasks.some(task => task.title === name)) {
+                const obj = {
+                  title: name,
+                  description: description,
+                  status: status,
+                  subtasks: subtasks
+                }
+                return { 
+                  ...column, 
+                  tasks: [...column.tasks, obj]
+                }
+              } else {
+                return column
               }
-              return { 
-                ...column, 
-                tasks: [...column.tasks, obj]
-              }
+              
             }
             return column
           })

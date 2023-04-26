@@ -6,24 +6,18 @@ import EllipsisTask from "../EllipsisTask"
 import { useDispatch } from "react-redux";
 import { changeStatus } from "@/redux/board/reducer";
 import { Subtask } from "@/redux/board/boardTypes";
+import Button from "../Button";
 
 const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeModal, taskTarget, openDeleteTaskModal }) => {
-  
+  const dispatch = useDispatch()
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
   const [sideTasks, setSideTasks] = useState<sideTaskTypes[]>([])
-  const [status, setStatus] = useState<string>(boardNames.boards.filter(board => board.name === nameBoard)[0]?.columns[0]?.name ?? "");
-  const [initialStatus, setInitialStatus] = useState<string>(status);
-  
   const [description, setDescription] = useState<string>("")
+  const [status, setStatus] = useState<string>("");
+  const [initialStatus, setInitialStatus] = useState<string>(status); 
   const [subtasks, setSubtasks] = useState<Subtask[]>([])
-
-  useEffect(( ) => {
-    console.log(status)
-  }, [status])
-
-  const dispatch = useDispatch()
   
   useEffect(() => {
     boardNames.boards.map(board => board.columns.map(col => col.tasks?.filter(task => {
@@ -31,6 +25,8 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
         setSideTasks([...sideTasks, task])
         setDescription(task.description)
         setSubtasks(task.subtasks)
+        setStatus(task.status)
+        setInitialStatus(status)
       } 
     })))
   }, [])
@@ -38,23 +34,13 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
   useEffect(() => {
     window.addEventListener("keydown", (ev) => {
       if (ev.key === "Escape") {
-        if (initialStatus !== status) {
-          dispatch(changeStatus({ boardName: nameBoard, name: taskTarget, status: status, description: description, subtasks: subtasks }));
-          setInitialStatus(status)
-          setStatus(status)
-        }
         closeModal()
       }
     })
   })
-    
+  
   return (
     <div onClick={() => {
-      if (initialStatus !== status) {
-        dispatch(changeStatus({ boardName: nameBoard, name: taskTarget, status: status, description: description, subtasks: subtasks }));
-        setInitialStatus(status)
-        setStatus(status)
-      }
       closeModal()
     }} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
   
@@ -84,9 +70,9 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                 ))
               }
               <h3 className={`font-medium text-sm text-_gray`}>Current Status</h3>
-              <label htmlFor="status">
+              <label htmlFor="status" className="my-10">
                 <select
-                value={status} 
+                defaultValue={status}
                 onChange={(e) => {
                   setStatus(e.currentTarget.value)
                 }}
@@ -105,6 +91,29 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                   }
                 </select>
               </label>
+              <div className="my-5">
+                <Button 
+                  label="Save" 
+                  size="small"
+                  backgroundColor="#635FC7" 
+                  textColor="#fff" 
+                  onClick={() => {
+                    if (initialStatus !== status) {
+                      dispatch(
+                        changeStatus({
+                          boardName: nameBoard,
+                          name: taskTarget,
+                          status: status,
+                          description: description,
+                          subtasks: subtasks,
+                        })
+                      );
+                      setInitialStatus(status);
+                    }
+                    closeModal();
+                  }} 
+                />
+              </div>
             </div>
           ))
         }
