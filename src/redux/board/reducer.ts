@@ -43,7 +43,11 @@ const boardSlice = createSlice({
         }
       })
     },
-    
+
+    changeRadioChecked: (state, action: PayloadAction<NameToDelete>) => {
+
+    },
+
     editBoard: (state, action: PayloadAction<EditBoardType>) => {
 
       const { nameBoard, nameToAdd, boards } = action.payload
@@ -82,51 +86,65 @@ const boardSlice = createSlice({
       })
     },
     changeStatus: (state, action: PayloadAction<ChangeStatusType>) => {
-      const { boardName, name, status } = action.payload
-      
+      const { boardName, name, status, description, subtasks } = action.payload
+
+
       state.boards = state.boards.map(board => {
-
-    
-
-        if (board.name === boardName) {         
-          
-          const newColumns = board.columns.map(col => {
-                        
-            
-           /* if (col.name !== status) {
-              
+        if (board.name === boardName) {
+          const newColumns = board.columns.map(column => {
+            if (column.name !== status) {
               return {
-                ...col,
-                tasks: col.tasks?.filter(task => task.title !== name)
+                ...column,
+                tasks: column.tasks.filter(task => task.title !== name)
               }
-            }  */
-            
-            if (col.name === status) {
+            } 
+            const targetColumn = board.columns.filter(col => col.name === status)[0]
+
+            if (targetColumn) {
               const newTasks = board.columns.map(collumn => collumn.tasks?.filter(tasks => tasks.title === name))[0]
-              
+
               const obj = {
-                title: newTasks[0].title,
-                description: newTasks[0].description,
-                status: newTasks[0].status,
-                subtasks: newTasks[0].subtasks
+                title: name,
+                description: description,
+                status: status,
+                subtasks: subtasks
               }
               return { 
-                ...col, 
-                tasks: [...col.tasks, obj]
+                ...column, 
+                tasks: [...column.tasks, obj]
               }
-
             }
-
-            return col
+            return column
           })
           return { ...board, columns: newColumns }
         }
         return board
-      })
+      })      
     },
+    EditTask: (state, action: PayloadAction<Task>) => {
+      const { description, status, subtasks, title } = action.payload
+      state.boards = state.boards.map(board => {
+        board.columns.map(col => {
+          col.tasks.map(task => {
+            if (task.title === title) {
+              return {
+                ...task,
+                description: description,
+                status: status,
+                subtasks: subtasks,
+                title: title
+              }
+            }
+            return task
+          })
+          return col
+        })
+        return board 
+      })
+    }
   }
 });
 
-export const { changeStatus, setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
+export const { EditTask, changeRadioChecked, changeStatus, setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
 
 export default boardSlice.reducer

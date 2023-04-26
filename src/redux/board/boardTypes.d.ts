@@ -29,9 +29,11 @@ interface Subtask {
 
 // change status task interface
 interface ChangeStatusType {
+  description: string;
   boardName: string;
   name: string;
   status: string;
+  subtasks: Subtask[];
 }
 
 // create new task interface
@@ -78,4 +80,4 @@ interface ColumnNewBoard {
   name: string;
 }
 
-export { Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
+export { Subtask, Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
