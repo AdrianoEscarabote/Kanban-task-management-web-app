@@ -5,6 +5,7 @@ import { rootState } from "@/redux/reduxTypes";
 import EllipsisTask from "../EllipsisTask"
 import { useDispatch } from "react-redux";
 import { changeStatus } from "@/redux/board/reducer";
+import { Subtask } from "@/redux/board/boardTypes";
 
 const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeModal, taskTarget, openDeleteTaskModal }) => {
   
@@ -13,6 +14,10 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
   const [sideTasks, setSideTasks] = useState<sideTaskTypes[]>([])
   const [status, setStatus] = useState<string>(boardNames.boards.filter(board => board.name === nameBoard)[0]?.columns[0]?.name ?? "");
+  const [initialStatus, setInitialStatus] = useState<string>(status);
+  
+  const [description, setDescription] = useState<string>("")
+  const [subtasks, setSubtasks] = useState<Subtask[]>([])
 
   useEffect(( ) => {
     console.log(status)
@@ -21,23 +26,37 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
   const dispatch = useDispatch()
   
   useEffect(() => {
-    boardNames.boards.map(board => board.columns.map(col => col.tasks?.filter(task => task.title === taskTarget ? setSideTasks([...sideTasks, task]) : null)))
+    boardNames.boards.map(board => board.columns.map(col => col.tasks?.filter(task => {
+      if (task.title === taskTarget) {
+        setSideTasks([...sideTasks, task])
+        setDescription(task.description)
+        setSubtasks(task.subtasks)
+      } 
+    })))
   }, [])
 
   useEffect(() => {
     window.addEventListener("keydown", (ev) => {
       if (ev.key === "Escape") {
+        if (initialStatus !== status) {
+          dispatch(changeStatus({ boardName: nameBoard, name: taskTarget, status: status, description: description, subtasks: subtasks }));
+          setInitialStatus(status)
+          setStatus(status)
+        }
         closeModal()
       }
     })
   })
-
-  useEffect(() => {
-    dispatch(changeStatus({ boardName: nameBoard, name: taskTarget, status: status }));
-  }, [status])
     
   return (
-    <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
+    <div onClick={() => {
+      if (initialStatus !== status) {
+        dispatch(changeStatus({ boardName: nameBoard, name: taskTarget, status: status, description: description, subtasks: subtasks }));
+        setInitialStatus(status)
+        setStatus(status)
+      }
+      closeModal()
+    }} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
   
       <section style={{ maxHeight: "429px" }} className={`max-w-md overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
 
