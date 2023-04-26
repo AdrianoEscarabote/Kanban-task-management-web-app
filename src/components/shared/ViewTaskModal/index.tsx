@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { changeStatus } from "@/redux/board/reducer";
 
 const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeModal, taskTarget, openDeleteTaskModal }) => {
+  
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)

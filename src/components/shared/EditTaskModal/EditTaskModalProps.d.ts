@@ -3,4 +3,10 @@ interface EditTaskModalProps {
   task: string
 }
 
-export { EditTaskModalProps }
+interface Subtask {
+  title: string;
+  isCompleted: boolean;
+  id: number;
+}
+
+export { EditTaskModalProps, Subtask }
