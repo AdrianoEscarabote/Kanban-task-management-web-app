@@ -1,4 +1,4 @@
-import { BoardDataType, ChangeRadioChecked, ChangeStatusType, createNewBoardType, createNewTask, EditBoardType, NameToDelete, Task } from "./boardTypes";
+import { BoardDataType, ChangeRadioChecked, ChangeStatusType, createNewBoardType, createNewTask, EditBoardType, EditTaskType, NameToDelete } from "./boardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"; 
 
 // estado inicial 
@@ -151,25 +151,31 @@ const boardSlice = createSlice({
         return board
       })      
     },
-    EditTask: (state, action: PayloadAction<Task>) => {
-      const { description, status, subtasks, title } = action.payload
+    EditTask: (state, action: PayloadAction<EditTaskType>) => {
+      const { description, status, subtasks, title, oldName } = action.payload
+      console.log(action.payload)
       state.boards = state.boards.map(board => {
-        board.columns.map(col => {
-          col.tasks.map(task => {
-            if (task.title === title) {
-              return {
-                ...task,
-                description: description,
-                status: status,
-                subtasks: subtasks,
-                title: title
-              }
+        return {
+          ...board,
+          columns: board.columns.map(col => {
+            return {
+              ...col,
+              tasks: col.tasks.map(task => {
+                if (task.title === oldName) {
+                  return {
+                    ...task,
+                    title: title,
+                    description: description,
+                    status: status,
+                    subtasks: subtasks,
+                  }
+                } else {
+                  return task
+                }
+              })
             }
-            return task
           })
-          return col
-        })
-        return board 
+        }
       })
     }
   }

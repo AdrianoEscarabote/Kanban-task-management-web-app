@@ -22,6 +22,14 @@ interface Task {
   subtasks: Subtask[];
 }
 
+interface EditTaskType {
+  title: string;
+  description: string;
+  status: string;
+  subtasks: Subtask[];
+  oldName: string;
+}
+
 interface Subtask {
   title: string;
   isCompleted: boolean;
@@ -85,4 +93,4 @@ interface ChangeRadioChecked {
   isCompleted: boolean;
 }
 
-export { ChangeRadioChecked, Subtask, Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
+export { EditTaskType, ChangeRadioChecked, Subtask, Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
