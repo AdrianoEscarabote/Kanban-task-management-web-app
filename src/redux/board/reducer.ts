@@ -1,4 +1,4 @@
-import { BoardDataType, ChangeStatusType, createNewBoardType, createNewTask, EditBoardType, NameToDelete, Task } from "./boardTypes";
+import { BoardDataType, ChangeRadioChecked, ChangeStatusType, createNewBoardType, createNewTask, EditBoardType, NameToDelete, Task } from "./boardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"; 
 
 // estado inicial 
@@ -44,8 +44,34 @@ const boardSlice = createSlice({
       })
     },
 
-    changeRadioChecked: (state, action: PayloadAction<NameToDelete>) => {
+    changeCheckboxChecked: (state, action: PayloadAction<ChangeRadioChecked>) => {
+      const { isCompleted, title } = action.payload
 
+      state.boards = state.boards.map(board => {
+        return {
+          ...board,
+          columns: board.columns.map(col => {
+            return {
+              ...col,
+              tasks: col.tasks.map(task => {
+                return {
+                  ...task,
+                  subtasks: task.subtasks.map(sub => {
+                    if (sub.title === title) {
+                      return {
+                        ...sub,
+                        isCompleted: isCompleted
+                      }
+                    } else {
+                      return sub
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
     },
 
     editBoard: (state, action: PayloadAction<EditBoardType>) => {
@@ -149,6 +175,6 @@ const boardSlice = createSlice({
   }
 });
 
-export const { EditTask, changeRadioChecked, changeStatus, setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
+export const { EditTask, changeCheckboxChecked, changeStatus, setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
 
 export default boardSlice.reducer

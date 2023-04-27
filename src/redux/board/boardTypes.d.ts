@@ -24,7 +24,7 @@ interface Task {
 
 interface Subtask {
   title: string;
-  isCompleted?: boolean;
+  isCompleted: boolean;
 }
 
 // change status task interface
@@ -80,4 +80,9 @@ interface ColumnNewBoard {
   name: string;
 }
 
-export { Subtask, Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
+interface ChangeRadioChecked {
+  title: string;
+  isCompleted: boolean;
+}
+
+export { ChangeRadioChecked, Subtask, Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
