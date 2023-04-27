@@ -7,7 +7,6 @@ import Image from "next/image"
 import { useDispatch } from "react-redux"
 import { EditTask } from "@/redux/board/reducer"
 
-
 const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const [title, setTitle] = useState<string>("");

@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { rootState } from "@/redux/reduxTypes";
 import EllipsisTask from "../EllipsisTask"
 import { useDispatch } from "react-redux";
-import { changeStatus } from "@/redux/board/reducer";
+import { changeRadioChecked, changeStatus } from "@/redux/board/reducer";
 import { Subtask } from "@/redux/board/boardTypes";
 import Button from "../Button";
+import { selectCheckboxCheckedCount } from "@/redux/board/selectors";
 
 const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeModal, taskTarget, openDeleteTaskModal }) => {
   const dispatch = useDispatch()
@@ -18,6 +19,8 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
   const [status, setStatus] = useState<string>("");
   const [initialStatus, setInitialStatus] = useState<string>(status); 
   const [subtasks, setSubtasks] = useState<Subtask[]>([])
+  const selectCheckboxCount = selectCheckboxCheckedCount(taskTarget)
+  const checkboxCheckedCount  = useSelector(selectCheckboxCount)
   
   useEffect(() => {
     boardNames.boards.map(board => board.columns.map(col => col.tasks?.filter(task => {
@@ -32,44 +35,64 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
   }, [])
 
   useEffect(() => {
-    window.addEventListener("keydown", (ev) => {
+    const handleKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") {
-        closeModal()
+        closeModal();
       }
-    })
-  })
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleChangeRadioChecked = (title: string, isCompleted: boolean) => {
+    dispatch(changeRadioChecked({ title: title, isCompleted: isCompleted }))
+    setSubtasks(prevSubtasks => prevSubtasks.map(subtask => {
+      if (subtask.title === title) {
+        return { ...subtask, isCompleted }
+      } else {
+        return subtask
+      }
+    }))
+  }
   
   return (
     <div onClick={() => {
       closeModal()
     }} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
   
-      <section style={{ maxHeight: "429px" }} className={`max-w-md overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
+      <section style={{ maxHeight: "623px" }} className={`max-w-md h-auto overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
 
         {
           sideTasks.map((task, index) => (
             <div key={index}>
               <div className="flex items-center relative w-full overflow-visible justify-between">
-                <h2 className={`font-bold text-lg ${theme === "light" ? "text-_dark" : "text-_white"}`}>{task.title}</h2>
+                <h2 className={`mb-4 font-bold text-lg ${theme === "light" ? "text-_dark" : "text-_white"}`}>{task.title}</h2>
                 <EllipsisTask openEditTaskModal={() => openEditTaskModal()} openDeleteTaskModal={openDeleteTaskModal} closeModal={closeModal} />
               </div>
-              <p className={`font-medium text-sm text-_gray`}>{task.description}</p>
-              <p className={`font-medium text-sm text-_gray`}>Subtask ({task.subtasks.length})</p>
               {
-                task.subtasks.map((sub, index) => (
-                  <label key={index} className={`flex items-center gap-4`} htmlFor={`radio-${index}`}>
-                    <input 
-                      type="checkbox" 
-                      onChange={() => !sub.isCompleted} 
-                      checked={sub.isCompleted} 
-                      name={`radio-${index}`} 
-                      id={`radio-${index}`} 
-                    />
-                    <span>{sub.title}</span>
-                  </label>
-                ))
+                task.description ? <p className={`mb-4 font-medium text-sm text-_gray`}>{task.description}</p> : null
               }
-              <h3 className={`font-medium text-sm text-_gray`}>Current Status</h3>
+              <p className={`${theme === "light" ? "text-_gray" : "text-_white"} font-medium text-sm text-_gray`}>Subtask ({checkboxCheckedCount} of {task.subtasks.length})</p>
+              <div className="flex flex-col gap-2 my-4">
+                {
+                  subtasks.map((sub, index) => (
+                    <label key={index} className={`py-3 px-3 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"} flex items-center gap-4`} htmlFor={`radio-${index}`}>
+                      <input 
+                        type="checkbox" 
+                        onClick={() => {
+                          handleChangeRadioChecked(sub.title, !sub.isCompleted)
+                        }} 
+                        checked={sub.isCompleted} 
+                        name={`radio-${index}`} 
+                        id={`radio-${index}`}
+                        key={`checkbox-${index}`}
+                      />
+                      <span className={`${theme === "light" ? "text-_dark" : "text-_white"} font-bold text-xs/4`}>{sub.title}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <h3 className={`font-medium text-sm mb-4 ${theme === "light" ? "text-_gray" : "text-_white"}`}>Current Status</h3>
               <label htmlFor="status" className="my-10">
                 <select
                 defaultValue={status}
@@ -91,7 +114,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                   }
                 </select>
               </label>
-              <div className="my-5">
+              <div className="mt-5">
                 <Button 
                   label="Save" 
                   size="small"
