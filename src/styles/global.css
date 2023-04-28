@@ -84,7 +84,7 @@ select {
   width: 12px;              
 }
 *::-webkit-scrollbar-track {
-  background: transparent;        
+  background: transparent !important;        
 }
 *::-webkit-scrollbar-thumb {
   background: #635FC7; 
@@ -93,12 +93,33 @@ select {
 *::-webkit-scrollbar-thumb:hover {
   background: #8b88f7; 
 }
+
 .sidebarOpen {
   margin-left: 126px;
   border-left: 0px;
 }
+
 .mainSidebarOpen {
   margin-left: 320px;
+}
+
+@media (max-width: 768px) {
+  .mainSidebarOpen {
+    margin-left: 260px;
+    padding-top: 95px;
+    overflow-y: scroll;
+  }
+  .sidebarOpen {
+    margin-left: 66px;
+  }
+}
+
+.body_dark {
+  background-color: #20212C;
+}
+
+.body_light {
+  background-color: #F4F7FD;
 }
 
 .col-gradient {
