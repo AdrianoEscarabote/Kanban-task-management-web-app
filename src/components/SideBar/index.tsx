@@ -4,6 +4,7 @@ import InputToggle from "../shared/InputToggle"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import ListBoardNames from "../shared/ListBoardNames"
+import style from "./style.module.css"
 
 const Sidebar = () => {
 
@@ -31,7 +32,7 @@ const Sidebar = () => {
     <>
       {
         sidebarOpen ? (
-          <div className={`fixed left-0 top-0 min-h-full w-80 flex flex-col ${theme === "light" ? "bg-_white border-r border-light_Blue" : "bg-dark_Gray border-r border-medium_Gray"}`} >
+          <div className={`${style.sidebar} fixed left-0 top-0 min-h-full w-80 flex flex-col ${theme === "light" ? "bg-_white border-r border-light_Blue" : "bg-dark_Gray border-r border-medium_Gray"}`} >
             <Image className="my-8 mx-5" src={theme === "light" ? "/assets/logo-dark.svg" : "/assets/logo-light.svg"} height="25" width="152" alt="Kanban - Home" />
 
             <ListBoardNames />
