@@ -95,23 +95,12 @@ select {
 }
 
 .sidebarOpen {
-  margin-left: 126px;
+  margin-left: 170px;
   border-left: 0px;
 }
 
 .mainSidebarOpen {
   margin-left: 320px;
-}
-
-@media (max-width: 768px) {
-  .mainSidebarOpen {
-    margin-left: 260px;
-    padding-top: 95px;
-    overflow-y: scroll;
-  }
-  .sidebarOpen {
-    margin-left: 66px;
-  }
 }
 
 .body_dark {
@@ -156,4 +145,21 @@ select {
 
 .filter_purple {
   filter: invert(36%) sepia(73%) saturate(830%) hue-rotate(211deg) brightness(88%) contrast(82%);
+}
+
+@media (max-width: 768px) {
+  .mainSidebarOpen {
+    margin-left: 260px;
+    padding-top: 95px;
+    overflow-y: scroll;
+  }
+  .sidebarOpen {
+    margin-left: 126px;
+  }
+}
+
+@media (max-width: 620px) {
+  .sidebarOpen {
+    margin-left: 0px;
+  }
 }
