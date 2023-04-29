@@ -1,5 +1,5 @@
 interface SideBarProps {
-  open: boolean
+  open: boolean;
 }
 
 export { SideBarProps }

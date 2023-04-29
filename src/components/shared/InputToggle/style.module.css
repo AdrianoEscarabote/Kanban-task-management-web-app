@@ -1,0 +1,5 @@
+@media (max-width: 620px) {
+  .parent {
+    max-width: 224px;
+  }
+} 

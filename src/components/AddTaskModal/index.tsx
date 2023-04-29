@@ -66,7 +66,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
   }
  
   return (
-    <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
+    <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center p-4 justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
       <section onClick={(e) => e.stopPropagation()} style={{height: "675px"}} className={`overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add New Task</h2>
         <form noValidate={true}>

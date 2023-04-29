@@ -1,6 +1,25 @@
+.buttonMobile {
+  display: none !important;
+}
+
 @media (max-width: 48rem) {
   .h2 {
     font-size: 1.25rem;
     line-height: 1.5625rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .header {
+    height: 64px;
+  }
+  .buttonDesktop {
+    display: none !important;
+  }
+  .buttonMobile {
+    display: block !important;
+  }
+  .parent_items {
+    border: none !important;
   }
 }

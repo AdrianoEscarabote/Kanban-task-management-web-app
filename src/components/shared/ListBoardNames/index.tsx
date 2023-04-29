@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setNameBoard } from "@/redux/nameBoard/actions";
 import { useState } from "react";
 import AddBoardModal from "../AddBoardModal";
-import rootReducer from "@/redux/root-reducer";
+import style from "./style.module.css"
 
 const ListBoardNames = () => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
@@ -23,30 +23,32 @@ const ListBoardNames = () => {
   }
 
   return (
-    <section className="py-3 pr-6">
-      <p className="pl-5 text-_gray font-bold text-xs">ALL BOARDS ( {boardNames.boards.length} )</p>    
-      <ul className="flex items-start flex-col gap-2 mt-4 font-bold text-sm/5 text-_gray">
-          {
-            boardNames.boards.map((board, index) => (
-              <li key={index} className="w-full p-0">
-                <button 
-                onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} 
-                className={`${nameBoard === board.name ? "bg-purple_Dark text-_white" : "" } pl-5 w-full mr-3 ${theme === "light" ? "hover:text-purple_Dark hover:bg-purple_superLight" : "hover:text-purple_Dark hover:bg-_white"} rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12`}>
-                  <Image src="/assets/icon-board.svg" height="16" alt="" width="16" />
-                  {board.name}
-                </button>
-              </li>
-            ))
-          }
-          <button onClick={handleClickButtonModalBoard} className="pl-5 w-full mr-3 text-purple_Dark hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
-            <Image className="filter_purple" src="/assets/icon-board.svg" height="16" alt="" width="16" />
-            + Create New Board
-          </button>
-          {
-            modalOpen ? <AddBoardModal closeModal={handleClickButtonModalBoard} /> : null
-          } 
-      </ul>
-    </section>
+   
+      <section className={`py-3 pr-6 ${style.section}`}>
+        <p className="pl-5 text-_gray font-bold text-xs">ALL BOARDS ( {boardNames.boards.length} )</p>    
+        <ul className="flex items-start flex-col gap-2 mt-4 font-bold text-sm/5 text-_gray">
+            {
+              boardNames.boards.map((board, index) => (
+                <li key={index} className="w-full p-0">
+                  <button 
+                  onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} 
+                  className={`${nameBoard === board.name ? "bg-purple_Dark text-_white" : "" } pl-5 w-full mr-3 ${theme === "light" ? "hover:text-purple_Dark hover:bg-purple_superLight" : "hover:text-purple_Dark hover:bg-_white"} rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12`}>
+                    <Image src="/assets/icon-board.svg" height="16" alt="" width="16" />
+                    {board.name}
+                  </button>
+                </li>
+              ))
+            }
+            <button onClick={handleClickButtonModalBoard} className="pl-5 w-full mr-3 text-purple_Dark hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
+              <Image className="filter_purple" src="/assets/icon-board.svg" height="16" alt="" width="16" />
+              + Create New Board
+            </button>
+            {
+              modalOpen ? <AddBoardModal closeModal={handleClickButtonModalBoard} /> : null
+            } 
+        </ul>
+      </section>
+    
   )
 };
 

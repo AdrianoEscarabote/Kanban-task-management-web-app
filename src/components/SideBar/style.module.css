@@ -1,5 +1,43 @@
 @media (max-width: 768px) {
   .sidebar {
-    width: 261px !important;
+    max-width: 264px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .sidebar {
+    border-radius: 8px;
+    position: relative  !important;
+    margin-top: 16px;
+  }
+
+  .parent {
+    position: fixed;
+    top: 64px;
+    left: 0px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh !important;
+    width: 100% !important; 
+    background-color: #0000007f;
+    padding: 20px;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .parent_buttons {
+    position: relative;
+    padding: 20px 20px 0px 20px;
+  }
+
+  .parent_buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px !important;
+    margin: 0px !important;
   }
 }

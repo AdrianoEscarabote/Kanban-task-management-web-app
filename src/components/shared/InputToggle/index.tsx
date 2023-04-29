@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { rootState } from "@/redux/reduxTypes";
 import { themeDark, themeLight } from "../../../redux/theme/actions"
 import Image from "next/image";
+import style from "./style.module.css"
 
 const InputToggle = () => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
@@ -19,7 +20,7 @@ const InputToggle = () => {
 
   return (  
 
-    <div className={`rounded-md w-64 h-12 flex items-center justify-center gap-5 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"}`}>
+    <div className={`${style.parent} rounded-md w-64 h-12 flex items-center justify-center gap-5 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"}`}>
 
       <Image src="/assets/icon-light-theme.svg" width="18" height="18" alt="" />
 
