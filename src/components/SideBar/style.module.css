@@ -29,7 +29,7 @@
   }
 
   .parent_buttons {
-    position: relative;
+    position: relative !important;
     padding: 20px 20px 0px 20px;
   }
 
