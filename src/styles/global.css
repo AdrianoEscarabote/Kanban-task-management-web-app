@@ -162,4 +162,20 @@ select {
   .sidebarOpen {
     margin-left: 0px;
   }
+  .mainSidebarOpen {
+    margin-left: 0px;
+  } 
+}
+
+.parent_modal {
+  animation: teste 0.4s ease-in-out;
+}
+
+@keyframes teste {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
