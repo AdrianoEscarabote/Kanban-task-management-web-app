@@ -1,0 +1,12 @@
+@media (max-width: 48rem) {
+  .sidebar {
+    max-width: 16.5rem !important;
+  }
+}
+
+@media (max-width: 38.75rem) {
+  .eye_button,
+  .parent {
+    display: none !important;
+  }
+}

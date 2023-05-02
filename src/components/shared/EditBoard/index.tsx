@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { editBoard } from "@/redux/board/reducer";
 import { setNameBoard } from "@/redux/nameBoard/actions";
 import { BoardEditNewType } from "@/redux/board/boardTypes";
+import style from "./style.module.css"
 
 const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
   const dispatch = useDispatch()
@@ -21,12 +22,14 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
   .flat()
 
   useEffect(() => {
-    window.addEventListener("keydown", (ev) => {
+    const handleKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") {
-        closeModal()
-      } 
-    })
-  })
+        closeModal();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const [columns, setColumns] = useState(
     colNames.map((name, index) => ({ id: index + 1, value: name }))
@@ -66,9 +69,9 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
   }
   
   return (
-    <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
+    <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
   
-      <section style={{ maxHeight: "429px" }} className={`max-w-md overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
+      <section className={`${style.modal} max-w-md overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
 
         <h2 className={`font-bold text-lg ${theme === "light" ? "text-_gray" : "text-_white"}`}>Edit Board</h2>
 

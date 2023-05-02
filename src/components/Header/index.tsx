@@ -3,9 +3,9 @@ import { HeaderProps } from "./HeaderProps";
 import { rootState } from "@/redux/reduxTypes";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import Sidebar from "../SideBar";
+import Sidebar from "../SidebarDesktop";
 import Ellipsis from "../shared/EllipsisBoard";
-import AddTaskModal from "../AddTaskModal";
+import AddTaskModal from "../shared/AddTaskModal";
 import style from "./style.module.css"
 import SidebarMobile from "../SidebarMobile";
  
@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
             ? "text-black" 
             : "text-white"}`
             } >
-              {!nameBoard ? boardNames.boards[0]?.name : nameBoard }
+              <span className={style.text_button}>{!nameBoard ? boardNames.boards[0]?.name : nameBoard }</span>
               <Image 
                 className="mt-1"
                 src={sidebarOpen ? "/assets/icon-chevron-up.svg" : "/assets/icon-chevron-down.svg"} 

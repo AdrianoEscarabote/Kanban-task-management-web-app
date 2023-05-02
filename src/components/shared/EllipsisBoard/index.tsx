@@ -17,10 +17,12 @@ const Ellipsis = () => {
 
   const handleClickDeleteModal = () => {
     setDeleteModalOpen(!deleteModalOpen)
+    setOpitonsOpen(false)
   }
 
   const handleClickEditModal = () => {
     setEditBoardModalOpen(!editBoardModalOpen)
+    setOpitonsOpen(false)
   }
 
   return (
@@ -29,19 +31,19 @@ const Ellipsis = () => {
       <>
         {
           optionsOpen ? (
-            <div className={`h-24 w-48 flex items-start justify-center flex-col rounded-lg absolute right-1 top-20 ${theme === "light" ? "bg-_white" : "bg-almost_Dark" }`} style={{ boxShadow:  '0px 10px 20px rgba(54, 78, 126, 0.25)' }} >
-              <button className={`text-#828FA3`} onClick={handleClickEditModal}>Edit Board</button>
+            <div className={`h-24 w-48 pl-4 flex items-start justify-center flex-col gap-2 rounded-lg absolute right-3 top-20 ${theme === "light" ? "bg-_white" : "bg-almost_Dark" }`} style={{ boxShadow:  '0px 10px 20px rgba(54, 78, 126, 0.25)' }} >
+              <button className={`text-_gray`} onClick={handleClickEditModal}>Edit Board</button>
               <button className={`text-_red`} onClick={handleClickDeleteModal}>Delete Board</button>
-              {
-                deleteModalOpen ? <DeleteModal closeModal={handleClickDeleteModal} NameToDelete={nameBoard} /> : null
-              }
-              {
-                editBoardModalOpen ? <EditBoard closeModal={handleClickEditModal} /> : null 
-              }
             </div>
           ) : null 
         }
       </>
+        {
+          deleteModalOpen ? <DeleteModal closeModal={handleClickDeleteModal} NameToDelete={nameBoard} /> : null
+        }
+        {
+          editBoardModalOpen ? <EditBoard closeModal={handleClickEditModal} /> : null 
+        }
     </>
   )
 };

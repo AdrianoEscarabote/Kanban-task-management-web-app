@@ -2,11 +2,11 @@ import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import InputToggle from "../shared/InputToggle"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import ListBoardNames from "../shared/ListBoardNames"
 import style from "./style.module.css"
 
-const Sidebar = () => {
+const SidebarDesktop = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
 
@@ -15,7 +15,7 @@ const Sidebar = () => {
   const handleClickOpenSidebar = () => {
     setSidebarOpen(!sidebarOpen)
   };
-
+  
   useEffect(() => {
     sidebarOpen ?
       document.querySelector(".content")?.classList.add("sidebarOpen")
@@ -52,7 +52,7 @@ const Sidebar = () => {
               </div>  
           </div>
         ) : (
-          <button style={{ bottom: "-84vh" }} onClick={handleClickOpenSidebar} className="bg-_White w-28 h-12 rounded-3xl absolute -left-14 bg-purple_Dark flex items-center justify-center">
+          <button style={{ bottom: "-84vh" }} onClick={handleClickOpenSidebar} className={`${style.eye_button} bg-_White w-28 h-12 rounded-3xl absolute -left-14 bg-purple_Dark flex items-center justify-center`}>
             <Image className="ml-14 h-auto w-6" src="/assets/icon-show-sidebar.svg" width="26" height="20" alt="" />            
           </button>
         )
@@ -61,4 +61,4 @@ const Sidebar = () => {
   )
 };
 
-export default Sidebar;
+export default SidebarDesktop;

@@ -15,7 +15,7 @@ const SidebarMobile: React.FC<SidebarMobileProps> = ({ handleModal }) => {
   }
   
   return (
-    <div className={style.parent} onClick={() => handleModalOpen()}>
+    <div className={`${style.parent} parent_modal`} onClick={() => handleModalOpen()}>
       <div onClick={(e) => e.stopPropagation()} className={`${style.sidebar} fixed left-0 top-0 min-h-full w-80 flex flex-col ${theme === "light" ? "bg-_white border-r border-light_Blue" : "bg-dark_Gray border-r border-medium_Gray"}`} >
 
         <ListBoardNames />

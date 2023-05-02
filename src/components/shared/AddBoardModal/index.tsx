@@ -7,6 +7,7 @@ import Button from "../Button"
 import { useDispatch } from "react-redux"
 import { createNewBoard } from "@/redux/board/reducer"
 import { Column } from "@/redux/board/boardTypes"
+import style from "./style.module.css"
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   const [columns, setColumns] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
@@ -26,12 +27,14 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", (ev) => {
+    const handleKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") {
-        closeModal()
+        closeModal();
       }
-    })
-  })
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const handleChangeInput = (id: number, value: string) => {
     const updatedColumns = columns.map(task => {
@@ -58,8 +61,8 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   } 
 
   return (
-    <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
-      <section onClick={(e) => e.stopPropagation()} style={{height: "429px"}} className={`overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
+    <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
+      <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add new board</h2>
         <label htmlFor="name" className={`flex flex-col my-4 gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
           Name

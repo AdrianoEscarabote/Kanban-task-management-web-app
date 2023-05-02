@@ -2,11 +2,12 @@ import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import { AddTaskModalTypes } from "./AddTask"
 import React, { useEffect, useState } from "react"
-import Button from "../shared/Button"
+import Button from "../Button"
 import Image from "next/image"
 import { addNewTask } from "@/redux/board/reducer"
 import { useDispatch } from "react-redux"
 import { createNewTask } from "@/redux/board/boardTypes"
+import style from "./style.module.css"
 
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
   const [title, setTitle] = useState<string>("")
@@ -18,13 +19,15 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    window.addEventListener("keydown", (ev) => {
+    const handleKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") {
-        closeModal()
+        closeModal();
       }
-    })
-  })
-
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+  
   const [subtasks, setSubtasks] = useState([{id: 1, value: ""}, {id: 2, value: ""}])
 
   const handleChangeInput = (id: number, value: string) => {
@@ -58,7 +61,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
         title: title,
         description: description,
         status: status,
-        subtasks: subtasks.map(sub => { return { title: sub.value }}) 
+        subtasks: subtasks.map(sub => { return { title: sub.value, isCompleted: false }}) 
       }
     }
     dispatch(addNewTask(obj))  
@@ -66,8 +69,9 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
   }
  
   return (
-    <div onClick={() => closeModal()} className={`fixed top-0 left-0 flex items-center p-4 justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
-      <section onClick={(e) => e.stopPropagation()} style={{height: "675px"}} className={`overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
+    <div onClick={() => closeModal()} className={`parent_modal overflow-y-scroll fixed top-0 left-0 flex items-center p-4 justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
+
+      <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add New Task</h2>
         <form noValidate={true}>
           <fieldset className="border-none flex flex-col gap-4 mt-5">

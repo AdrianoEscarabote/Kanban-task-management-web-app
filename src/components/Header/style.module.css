@@ -10,7 +10,11 @@
 @media (max-width: 48rem) {
   .h2 {
     font-size: 1.25rem;
+    max-width: 7.5rem;
     line-height: 1.5625rem;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
   }
 }
 
@@ -36,13 +40,23 @@
 }
 
 /* mobile */ 
-@media (max-width: 375px) {
+@media (max-width: 420px) {
   .parent_items {
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
-  .button_sidebar {
-    font-size: 18px;
-    line-height: 24px;
+  .text_button {
+    max-width: 12.5rem;
+    font-size: 1.125rem !important;
+    line-height: 1.5rem !important;
+    white-space: nowrap; /* Evita que o texto quebre em várias linhas */
+    overflow: hidden; /* Esconde o texto que ultrapassa os limites da caixa */
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 320px) {
+  .text_button {
+    max-width: 100px;
   }
 }

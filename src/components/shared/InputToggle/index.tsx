@@ -20,7 +20,7 @@ const InputToggle = () => {
 
   return (  
 
-    <div className={`${style.parent} rounded-md w-64 h-12 flex items-center justify-center gap-5 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"}`}>
+    <div style={{ maxWidth: "264px" }} className={`${style.parent} rounded-md w-full h-12 flex items-center justify-center gap-5 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"}`}>
 
       <Image src="/assets/icon-light-theme.svg" width="18" height="18" alt="" />
 
