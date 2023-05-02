@@ -1,5 +1,10 @@
 .buttonMobile {
   display: none !important;
+
+}
+
+.button_sidebar {
+  display: none;
 }
 
 @media (max-width: 48rem) {
@@ -10,6 +15,9 @@
 }
 
 @media (max-width: 620px) {
+  .button_sidebar {
+    display: flex;
+  }
   .header {
     height: 64px;
   }
@@ -21,5 +29,20 @@
   }
   .parent_items {
     border: none !important;
+  }
+  .h2 {
+    display: none;
+  }
+}
+
+/* mobile */ 
+@media (max-width: 375px) {
+  .parent_items {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .button_sidebar {
+    font-size: 18px;
+    line-height: 24px;
   }
 }
