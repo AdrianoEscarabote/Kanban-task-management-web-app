@@ -83,11 +83,11 @@ const Home = () => {
                       ? "done relative pl-6"
                       : ""}
                       `}>{col.name} ( {col.tasks ? col.tasks.length : 0 } )</h3>
-                      <ul key={index} className={`flex h-full flex-col gap-5 w-72 rounded-md ${col?.tasks?.length === 0 || !col.tasks ? theme === "light" ? "col-gradient" : "col-gradient-dark" : "" }`}>
+                      <ul key={index} style={{ width: "280px" }} className={`flex h-full flex-col gap-5 rounded-md ${col?.tasks?.length === 0 || !col.tasks ? theme === "light" ? "col-gradient" : "col-gradient-dark" : "" }`}>
                         {
                           col?.tasks?.map((col, index) => (
                             <li key={index} style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`}>
-                              <button className={`px-4 py-5 w-72 min-h-20 flex flex-col flex-start justify-start`} onClick={() => {
+                              <button className={`px-4 py-5 w-full min-h-20 flex flex-col flex-start justify-start`} onClick={() => {
                                 handleOpenViewTaskModal()
                                 setTask(col.title)
                               }}>
