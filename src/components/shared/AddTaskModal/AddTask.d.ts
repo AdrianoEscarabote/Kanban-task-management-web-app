@@ -2,4 +2,15 @@ interface AddTaskModalTypes {
   closeModal: () => void
 }
 
-export { AddTaskModalTypes }
+interface Subtask {
+  id: number;
+  value: string;
+}
+
+type formData = {
+  title: string;
+  status: string;
+  subtasks: Subtask[];
+}
+
+export { AddTaskModalTypes, formData }

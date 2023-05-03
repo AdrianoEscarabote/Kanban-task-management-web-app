@@ -19,3 +19,8 @@
     height: 20rem;
   }
 } 
+
+.button_remove_input:hover img {
+  transition: 0.0s;
+  filter: invert(39%) sepia(58%) saturate(703%) hue-rotate(312deg) brightness(107%) contrast(91%);
+}

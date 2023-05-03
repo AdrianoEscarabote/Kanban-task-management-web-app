@@ -87,17 +87,26 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
               : "text-_white"}`
             }>
               Name
-              <input {...register("nameInput", { required: true })} value={nameInput} onChange={(e) => {
-                setValue("nameInput", e.currentTarget.value)
-                setNameInput(e.currentTarget.value)
-              }} className={`
-                ${errors.nameInput 
-                ? "error_input" 
-                : ""} px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
-                ${theme === "light" 
-                ? "border-light_Blue" 
-                : "border-medium_Gray"} 
-              `} type="text" name="name" id="name" placeholder="e.g. Web Design" />
+              <input 
+                {...register("nameInput", { required: true })} 
+                value={nameInput} 
+                onChange={(e) => {
+                  setValue("nameInput", e.currentTarget.value)
+                  setNameInput(e.currentTarget.value)
+                }} 
+                className={`
+                  ${errors.nameInput 
+                  ? "error_input" 
+                  : ""} px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
+                  ${theme === "light" 
+                  ? "border-light_Blue" 
+                  : "border-medium_Gray"} 
+                `} 
+                type="text" 
+                name="name" 
+                id="name" 
+                placeholder="e.g. Web Design" 
+              />
               <span className="absolute text-_red right-3 top-9">
                 {errors.nameInput && "Can’t be empty"}
               </span>
