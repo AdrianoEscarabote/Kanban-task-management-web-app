@@ -11,4 +11,9 @@ interface ActionProps {
   columns: Column[]
 }
 
-export { AddBoardModalProps, ActionProps }
+type FormData = {
+  nameInput: string;
+  columns: string[];
+};
+
+export { AddBoardModalProps, ActionProps, FormData }

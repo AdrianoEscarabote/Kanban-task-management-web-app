@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { AddBoardModalProps } from "./AddBoardModalProps"
+import { AddBoardModalProps, FormData } from "./AddBoardModalProps"
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import Image from "next/image"
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux"
 import { createNewBoard } from "@/redux/board/reducer"
 import { Column } from "@/redux/board/boardTypes"
 import style from "./style.module.css"
+import { useForm } from "react-hook-form";
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   const [columns, setColumns] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
@@ -59,40 +60,90 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
     const newColumns = columns.filter((col) => col.id !== id) 
     setColumns(newColumns)
   } 
+  
+  const {  register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>()  
+
+  const onSubmit = handleSubmit(data => {
+    console.log(data)
+    handleAddNewBoard()  
+    closeModal()
+  })
+
+  useEffect(() => {
+    console.log(errors)
+  }, [columns])
 
   return (
     <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
       <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add new board</h2>
-        <label htmlFor="name" className={`flex flex-col my-4 gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
-          Name
-          <input value={nameInput} onChange={(e) => setNameInput(e.currentTarget.value)} className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" name="name" id="name" placeholder="e.g. Web Design" />
-        </label>
+        <form onSubmit={onSubmit}> 
+          <fieldset>
+            <legend className="sr-only">enter table details</legend>
+            <label htmlFor="name" 
+            className={`relative flex flex-col my-4 gap-2 font-bold text-xs 
+              ${theme === "light" 
+              ? "text-_gray" 
+              : "text-_white"}`
+            }>
+              Name
+              <input {...register("nameInput", { required: true })} value={nameInput} onChange={(e) => {
+                setValue("nameInput", e.currentTarget.value)
+                setNameInput(e.currentTarget.value)
+              }} className={`
+                ${errors.nameInput 
+                ? "error_input" 
+                : ""} px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
+                ${theme === "light" 
+                ? "border-light_Blue" 
+                : "border-medium_Gray"} 
+              `} type="text" name="name" id="name" placeholder="e.g. Web Design" />
+              <span className="absolute text-_red right-3 top-9">
+                {errors.nameInput && "Can’t be empty"}
+              </span>
+            </label>
+            <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
 
-          <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
-
-          {
-            columns.map(({ id, value }) => (
+            {columns.map(({ id, value }, index) => (
               <label key={id} htmlFor={`subtasks${id}`} className={`my-4 gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
                 <div className="flex items-center my-2">
-                  <input value={value} onChange={(ev) => handleChangeInput(id, ev.currentTarget.value)} className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} type="text" id={`subtasks${id}`} />
-                  <button type="button" className="w-10 grid place-content-center" onClick={() => handleRemoveColumn(id)}>
+                  <input 
+                    {...register(`columns.${index}`, { required: true })}
+                    value={value} 
+                    onChange={(ev) => {
+                      setValue(`columns.${index}`, ev.currentTarget.value);
+                      handleChangeInput(id, ev.currentTarget.value)
+                    }} 
+                    className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
+                    ${theme === "light" 
+                    ? "border-light_Blue" 
+                    : "border-medium_Gray"} `} 
+                    type="text" 
+                    id={`subtasks${id}`} 
+                  />
+
+                  <button
+                    type="button" 
+                    className="w-10 grid place-content-center" 
+                    onClick={() => handleRemoveColumn(id)}
+                  >
                     <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
                   </button>
+                  {errors[`columns.${index}` as keyof FormData] && (
+                    <span className="text-red-500">Este campo é obrigatório</span>
+                  )}
                 </div>
               </label>
-            ))
-          }
+            ))}
 
-          <div className="mt-4 flex flex-col gap-4">
-            <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddColumn} />
+            <div className="mt-4 flex flex-col gap-4">
+              <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddColumn} />
 
-            <Button size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" onClick={() => {
-              handleAddNewBoard()  
-              closeModal()
-            }} />
-          </div>
+              <Button type="submit" size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" />
+            </div>
 
+          </fieldset>
+        </form>
       </section>
     </div>
   ) 
