@@ -9,6 +9,7 @@ import { createNewBoard } from "@/redux/board/reducer"
 import { Column } from "@/redux/board/boardTypes"
 import style from "./style.module.css"
 import { useForm } from "react-hook-form";
+import { setNameBoard } from "@/redux/nameBoard/actions"
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   const [columns, setColumns] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
@@ -25,6 +26,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
       return obj;
     });
     dispatch(createNewBoard({ name: nameInput, columns: arrFormatted }));
+    dispatch(setNameBoard(nameInput))
   };
 
   useEffect(() => {
