@@ -179,3 +179,12 @@ select {
     opacity: 1;
   }
 }
+
+.error_input {
+  border: 1px solid #EA5555 !important;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
