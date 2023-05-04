@@ -13,12 +13,17 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
-  const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
-  
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
 
+  const buttonDisabled = boardData.boards.length === 0
+  
   const handleClickOpenModal = () => {
-    setModalOpen(!modalOpen)
+    if (buttonDisabled) {
+      return null
+    } else {
+      setModalOpen(!modalOpen)
+    }
   }
 
   const handleOpenSidebar = () => {
@@ -49,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
 
         <div className={`${style.parent_items} py-5 relative px-5 border-l content flex items-center justify-between w-full ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"}`}>
 
-          <h2 className={`${style.h2} text-2xl font-bold ${theme === "light" ? "text-black" : "text-white"}`}>{!nameBoard ? boardNames.boards[0]?.name : nameBoard }</h2>
+          <h2 className={`${style.h2} text-2xl font-bold ${theme === "light" ? "text-black" : "text-white"}`}>{!nameBoard ? boardData.boards[0]?.name : nameBoard }</h2>
 
           <button 
             onClick={handleOpenSidebar}
@@ -58,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
             ? "text-black" 
             : "text-white"}`
             } >
-              <span className={style.text_button}>{!nameBoard ? boardNames.boards[0]?.name : nameBoard }</span>
+              <span className={style.text_button}>{!nameBoard ? boardData.boards[0]?.name : nameBoard }</span>
               <Image 
                 className="mt-1"
                 src={sidebarOpen ? "/assets/icon-chevron-up.svg" : "/assets/icon-chevron-down.svg"} 
@@ -69,9 +74,15 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
             </button>
 
           <div className="wrapper_buttons flex items-center justify-center">
-            {<button onClick={handleClickOpenModal} className={`${style.buttonDesktop} bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-5 text-sm font-bold hover:bg-purple_Light`}>+ Add new Task</button>}
+            {<button onClick={handleClickOpenModal} className={`${style.buttonDesktop} 
+            ${buttonDisabled 
+            ? "disabled" 
+            : ""} bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-5 text-sm font-bold hover:bg-purple_Light`}>+ Add new Task</button>}
             
-            <button onClick={handleClickOpenModal} className={`${style.buttonMobile} flex place-content-center bg-purple_Dark text-_white w-12 h-8 rounded-3xl mr-2 pb-1 text-sm font-bold hover:bg-purple_Light`}>+</button>
+            <button onClick={handleClickOpenModal} className={`${style.buttonMobile} 
+            ${buttonDisabled 
+            ? "disabled" 
+            : ""} flex place-content-center bg-purple_Dark text-_white w-12 h-8 rounded-3xl mr-2 pb-1 text-sm font-bold hover:bg-purple_Light`}>+</button>
 
             <Ellipsis />
 
@@ -79,11 +90,8 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
           {
             modalOpen ? <AddTaskModal closeModal={handleClickOpenModal} /> : null
           }
-
         </div>
-
       </nav>
-      
     </header>
   );
 };

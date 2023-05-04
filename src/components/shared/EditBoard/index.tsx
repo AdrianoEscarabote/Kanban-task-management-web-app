@@ -126,36 +126,38 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
               </span>
             </label>
             <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
-            {
-              columns.map(({ id, value }) => (
-                <label key={id} htmlFor={`subtasks${id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+            <div className="flex flex-col gap-3 py-3">
+              {
+                columns.map(({ id, value }) => (
+                  <label key={id} htmlFor={`subtasks${id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
 
-                  <input 
-                    {...register(`columns.${id}.value`, { required: true })}
-                    value={value} 
-                    onChange={(ev) => {
-                      setValue(`columns.${id}.value`, ev.currentTarget.value)
-                      handleChangeInput(id, ev.currentTarget.value)
-                    }} 
-                    className={`px-4 py-2 rounded-md bg-transparent h-10 max-w-sm w-full border border-1 
-                    ${theme === "light" 
-                    ? "border-light_Blue" 
-                    : "border-medium_Gray"} `} 
-                    type="text" 
-                    name="subtask" 
-                    id={`subtasks${id}`} 
-                    placeholder="e.g. Make coffee" 
-                  />                  
-                  <button 
-                    type="button" 
-                    className="w-10 grid place-content-center" 
-                    onClick={() => handleRemoveInput(id)}
-                  >
-                    <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
-                  </button>
-                </label>
-              ))
-            }
+                    <input 
+                      {...register(`columns.${id}.value`, { required: true })}
+                      value={value} 
+                      onChange={(ev) => {
+                        setValue(`columns.${id}.value`, ev.currentTarget.value)
+                        handleChangeInput(id, ev.currentTarget.value)
+                      }} 
+                      className={`px-4 py-2 rounded-md bg-transparent h-10 max-w-sm w-full border border-1 
+                      ${theme === "light" 
+                      ? "border-light_Blue" 
+                      : "border-medium_Gray"} `} 
+                      type="text" 
+                      name="subtask" 
+                      id={`subtasks${id}`} 
+                      placeholder="e.g. Make coffee" 
+                    />                  
+                    <button 
+                      type="button" 
+                      className="w-10 grid place-content-center" 
+                      onClick={() => handleRemoveInput(id)}
+                    >
+                      <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
+                    </button>
+                  </label>
+                ))
+              }
+            </div>
             <div className="flex flex-col items-center gap-4">
               <Button 
                 size="small" 

@@ -5,7 +5,7 @@ test('renders Header component', () => {
   
   render(<Header />)
 
-  const headingElement = screen.getByText(/estou no header/i)
+  const headingElement = screen.getByText(/+ Add new Task/i)
 
   expect(headingElement).toBeInTheDocument()
 
