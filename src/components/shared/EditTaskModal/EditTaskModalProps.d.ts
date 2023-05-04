@@ -9,4 +9,9 @@ interface Subtask {
   id: number;
 }
 
-export { EditTaskModalProps, Subtask }
+type formData = {
+  title: string;
+  subtasks: string[];
+}
+
+export { EditTaskModalProps, Subtask, formData }

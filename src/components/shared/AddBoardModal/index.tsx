@@ -69,10 +69,6 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
     closeModal()
   })
 
-  useEffect(() => {
-    console.log(errors)
-  }, [columns])
-
   return (
     <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
       <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>

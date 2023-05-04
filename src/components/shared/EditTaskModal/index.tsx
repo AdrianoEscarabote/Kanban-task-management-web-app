@@ -1,12 +1,13 @@
 import { rootState } from "@/redux/reduxTypes"
 import { useSelector } from "react-redux"
-import { EditTaskModalProps, Subtask } from "./EditTaskModalProps"
+import { EditTaskModalProps, Subtask, formData } from "./EditTaskModalProps"
 import { useEffect, useState } from "react"
 import Button from "../Button"
 import Image from "next/image"
 import { useDispatch } from "react-redux"
 import { EditTask, changeStatus } from "@/redux/board/reducer"
 import style from "./style.module.css"
+import { useForm } from "react-hook-form"
 
 const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
   const boardReducer = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
@@ -30,7 +31,6 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
     });
   };
   
-
   const handleRemoveSubtask = (id: number) => {
     setSubtasks(prevSubtasks => {
       const index = prevSubtasks.findIndex(task => task.id === id);
@@ -89,26 +89,66 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<formData>()
+
+  const onSubmit = handleSubmit(() => {
+    if (initialStatus !== status) {
+      dispatch(
+        changeStatus({
+          boardName: nameBoard,
+          name: task,
+          status: status,
+          description: description,
+          subtasks: subtasks,
+        })
+      );
+      setInitialStatus(status);
+    }
+    closeModal();
+    handleEditTask()
+  })
+ 
   return (
     <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
       <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
         <div className="flex items-center relative w-full overflow-visible justify-between">
           <h2 className={`font-bold text-lg ${theme === "light" ? "text-_dark" : "text-_white"}`}>Edit Task</h2>
         </div>
-        <form noValidate={true}>
+        <form onSubmit={onSubmit}>
           <fieldset className="border-none flex flex-col gap-4 mt-5">
             <legend className="sr-only">put your task information</legend>
-            <label htmlFor="title" className={`flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+            <label 
+              htmlFor="title"
+              className={`flex relative flex-col gap-2 font-bold text-xs 
+              ${theme === "light" 
+              ? "text-_gray" 
+              : "text-_white"}`
+             }>
               Title
               <input 
+                {...register("title", { required: true })}
                 value={title}
-                onChange={(e) => setTitle(e.currentTarget.value)}
-                className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} 
-                type="text" 
+                onChange={(e) => {
+                  setTitle(e.currentTarget.value)
+                  setValue("title", e.currentTarget.value)
+                }}
+                className={`
+                  ${errors.title 
+                  ? "error_input" 
+                  : ""} 
+                  px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
+                  ${theme === "light" 
+                  ? "border-light_Blue" 
+                  : "border-medium_Gray"} 
+                `}  
+                type="text"
                 id="title" 
                 name="title" 
                 placeholder="e.g. Take coffee break" 
               />
+              <span className="absolute text-_red right-3 top-9">
+                {errors.title && "Can’t be empty"}
+              </span>
             </label>
             <label htmlFor="description" className={`flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
               Description
@@ -126,8 +166,12 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
               subtasks.map((task, index) => (
                 <label key={task.id} htmlFor={`subtasks${task.id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
                   <input
+                    {...register(`subtasks.${index}`, { required: true })}
                     value={task.title}
-                    onChange={(e) => handleChangeInput(index, e.currentTarget.value)}
+                    onChange={(e) => {
+                      handleChangeInput(index, e.currentTarget.value)
+                      setValue(`subtasks.${index}`, e.currentTarget.value)
+                    }}
                     className={`px-4 py-2 rounded-md bg-transparent h-10 max-w-sm w-full border border-1 
                     ${theme === "light" 
                     ? "border-light_Blue" 
@@ -163,15 +207,15 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
                 id="status"
               >
                 {
-                    boardReducer.boards.filter(board => board.name === nameBoard).map(board => board.columns.map((col, index) => (
-                      <option 
-                      key={index}
-                      className={`cursor-pointer rounded-lg ${theme === "light" ? "text-_dark bg-_white" : "text-_white bg-almost_Dark"}`} 
-                      value={col.name}>
-                        {col.name}
-                      </option>
-                    )))
-                  }
+                  boardReducer.boards.filter(board => board.name === nameBoard).map(board => board.columns.map((col, index) => (
+                    <option 
+                    key={index}
+                    className={`cursor-pointer rounded-lg ${theme === "light" ? "text-_dark bg-_white" : "text-_white bg-almost_Dark"}`} 
+                    value={col.name}>
+                      {col.name}
+                    </option>
+                  )))
+                }
               </select>
             </label>
             <Button 
@@ -179,22 +223,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
               label="Save Task" 
               backgroundColor="#635FC7" 
               textColor="#FFF" 
-              onClick={() => {
-                if (initialStatus !== status) {
-                  dispatch(
-                    changeStatus({
-                      boardName: nameBoard,
-                      name: task,
-                      status: status,
-                      description: description,
-                      subtasks: subtasks,
-                    })
-                  );
-                  setInitialStatus(status);
-                }
-                closeModal();
-                handleEditTask()
-              }}
+              type="submit"
             />
           </fieldset>
         </form>
