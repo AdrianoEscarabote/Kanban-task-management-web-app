@@ -16,11 +16,19 @@ const boardSlice = createSlice({
 
     createNewBoard: (state, action: PayloadAction<createNewBoardType>) => {
       const { name, columns } = action.payload;
-      state.boards.push({ name: name, columns: columns })
+      if (state.boards.filter(board => board.name === name).length === 0) {
+        state.boards.push({ name: name, columns: columns })
+        localStorage.setItem("board", JSON.stringify(state))
+      } else {
+        return {
+          ...state
+        }
+      }
     },
 
     deleteBoard: (state, action: PayloadAction<NameToDelete>) => {
       state.boards = state.boards.filter((board) => board.name !== action.payload.name)
+      localStorage.setItem("board", JSON.stringify(state))
     },
 
     deleteTask: (state, action: PayloadAction<NameToDelete>) => {
@@ -42,6 +50,7 @@ const boardSlice = createSlice({
           columns: newColumns
         }
       })
+      localStorage.setItem("board", JSON.stringify(state))
     },
 
     changeCheckboxChecked: (state, action: PayloadAction<ChangeRadioChecked>) => {
@@ -72,6 +81,7 @@ const boardSlice = createSlice({
           })
         }
       })
+      localStorage.setItem("board", JSON.stringify(state))
     },
 
     editBoard: (state, action: PayloadAction<EditBoardType>) => {
@@ -100,6 +110,7 @@ const boardSlice = createSlice({
         }
         return board
       })
+      localStorage.setItem("board", JSON.stringify(state))
     },
     addNewTask: (state, action: PayloadAction<createNewTask>) => {
       const { Task, nameColumn } = action.payload 
@@ -110,10 +121,10 @@ const boardSlice = createSlice({
         }
         return board
       })
+      localStorage.setItem("board", JSON.stringify(state))
     },
     changeStatus: (state, action: PayloadAction<ChangeStatusType>) => {
       const { boardName, name, status, description, subtasks } = action.payload
-
 
       state.boards = state.boards.map(board => {
         if (board.name === boardName) {
@@ -149,7 +160,8 @@ const boardSlice = createSlice({
           return { ...board, columns: newColumns }
         }
         return board
-      })      
+      })     
+      localStorage.setItem("board", JSON.stringify(state)) 
     },
     EditTask: (state, action: PayloadAction<EditTaskType>) => {
       const { description, status, subtasks, title, oldName } = action.payload
@@ -177,6 +189,7 @@ const boardSlice = createSlice({
           })
         }
       })
+      localStorage.setItem("board", JSON.stringify(state))
     }
   }
 });
