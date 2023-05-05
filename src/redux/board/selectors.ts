@@ -9,3 +9,8 @@ export const selectCheckboxCheckedCount = (taskName: string) => createSelector(
       .filter(task => task.title === taskName) // filtrar a tarefa correta
       .map(task => task.subtasks.filter(item => item.isCompleted).length)))
 )
+
+export const selectBoardsCount = createSelector(
+  [selectBoardState],
+  (board) => board.boards.length
+)
