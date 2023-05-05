@@ -13,7 +13,7 @@ import style from "./style.module.css"
 const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeModal, taskTarget, openDeleteTaskModal }) => {
   const dispatch = useDispatch()
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
-  const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
   const [sideTasks, setSideTasks] = useState<sideTaskTypes[]>([])
   const [description, setDescription] = useState<string>("")
@@ -24,7 +24,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
   const checkboxCheckedCount  = useSelector(selectCheckboxCount)
   
   useEffect(() => {
-    boardNames.boards.map(board => board.columns.map(col => col.tasks?.filter(task => {
+    boardData.boards.map(board => board.columns.map(col => col.tasks?.filter(task => {
       if (task.title === taskTarget) {
         setSideTasks([...sideTasks, task])
         setDescription(task.description)
@@ -104,7 +104,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                 name="status" 
                 id="status">
                   {
-                    boardNames.boards.filter(board => board.name === nameBoard).map(board => board.columns.map((col, index) => (
+                    boardData.boards.filter(board => board.name === nameBoard).map(board => board.columns.map((col, index) => (
                       <option 
                       key={index}
                       className={`cursor-pointer rounded-lg ${theme === "light" ? "text-_dark bg-_white" : "text-_white bg-almost_Dark"}`} 

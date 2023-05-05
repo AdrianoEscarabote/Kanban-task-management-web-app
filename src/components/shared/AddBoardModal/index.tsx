@@ -63,7 +63,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
     setColumns(newColumns)
   } 
   
-  const {  register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>()  
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>()  
 
   const onSubmit = handleSubmit(data => {
     console.log(data)

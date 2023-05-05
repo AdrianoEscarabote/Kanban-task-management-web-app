@@ -6,14 +6,16 @@ import { setNameBoard } from "@/redux/nameBoard/actions";
 import { useState } from "react";
 import AddBoardModal from "../AddBoardModal";
 import style from "./style.module.css"
+import { selectBoardsCount } from "@/redux/board/selectors";
 
 const ListBoardNames = () => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const dispatch = useDispatch()
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
-
+  const boardsCount = useSelector(selectBoardsCount)
+  
   const handleClickButton = (payload: string) => {
     dispatch(setNameBoard(payload))
   }
@@ -23,12 +25,11 @@ const ListBoardNames = () => {
   }
 
   return (
-   
       <section className={`py-3 pr-6 ${style.section}`}>
-        <p className="pl-5 text-_gray font-bold text-xs">ALL BOARDS ( {boardNames.boards.length} )</p>    
+        <p className="pl-5 text-_gray font-bold text-xs">ALL BOARDS ( { boardsCount } )</p>    
         <ul className="flex items-start flex-col gap-2 mt-4 font-bold text-sm/5 text-_gray">
             {
-              boardNames.boards.map((board, index) => (
+              boardData.boards.map((board, index) => (
                 <li key={index} className="w-full p-0">
                   <button 
                   onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} 

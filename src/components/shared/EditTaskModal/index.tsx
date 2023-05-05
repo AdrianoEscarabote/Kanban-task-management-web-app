@@ -10,7 +10,7 @@ import style from "./style.module.css"
 import { useForm } from "react-hook-form"
 
 const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
-  const boardReducer = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const [title, setTitle] = useState<string>("");
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
@@ -63,12 +63,13 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
   }
 
   useEffect(() => {
-    boardReducer.boards.map(board => board.columns.map(col => col.tasks.filter(tasks => {
+    boardData.boards.map(board => board.columns.map(col => col.tasks.filter(tasks => {
       if (tasks.title === task) {
         setTitle(tasks.title)
         setDescription(tasks.description)
         setStatus(tasks.status)
         setInitialStatus(status)
+        setValue("title", tasks.title)
         const newSubtasks = tasks.subtasks.map(sub => {
           const newId = subtasks.length + 1
           const newSubtask: Subtask = { id: newId, isCompleted: sub.isCompleted, title: sub.title }
@@ -207,7 +208,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
                 id="status"
               >
                 {
-                  boardReducer.boards.filter(board => board.name === nameBoard).map(board => board.columns.map((col, index) => (
+                  boardData.boards.filter(board => board.name === nameBoard).map(board => board.columns.map((col, index) => (
                     <option 
                     key={index}
                     className={`cursor-pointer rounded-lg ${theme === "light" ? "text-_dark bg-_white" : "text-_white bg-almost_Dark"}`} 

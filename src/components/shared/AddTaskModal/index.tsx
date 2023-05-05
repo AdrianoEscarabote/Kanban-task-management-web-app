@@ -15,7 +15,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
   const [description, setDescription] = useState<string>("")
   const [status, setStatus] = useState<string>("")
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)  
-  const boardSlice = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
   const dispatch = useDispatch()
 
@@ -174,7 +174,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                 `}>
                   Select an option
                 </option>
-                {boardSlice.boards.map((board) => {
+                {boardData.boards.map((board) => {
                   if (board.name !== nameBoard) {
                     return null;
                   }

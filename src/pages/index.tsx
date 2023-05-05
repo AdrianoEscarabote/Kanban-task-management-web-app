@@ -11,13 +11,15 @@ import DeleteTaskModal from '@/components/shared/DeleteTaskModal'
 import style from "../styles/style.module.css"
 import Button from '@/components/shared/Button'
 import EditTaskModal from '@/components/shared/EditTaskModal'
+import { useTheme } from '@/custom/theme'
 
 const Home = () => {
   const dispatch = useDispatch()
+  useTheme()
   useBoardNames()
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
-  const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const [task, setTask] = useState<string>("")
   const [editBoardOpen, setEditBoardOpen] = useState<boolean>(false)
   const [viewTaskModalOpen, setViewTaskModalOpen] = useState<boolean>(false)
@@ -58,12 +60,18 @@ const Home = () => {
       </Head>
       <>
         {            
-          boardNames.boards
-          .filter((board) => board.name === (!nameBoard ? boardNames.boards[0].name : nameBoard))
-          .map((board) => (
+          boardData.boards
+          .filter((board) => board.name === (!nameBoard ? boardData.boards[0].name : nameBoard))
+          .map((board, index) => (
             board &&
             board.columns.length !== 0 ?
-            <main className={`transition min-h-screen overflow-y-scroll pt-20 duration-0 flex flex-col items-start justify-between ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark" }`}>
+            <main 
+              key={index} 
+              className={`transition min-h-screen overflow-y-scroll pt-20 duration-0 flex flex-col items-start justify-between 
+              ${theme === "light" 
+              ? "bg-almost_White" 
+              : "bg-almost_Dark" }`
+            }>
               <section className='h-full flex items-start gap-6 p-5'>
                 {
                   board.columns.map((col, index) => (

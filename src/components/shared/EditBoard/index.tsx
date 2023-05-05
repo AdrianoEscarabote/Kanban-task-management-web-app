@@ -13,12 +13,14 @@ import { useForm } from "react-hook-form";
 
 const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
   const dispatch = useDispatch()
-  const boardNames = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer) 
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
-  const [inputNameValue, setInputValueName] = useState<string>(nameBoard ? nameBoard : boardNames.boards[0].name)
-  const colNames = boardNames.boards
-  .filter((board) => board.name === (nameBoard ? nameBoard : boardNames.boards[0].name))
+
+  const [inputNameValue, setInputValueName] = useState<string>(nameBoard ? nameBoard : boardData.boards[0].name)
+  
+  const colNames = boardData.boards
+  .filter((board) => board.name === (nameBoard ? nameBoard : boardData.boards[0].name))
   .map(item => item.columns.map(col => col.name))
   .flat()
 
