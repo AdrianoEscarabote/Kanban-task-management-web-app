@@ -10,3 +10,8 @@ export const themeDark = (payload: themeTypes) => ({
   type: themeActionTypes.dark,
   payload: payload,
 });
+
+export const setLocalStorageValue = (payload: string) => ({
+  type: themeActionTypes.setLocalStorageValue,
+  payload: payload,
+});
