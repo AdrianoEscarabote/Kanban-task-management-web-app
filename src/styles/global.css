@@ -164,6 +164,7 @@ select {
   }
   .mainSidebarOpen {
     margin-left: 0px;
+    padding-top: 60px;
   } 
 }
 
