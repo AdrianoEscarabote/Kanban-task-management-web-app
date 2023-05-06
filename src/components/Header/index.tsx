@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { HeaderProps } from "./HeaderProps";
 import { rootState } from "@/redux/reduxTypes";
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -7,9 +6,9 @@ import Sidebar from "../SidebarDesktop";
 import Ellipsis from "../shared/EllipsisBoard";
 import AddTaskModal from "../shared/AddTaskModal";
 import style from "./style.module.css"
-import SidebarMobile from "../SidebarMobile";
+import MobileMenu from "../MobileMenu"; 
  
-const Header: React.FC<HeaderProps> = ({ open }) => {
+const Header = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
@@ -37,13 +36,13 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
         <Sidebar />
 
         {
-          sidebarOpen ? <SidebarMobile handleModal={handleOpenSidebar} /> : null
+          sidebarOpen ? <MobileMenu handleModal={handleOpenSidebar} /> : null
         }
 
         <picture className="my-5 mx-5 h-auto">
           <source media="(max-width:620px)" srcSet={"/assets/logo-mobile.svg"} width="24" height="25" />
           <Image 
-            style={{ width: "auto" }}  
+            style={{ height: "auto", width: "auto" }}  
             src={theme === "light" ? "/assets/logo-dark.svg" : "/assets/logo-light.svg"} 
             height="25" 
             width="160" 
@@ -57,6 +56,7 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
           <h2 className={`${style.h2} text-2xl font-bold ${theme === "light" ? "text-black" : "text-white"}`}>{!nameBoard ? boardData.boards[0]?.name : nameBoard }</h2>
 
           <button 
+            aria-label={`${sidebarOpen ? "close Sidebar" : "open Sidebar"}`}
             onClick={handleOpenSidebar}
             className={`${style.button_sidebar} text-2xl font-bold items-center gap-2
             ${theme === "light" 
@@ -74,12 +74,17 @@ const Header: React.FC<HeaderProps> = ({ open }) => {
             </button>
 
           <div className="wrapper_buttons flex items-center justify-center">
-            {<button onClick={handleClickOpenModal} className={`${style.buttonDesktop} 
+            <button onClick={handleClickOpenModal} className={`${style.buttonDesktop} 
             ${buttonDisabled 
             ? "disabled" 
-            : ""} bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-5 text-sm font-bold hover:bg-purple_Light`}>+ Add new Task</button>}
+            : ""} bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-5 text-sm font-bold hover:bg-purple_Light`}>+ Add new Task</button>
             
-            <button onClick={handleClickOpenModal} className={`${style.buttonMobile} 
+            <button 
+            aria-label={modalOpen 
+              ? "close add task modal" 
+              : "open add task modal"}
+            onClick={handleClickOpenModal}
+            className={`${style.buttonMobile}
             ${buttonDisabled 
             ? "disabled" 
             : ""} flex place-content-center bg-purple_Dark text-_white w-12 h-8 rounded-3xl mr-2 pb-1 text-sm font-bold hover:bg-purple_Light`}>+</button>
