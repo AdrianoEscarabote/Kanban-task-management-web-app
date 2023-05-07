@@ -7,11 +7,8 @@ import ListBoardNames from "../shared/ListBoardNames"
 import style from "./style.module.css"
 
 const SidebarDesktop = () => {
-
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
-
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
-
   const handleClickOpenSidebar = () => {
     setSidebarOpen(!sidebarOpen)
   };
@@ -21,7 +18,7 @@ const SidebarDesktop = () => {
       document.querySelector(".content")?.classList.add("sidebarOpen")
     : 
     document.querySelector(".content")?.classList.remove("sidebarOpen") 
-    
+
     sidebarOpen ? 
     document.querySelector("main")?.classList.add("mainSidebarOpen")
     :
