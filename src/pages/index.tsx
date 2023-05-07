@@ -1,5 +1,5 @@
 import { rootState } from '@/redux/reduxTypes'
-import useBoardNames from '@/custom/boardNames/useBoardNames'
+import useBoardData from '@/custom/boardData/useBoardData'
 import Head from 'next/head'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -16,7 +16,7 @@ import { useTheme } from '@/custom/theme'
 const Home = () => {
   const dispatch = useDispatch()
   useTheme()
-  useBoardNames()
+  useBoardData()
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
