@@ -37,3 +37,10 @@
     margin: 0px !important;
   }
 }
+
+@media (max-width: 620px) and (max-height: 510px) {
+  .parent {
+    z-index: 1000;
+    top: 0px;
+  }
+}

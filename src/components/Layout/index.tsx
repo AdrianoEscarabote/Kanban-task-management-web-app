@@ -6,7 +6,7 @@ import Header from "../Header";
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <Header open={false} />
+      <Header />
       {children}
     </>
   );
