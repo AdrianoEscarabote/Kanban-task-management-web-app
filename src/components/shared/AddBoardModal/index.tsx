@@ -16,6 +16,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   const [nameInput, setNameInput] = useState<string>("");
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const dispatch = useDispatch()
+  const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
 
   const handleAddNewBoard = () => {
     const arrFormatted = columns.map(item => {
@@ -65,8 +66,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   
   const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>()  
 
-  const onSubmit = handleSubmit(data => {
-    console.log(data)
+  const onSubmit = handleSubmit(() => {
     handleAddNewBoard()  
     closeModal()
   })
@@ -105,6 +105,13 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
                 id="name" 
                 placeholder="e.g. Web Design" 
               />
+              {
+                boardData.boards.filter(board => board.name === nameInput).length === 0 ?
+                null : (
+                  <span className="absolute text-_red right-3 top-0">Repeated name</span>
+                )
+              }
+              <span></span>
               <span className="absolute text-_red right-3 top-9">
                 {errors.nameInput && "Can’t be empty"}
               </span>
@@ -144,9 +151,23 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
             ))}
 
             <div className="mt-4 flex flex-col gap-4">
-              <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddColumn} />
-
-              <Button type="submit" size="small" label="Create New Board" backgroundColor="#635FC7" textColor="#FFF" />
+              <Button 
+                size="small" 
+                label="+ Add New Subtask" 
+                textColor="#635FC7" 
+                backgroundColor={`
+                ${theme === "light" 
+                ? "#635fc719" 
+                : "#FFF"}`} 
+                onClick={handleAddColumn} 
+              />
+              <Button 
+                type="submit" 
+                size="small" 
+                label="Create New Board"
+                backgroundColor="#635FC7" 
+                textColor="#FFF" 
+              />
             </div>
 
           </fieldset>
