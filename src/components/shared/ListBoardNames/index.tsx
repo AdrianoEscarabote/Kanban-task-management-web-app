@@ -7,8 +7,9 @@ import { useState } from "react";
 import AddBoardModal from "../AddBoardModal";
 import style from "./style.module.css"
 import { selectBoardsCount } from "@/redux/board/selectors";
+import { ListBoardNamesProps } from "./ListBoardNamesProps";
 
-const ListBoardNames = () => {
+const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
@@ -18,6 +19,9 @@ const ListBoardNames = () => {
   
   const handleClickButton = (payload: string) => {
     dispatch(setNameBoard(payload))
+    if (closeModal) {
+      closeModal()
+    }
   }
 
   const handleClickButtonModalBoard = () => {
