@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setBoards } from "@/redux/board/reducer";
+import { setNameBoard } from "@/redux/nameBoard/actions";
 
 const useBoardData = () => {
   const dispatch = useDispatch()
@@ -17,6 +18,7 @@ const useBoardData = () => {
           // Calls the setBoards action to update the state in Redux with the received data
           dispatch(setBoards(response.data))
           localStorage.setItem("board", JSON.stringify(response.data))
+          dispatch(setNameBoard(response.data.boards[0].name))
         }
       } catch (err) {
         console.log(err);

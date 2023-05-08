@@ -14,7 +14,6 @@ const boardSlice = createSlice({
     
     setBoards: (state, action: PayloadAction<BoardDataType>) => {
       state.boards = action.payload.boards;
-      setNameBoard(state.boards[0].name)
     },
 
     createNewBoard: (state, action: PayloadAction<createNewBoardType>) => {
