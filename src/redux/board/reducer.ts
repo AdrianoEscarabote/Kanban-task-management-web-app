@@ -1,6 +1,7 @@
 import { couldStartTrivia } from "typescript";
 import { BoardDataType, ChangeRadioChecked, ChangeStatusType, createNewBoardType, createNewTask, DragTaskTypes, EditBoardType, EditTaskType, NameToDelete } from "./boardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"; 
+import { setNameBoard } from "../nameBoard/actions";
 
 // initial state
 const initialState: BoardDataType = { boards: [] }
@@ -13,6 +14,7 @@ const boardSlice = createSlice({
     
     setBoards: (state, action: PayloadAction<BoardDataType>) => {
       state.boards = action.payload.boards;
+      setNameBoard(state.boards[0].name)
     },
 
     createNewBoard: (state, action: PayloadAction<createNewBoardType>) => {
