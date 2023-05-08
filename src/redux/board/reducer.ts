@@ -1,10 +1,11 @@
-import { BoardDataType, ChangeRadioChecked, ChangeStatusType, createNewBoardType, createNewTask, EditBoardType, EditTaskType, NameToDelete } from "./boardTypes";
+import { couldStartTrivia } from "typescript";
+import { BoardDataType, ChangeRadioChecked, ChangeStatusType, createNewBoardType, createNewTask, DragTaskTypes, EditBoardType, EditTaskType, NameToDelete } from "./boardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"; 
 
-// estado inicial 
+// initial state
 const initialState: BoardDataType = { boards: [] }
 
-// cria o slice usando o createSlice
+// create the slice using createSlice
 const boardSlice = createSlice({
   name: "board",
   initialState,
@@ -190,10 +191,36 @@ const boardSlice = createSlice({
         }
       })
       localStorage.setItem("board", JSON.stringify(state))
+    },
+    dragTask: (state, action: PayloadAction<DragTaskTypes>) => {
+      const { currentColIndex, prevColIndex, taskIndex, boardName } = action.payload
+
+      state.boards = state.boards.map(board => {
+        if (board.name === boardName) {
+          // column the task is in!
+          const currentColumn = board.columns.find((col, index) => index === currentColIndex)
+
+          if (currentColumn) {
+            
+            // removes the task from the column and returns
+            const task = currentColumn.tasks.splice(taskIndex, 1)[0]
+
+            const prevColumn = board.columns.find((col, index) => index === prevColIndex)
+
+            // if the new column is true, I will add the task!
+            if (prevColumn){
+              const { description, subtasks, title } = task
+              prevColumn.tasks.push({ description, subtasks, title, status: prevColumn.name })
+            }
+          }
+        }
+        return board
+      })
+      localStorage.setItem("board", JSON.stringify(state))
     }
   }
 });
 
-export const { EditTask, changeCheckboxChecked, changeStatus, setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
+export const { dragTask, EditTask, changeCheckboxChecked, changeStatus, setBoards, createNewBoard, deleteBoard, editBoard, deleteTask, addNewTask } = boardSlice.actions
 
 export default boardSlice.reducer

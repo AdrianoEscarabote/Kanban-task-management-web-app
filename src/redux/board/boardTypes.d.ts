@@ -93,4 +93,11 @@ interface ChangeRadioChecked {
   isCompleted: boolean;
 }
 
-export { EditTaskType, ChangeRadioChecked, Subtask, Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
+interface DragTaskTypes {
+  currentColIndex: number;
+  prevColIndex: number;
+  taskIndex: number;
+  boardName: string;
+}
+
+export { DragTaskTypes, EditTaskType, ChangeRadioChecked, Subtask, Board, Task, Column, ChangeStatusType, createNewTask, BoardEditNewType, intialState, ActionProps, BoardDataType, createNewBoardType, NameToDelete, EditBoardType }
