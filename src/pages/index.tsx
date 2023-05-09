@@ -132,32 +132,34 @@ const Home = () => {
                       : "" }`}>
                         {
                           col?.tasks?.map((col, taskIndex) => (
-                            <li 
-                              draggable 
-                              onDragStart={(ev) => handleOnDrag(ev, colIndex, taskIndex)}
-                              key={taskIndex} 
-                              style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg 
-                              ${theme === "light" 
-                              ? "bg-_white" 
-                              : "bg-dark_Gray"}`}
-                            >
-                              <button 
-                              className={`px-4 py-5 w-full min-h-20 flex flex-col flex-start justify-start`} 
-                              onClick={() => {
-                                handleOpenViewTaskModal()
-                                setTask(col.title)
-                              }}>
-                                <div className="flex flex-col gap-2">
-                                  <p className={`text-start font-bold text-base/5 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.title}</p>
-                                  {
-                                    col.subtasks.length > 0 
-                                    ? 
-                                    <span className={`text-_gray font-bold text-xs self-start`}>{col.subtasks.filter(sub => sub.isCompleted).length} of {col.subtasks.length} subtasks</span> 
-                                    : null 
-                                  }
-                                </div>
-                              </button>
-                            </li>
+                            <div>
+                              <li 
+                                draggable
+                                onDragStart={(ev) => handleOnDrag(ev, colIndex, taskIndex)}
+                                key={taskIndex} 
+                                style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg 
+                                ${theme === "light" 
+                                ? "bg-_white" 
+                                : "bg-dark_Gray"}`}
+                              >
+                                <button 
+                                className={`px-4 py-5 w-full min-h-20 flex flex-col flex-start justify-start`} 
+                                onClick={() => {
+                                  handleOpenViewTaskModal()
+                                  setTask(col.title)
+                                }}>
+                                  <div className="flex flex-col gap-2">
+                                    <p className={`text-start font-bold text-base/5 ${theme === "light" ? "text-_dark" : "text-_white"}`}>{col.title}</p>
+                                    {
+                                      col.subtasks.length > 0 
+                                      ? 
+                                      <span className={`text-_gray font-bold text-xs self-start`}>{col.subtasks.filter(sub => sub.isCompleted).length} of {col.subtasks.length} subtasks</span> 
+                                      : null 
+                                    }
+                                  </div>
+                                </button>
+                              </li>
+                            </div>
                           ))
                         }
                       </ul>
