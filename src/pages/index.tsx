@@ -134,8 +134,6 @@ const Home = () => {
                           col?.tasks?.map((col, taskIndex) => (
                             <div>
                               <li 
-                                draggable
-                                onDragStart={(ev) => handleOnDrag(ev, colIndex, taskIndex)}
                                 key={taskIndex} 
                                 style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }} className={`rounded-lg 
                                 ${theme === "light" 
@@ -143,6 +141,8 @@ const Home = () => {
                                 : "bg-dark_Gray"}`}
                               >
                                 <button 
+                                draggable
+                                onDragStart={(ev) => handleOnDrag(ev, colIndex, taskIndex)}
                                 className={`px-4 py-5 w-full min-h-20 flex flex-col flex-start justify-start`} 
                                 onClick={() => {
                                   handleOpenViewTaskModal()
