@@ -3,8 +3,9 @@ import { rootState } from "@/redux/reduxTypes";
 import { setNameBoard } from "@/redux/nameBoard/actions";
 import useBoardData from "@/custom/boardData/useBoardData";
 import { useEffect, useState } from "react";
-import EditBoard from "@/components/shared/EditBoard";
+import EditBoard from "@/modals/EditBoard";
 import Column from "@/components/Column";
+import Head from "next/head";
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const Board = () => {
 
   return (
     <>
+      <Head>
+        <title>Frontend Mentor | Kanban task management web app</title>
+      </Head>
       <main className={`flex overflow-x-scroll gap-6 py-6 px-4 pt-24 transition min-h-screen duration-0
       ${theme === "light" 
       ? "bg-almost_White" 

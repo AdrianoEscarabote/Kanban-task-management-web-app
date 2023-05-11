@@ -139,8 +139,8 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
                   : ""} 
                   px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
                   ${theme === "light" 
-                  ? "border-light_Blue" 
-                  : "border-medium_Gray"} 
+                  ? "border-light_Blue text-_dark" 
+                  : "border-medium_Gray text-_white"} 
                 `}  
                 type="text"
                 id="title" 
@@ -156,7 +156,10 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
               <textarea 
                 value={description}
                 onChange={(e) => setDescription(e.currentTarget.value)}
-                className={`px-4 py-2 rounded-md bg-transparent h-28 w-full border border-1 ${theme === "light" ? "border-light_Blue" : "border-medium_Gray"} `} 
+                className={`px-4 py-2 rounded-md bg-transparent h-28 w-full border border-1 
+                ${theme === "light" 
+                ? "border-light_Blue text-_dark" 
+                : "border-medium_Gray text-_white"} `} 
                 name="description" id="description" 
                 placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.">
               </textarea>
@@ -175,8 +178,8 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
                     }}
                     className={`px-4 py-2 rounded-md bg-transparent h-10 max-w-sm w-full border border-1 
                     ${theme === "light" 
-                    ? "border-light_Blue" 
-                    : "border-medium_Gray"}`}
+                    ? "border-light_Blue text-_dark" 
+                    : "border-medium_Gray text-_white"}`}
                     placeholder="e.g. Make coffee"
                     type="text"
                   />
@@ -203,7 +206,10 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
               <select 
                 value={status} 
                 onChange={(e) => setStatus(e.currentTarget.value)} 
-                className={`px-4 py-2 h-10 font-medium text-sm/6 border-1 border rounded-lg ${theme === "light" ? "border-light_Blue text-_gray" : "border-medium_Gray text-_white"} w-full bg-transparent`} 
+                className={`px-4 py-2 h-10 font-medium text-sm/6 border-1 border rounded-lg 
+                ${theme === "light" 
+                ? "border-light_Blue text-_dark" 
+                : "border-medium_Gray text-_white"} w-full bg-transparent`} 
                 name="status" 
                 id="status"
               >

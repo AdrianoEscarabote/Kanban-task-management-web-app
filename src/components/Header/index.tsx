@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import Sidebar from "../SidebarDesktop";
 import Ellipsis from "../shared/EllipsisBoard";
-import AddTaskModal from "../shared/AddTaskModal";
+import AddTaskModal from "../../modals/AddTaskModal";
 import style from "./style.module.css"
 import MobileMenu from "../MobileMenu"; 
  

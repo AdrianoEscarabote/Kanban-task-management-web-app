@@ -1,8 +1,8 @@
 import { rootState } from "@/redux/reduxTypes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import DeleteModal from "../DeleteModal";
-import EditBoard from "../EditBoard";
+import DeleteModal from "../../../modals/DeleteModal";
+import EditBoard from "../../../modals/EditBoard";
 
 const Ellipsis = () => {
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setNameBoard } from "@/redux/nameBoard/actions";
 import { useState } from "react";
-import AddBoardModal from "../AddBoardModal";
+import AddBoardModal from "../../../modals/AddBoardModal";
 import style from "./style.module.css"
 import { selectBoardsCount } from "@/redux/board/selectors";
 import { ListBoardNamesProps } from "./ListBoardNamesProps";

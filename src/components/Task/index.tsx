@@ -1,8 +1,8 @@
 import { rootState } from "@/redux/reduxTypes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import ViewTaskModal from "../shared/ViewTaskModal";
-import DeleteTaskModal from "../shared/DeleteTaskModal";
+import ViewTaskModal from "../../modals/ViewTaskModal";
+import DeleteTaskModal from "../../modals/DeleteTaskModal";
 import EditTaskModal from "../shared/EditTaskModal";
 import { TaskProps } from "./TaskProps";
 
