@@ -1,0 +1,21 @@
+.modal {
+  max-height: 38.9375rem;
+}
+
+@media (max-width: 38.75rem) {
+  .modal {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-height: 36.875rem) {
+  .modal {
+    height: 27.5rem;
+  }
+}
+
+@media (max-height: 29.375rem) {
+  .modal {
+    height: 20rem;
+  }
+}
