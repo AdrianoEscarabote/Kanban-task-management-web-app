@@ -12,32 +12,37 @@ export default function getMockState() {
           name: "My Board", 
           columns: [
             {
-              title: "Design settings and search pages",
-              description: "",
-              status: "Doing",
-              subtasks: [
+              name: "Column1",
+              tasks: [
                 {
-                  title: "Settings - Account page",
-                  isCompleted: true
-                },
+                  title: "Design settings and search pages",
+                  description: "",
+                  status: "Doing",
+                  subtasks: [
+                    {
+                      title: "Settings - Account page",
+                      isCompleted: true
+                    },
+                  ]
+                }
               ]
             }
           ]
         },
         {
-          name: "My Other Board",
+          name: "My Other Board", 
           columns: [
             {
-              name: "column2",
+              name: "Column2",
               tasks: [
                 {
-                  title: "Build UI for onboarding flow",
+                  title: "Add account management endpoints",
                   description: "",
-                  status: "Todo",
+                  status: "Doing",
                   subtasks: [
                     {
-                      title: "Sign up page",
-                      isCompleted: true
+                      title: "Upgrade plan",
+                      isCompleted: false
                     },
                   ]
                 }

@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react"
 import Header from "."
 import { Provider } from "react-redux"
-import store from "../../redux/store"
+import store from "../../../.storybook/storybook-store"
 
 export default {
   title: "components/Header",
