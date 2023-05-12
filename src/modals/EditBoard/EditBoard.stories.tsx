@@ -2,7 +2,7 @@ import { Meta } from "@storybook/react"
 import EditBoard from "."
 import { EditBoardProps } from "./EditBoardProps"
 import { Provider } from "react-redux"
-import store from "@/redux/store"
+import store from "../../redux/store"
 import { action } from "@storybook/addon-actions"
  
 export default {

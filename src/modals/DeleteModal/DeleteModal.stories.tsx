@@ -1,4 +1,4 @@
-import store from "@/redux/store";
+import store from "../../redux/store";
 import { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
 import { DeleteModalTypes } from "./DeleteModalTypes";

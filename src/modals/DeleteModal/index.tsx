@@ -4,9 +4,9 @@ import { DeleteModalTypes } from "./DeleteModalTypes"
 import { useEffect, useState } from "react"
 import Button from "../../components/shared/Button"
 import { useDispatch } from "react-redux"
-import { deleteBoard } from "@/redux/board/reducer"
+import { deleteBoard } from "../../redux/board/reducer"
 import style from "./style.module.css"
-import { setNameBoard } from "@/redux/nameBoard/actions"
+import { setNameBoard } from "../../redux/nameBoard/actions"
 
 const DeleteModal: React.FC<DeleteModalTypes> = ({ closeModal, NameToDelete }) => {
   const dispatch = useDispatch()

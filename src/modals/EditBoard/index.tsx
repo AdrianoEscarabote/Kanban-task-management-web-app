@@ -5,8 +5,8 @@ import Button from "../../components/shared/Button";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { editBoard } from "@/redux/board/reducer";
-import { setNameBoard } from "@/redux/nameBoard/actions";
+import { editBoard } from "../../redux/board/reducer";
+import { setNameBoard } from "../../redux/nameBoard/actions"
 import { BoardEditNewType } from "@/redux/board/boardTypes";
 import style from "./style.module.css"
 import { useForm } from "react-hook-form";

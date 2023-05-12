@@ -2,11 +2,11 @@ import { rootState } from "@/redux/reduxTypes";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setNameBoard } from "@/redux/nameBoard/actions";
+import { setNameBoard } from "../../../redux/nameBoard/actions";
 import { useState } from "react";
 import AddBoardModal from "../../../modals/AddBoardModal";
 import style from "./style.module.css"
-import { selectBoardsCount } from "@/redux/board/selectors";
+import { selectBoardsCount } from "../../../redux/board/selectors";
 import { ListBoardNamesProps } from "./ListBoardNamesProps";
 
 const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
