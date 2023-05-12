@@ -4,7 +4,7 @@ import { DeleteTaskModalProps } from "./DeleteTaskModalProps"
 import { useEffect } from "react"
 import Button from "../../components/shared/Button"
 import { useDispatch } from "react-redux"
-import { deleteTask } from "@/redux/board/reducer"
+import { deleteTask } from "../../redux/board/reducer"
 import style from "./style.module.css"
 
 const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({ closeModal, NameToDelete }) => {

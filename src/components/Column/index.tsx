@@ -1,6 +1,6 @@
 import { ColumnProps } from "./ColumnProps";
 import Task from "../Task";
-import { dragTask } from "@/redux/board/reducer";
+import { dragTask } from "../../redux/board/reducer";
 import { useSelector } from "react-redux";
 import { rootState } from "@/redux/reduxTypes";
 import { useDispatch } from "react-redux";
@@ -11,13 +11,9 @@ const Column: React.FC<ColumnProps> = ({ colIndex }) => {
     (rootReducer: rootState) => rootReducer.reducerNameBoard
   );
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
-
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice);
-
   const board = boardData.boards.find((board) => board.name === nameBoard);
-
   const columns = board?.columns;
-
   const col = columns?.find((col, i) => i === colIndex);
 
   const handleOnDrop = (e: React.DragEvent<HTMLUListElement>) => {

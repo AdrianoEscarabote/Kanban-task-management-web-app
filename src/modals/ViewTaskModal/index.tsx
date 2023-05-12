@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { rootState } from "@/redux/reduxTypes";
 import EllipsisTask from "../../components/shared/EllipsisTask"
 import { useDispatch } from "react-redux";
-import { changeCheckboxChecked, changeStatus } from "@/redux/board/reducer";
+import { changeCheckboxChecked, changeStatus } from "../../redux/board/reducer";
 import { Subtask } from "@/redux/board/boardTypes";
 import Button from "../../components/shared/Button";
-import { selectCheckboxCheckedCount } from "@/redux/board/selectors";
+import { selectCheckboxCheckedCount } from "../../redux/board/selectors";
 import style from "./style.module.css"
 
 const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeModal, taskTarget, openDeleteTaskModal }) => {
@@ -80,6 +80,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                     <label key={index} className={`cursor-pointer py-3 px-3 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"} flex items-center gap-4`} htmlFor={`radio-${index}`}>
                       <input 
                         type="checkbox" 
+                        style={{ accentColor: "#635fc7" }}
                         onChange={() => {
                           handleChangeCheckboxChecked(sub.title, !sub.isCompleted)
                         }} 
