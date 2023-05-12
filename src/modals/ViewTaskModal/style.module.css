@@ -1,5 +1,6 @@
 .modal {
   max-height: 38.9375rem;
+  max-width: 30rem;
 }
 
 @media (max-width: 38.75rem) {
