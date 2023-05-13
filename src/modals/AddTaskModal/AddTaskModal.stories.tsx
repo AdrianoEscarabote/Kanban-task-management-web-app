@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Ellipsis from ".";
+import AddTaskModal from ".";
 import { Provider } from "react-redux";
-import store from "../../../redux/store";
+import store from "../../../.storybook/storybook-store";
 
 export default {
-  title: "shared/Ellipsis",
-  component: Ellipsis,
+  title: "Modals/Add task",
+  component: AddTaskModal,
   parameters: {
     layout: 'fullscreen',
   },
@@ -20,4 +20,4 @@ export default {
   ]
 } as Meta
 
-export const Default: StoryObj = {}
+export const Primary: StoryObj = {}

@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Ellipsis from ".";
+import SidebarDesktop from ".";
 import { Provider } from "react-redux";
-import store from "../../../redux/store";
+import store from "../../../.storybook/storybook-store";
 
 export default {
-  title: "shared/Ellipsis",
-  component: Ellipsis,
+  title: "components/Side bar Desktop",
+  component: SidebarDesktop,
   parameters: {
     layout: 'fullscreen',
   },
@@ -17,7 +17,7 @@ export default {
         </Provider>
       )
     }
-  ]
+  ] 
 } as Meta
 
-export const Default: StoryObj = {}
+export const Primary: StoryObj = {}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import ViewTaskModal from "../../modals/ViewTaskModal";
 import DeleteTaskModal from "../../modals/DeleteTaskModal";
-import EditTaskModal from "../../modals/EditTaskModal";
+import EditTaskModal from "../EditTask";
 import { TaskProps } from "./TaskProps";
 
 const Task: React.FC<TaskProps> = ({ taskIndex, colIndex, taskName}) => {

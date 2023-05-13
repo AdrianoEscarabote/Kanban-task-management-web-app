@@ -171,10 +171,12 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
               >
                 <option 
                   value="" 
-                  className={`rounded-lg ${theme === "light" 
-                  ? "text-gray-700 bg-white" 
-                  : "text-white bg-gray-700"}
-                `}>
+                  style={{ backgroundColor: theme === "light" ? "white" : "#20212C" }}
+                  className={`rounded-lg ${
+                    theme === "light" 
+                    ? "text-_dark" 
+                    : "text-_white"
+                  }`}>
                   Select an option
                 </option>
                 {boardData.boards.map((board) => {
@@ -185,10 +187,11 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                     <option
                       key={index}
                       value={col.name}
+                      style={{ backgroundColor: theme === "light" ? "white" : "#20212C" }}
                       className={`rounded-lg ${
                         theme === "light" 
-                        ? "text-_dark bg-white" 
-                        : "text-_white bg-gray-700"
+                        ? "text-_dark" 
+                        : "text-_white"
                       }`}
                     >
                       {col.name}

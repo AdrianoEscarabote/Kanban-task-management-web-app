@@ -1,7 +1,7 @@
 import { rootState } from "@/redux/reduxTypes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import DeleteModal from "../../../modals/DeleteModal";
+import DeleteModal from "../../../modals/DeleteBoard/index";
 import EditBoard from "../../../modals/EditBoard";
 
 const Ellipsis = () => {

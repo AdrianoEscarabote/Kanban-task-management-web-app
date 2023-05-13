@@ -1,13 +1,17 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Ellipsis from ".";
+import DeleteTaskModal from ".";
 import { Provider } from "react-redux";
-import store from "../../../redux/store";
+import store from "../../../.storybook/storybook-store";
 
 export default {
-  title: "shared/Ellipsis",
-  component: Ellipsis,
+  title: "Modals/Delete Task",
+  component: DeleteTaskModal,
   parameters: {
     layout: 'fullscreen',
+  },
+  args: {
+    closeModal: () => {},
+    NameToDelete: "Add account management endpoints"
   },
   decorators: [
     (Story) => {
@@ -20,4 +24,4 @@ export default {
   ]
 } as Meta
 
-export const Default: StoryObj = {}
+export const Primary: StoryObj = {}

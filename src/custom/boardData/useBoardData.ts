@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setBoards } from "@/redux/board/reducer";
-import { setNameBoard } from "@/redux/nameBoard/actions";
+import { setBoards } from "../../redux/board/reducer";
+import { setNameBoard } from "../../redux/nameBoard/actions";
 
 const useBoardData = () => {
   const dispatch = useDispatch()

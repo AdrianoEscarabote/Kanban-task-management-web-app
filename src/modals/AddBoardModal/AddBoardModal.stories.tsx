@@ -6,8 +6,11 @@ import store from "../../redux/store"
 import { action } from "@storybook/addon-actions"
 
 export default {
-  title: "shared/AddBoardModal",
+  title: "Modals/Add Board",
   component: AddBoardModal,
+  parameters: {
+    layout: 'fullscreen',
+  },
   decorators: [
     (Story) => {
       return (
@@ -18,7 +21,6 @@ export default {
     }
   ]
 } as Meta<AddBoardModalProps>
-
 
 export const Primary: React.FC<AddBoardModalProps> = () => {
   // Use o action decorator para criar uma função simulada de closeModal
