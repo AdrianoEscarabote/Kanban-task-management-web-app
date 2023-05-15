@@ -1,19 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "react-redux";
 import store from "../../../.storybook/storybook-store";
-import ViewTaskModal from ".";
+import Column from ".";
 
 export default {
-  title: "Modals/View Task",
-  component: ViewTaskModal,
+  title: "components/Column",
+  component: Column,
   parameters: {
     layout: 'fullscreen',
   },
   args: {
-    taskTarget: "Add account management endpoints",
-    openDeleteTaskModal: () => {},
-    closeModal: () => {},
-    openEditTaskModal: () => {}
+    colIndex: 0
   },
   decorators: [
     (Story) => {
@@ -26,4 +23,4 @@ export default {
   ]
 } as Meta
 
-export const Primary: StoryObj = {} 
+export const Primary: StoryObj = {}

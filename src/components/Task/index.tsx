@@ -33,8 +33,9 @@ const Task: React.FC<TaskProps> = ({ taskIndex, colIndex, taskName}) => {
 
   return (
     <>
-      <li>
+      <li className="list-none">
         <button
+          value={taskName}
           draggable
           onDragStart={handleOnDrag}
           style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }}  
