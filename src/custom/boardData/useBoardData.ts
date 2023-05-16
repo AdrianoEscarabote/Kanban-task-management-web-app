@@ -21,7 +21,7 @@ const useBoardData = () => {
           dispatch(setNameBoard(response.data.boards[0].name))
         }
       } catch (err) {
-        console.log(err);
+        return null
       }
     }
 
