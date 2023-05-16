@@ -73,11 +73,21 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
 
   return (
     <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
-      <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
+      <section 
+        role="dialog" 
+        aria-label="Add new Board" 
+        aria-describedby="modal-content" 
+        onClick={(e) => e.stopPropagation()} 
+        className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full 
+        ${theme === "light" 
+        ? "bg-_white" 
+        : "bg-almost_Dark"}`
+        }
+      >
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add new board</h2>
         <form onSubmit={onSubmit}> 
           <fieldset>
-            <legend className="sr-only">enter table details</legend>
+            <legend className="sr-only">enter board details</legend>
             <label htmlFor="name" 
             className={`relative flex flex-col my-4 gap-2 font-bold text-xs 
               ${theme === "light" 
@@ -119,7 +129,15 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
             <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
 
             {columns.map(({ id, value }, index) => (
-              <label key={id} htmlFor={`subtasks${id}`} className={`my-4 gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+              <label 
+                aria-label="Put the subtask name" 
+                key={id} 
+                htmlFor={`subtasks${id}`} 
+                className={`my-4 gap-2 font-bold text-xs 
+                ${theme === "light" 
+                ? "text-_gray" 
+                : "text-_white"}`}
+              >
                 <div className="flex items-center my-2">
                   <input 
                     {...register(`columns.${index}`, { required: true })}
@@ -140,11 +158,12 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
                     type="button" 
                     className="w-10 grid place-content-center" 
                     onClick={() => handleRemoveColumn(id)}
+                    aria-label="remove input"
                   >
                     <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
                   </button>
                   {errors[`columns.${index}` as keyof FormData] && (
-                    <span className="text-red-500">Este campo é obrigatório</span>
+                    <span className="text-red-500">This field is required</span>
                   )}
                 </div>
               </label>
@@ -160,6 +179,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
                 ? "#635fc719" 
                 : "#FFF"}`} 
                 onClick={handleAddColumn} 
+                ariaLabel="Cancel"
               />
               <Button 
                 type="submit" 
@@ -167,6 +187,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
                 label="Create New Board"
                 backgroundColor="#635FC7" 
                 textColor="#FFF" 
+                ariaLabel="Create New Board"
               />
             </div>
 

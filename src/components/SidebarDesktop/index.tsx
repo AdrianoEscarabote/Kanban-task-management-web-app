@@ -39,7 +39,13 @@ const SidebarDesktop = () => {
                 
                 <InputToggle />
 
-                <button onClick={handleClickOpenSidebar} className={`h-12 pl-16 mr-16 rounded-br-3xl rounded-se-3xl w-full flex items-center justify-start text-_gray gap-3 ${theme === "light" ? "hover:bg-purple_Dark hover:text-_white" : "hover:bg-_white hover:text-purple_Dark"} `}>
+                <button 
+                aria-label="hide sidebar"
+                onClick={handleClickOpenSidebar} 
+                className={`h-12 pl-16 mr-16 rounded-br-3xl rounded-se-3xl w-full flex items-center justify-start text-_gray gap-3 
+                ${theme === "light" 
+                ? "hover:bg-purple_Dark hover:text-_white" 
+                : "hover:bg-_white hover:text-purple_Dark"} `}>
 
                   <Image src="/assets/icon-hide-sidebar.svg" width="18" height="16" alt="" />
 
@@ -49,7 +55,11 @@ const SidebarDesktop = () => {
               </div>  
           </div>
         ) : (
-          <button style={{ bottom: "-84vh" }} onClick={handleClickOpenSidebar} className={`${style.eye_button} bg-_White w-28 h-12 rounded-3xl absolute -left-14 bg-purple_Dark flex items-center justify-center`}>
+          <button 
+          aria-label="show sidebar"
+          style={{ bottom: "-84vh" }} 
+          onClick={handleClickOpenSidebar} 
+          className={`${style.eye_button} bg-_White w-28 h-12 rounded-3xl absolute -left-14 bg-purple_Dark flex items-center justify-center`}>
             <Image className="ml-14 h-auto w-6" src="/assets/icon-show-sidebar.svg" width="26" height="20" alt="" />            
           </button>
         )

@@ -35,6 +35,7 @@ const Task: React.FC<TaskProps> = ({ taskIndex, colIndex, taskName}) => {
     <>
       <li className="list-none">
         <button
+          aria-label="view task"
           value={taskName}
           draggable
           onDragStart={handleOnDrag}

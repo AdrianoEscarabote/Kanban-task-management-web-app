@@ -111,7 +111,15 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
  
   return (
     <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
-      <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
+      <section 
+      role="dialog" 
+      aria-label="Edit Task" 
+      aria-describedby="modal-content" 
+      onClick={(e) => e.stopPropagation()} 
+      className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg 
+      ${theme === "light" 
+      ? "bg-_white" 
+      : "bg-almost_Dark"}`}>
         <div className="flex items-center relative w-full overflow-visible justify-between">
           <h2 className={`font-bold text-lg ${theme === "light" ? "text-_dark" : "text-_white"}`}>Edit Task</h2>
         </div>
@@ -119,6 +127,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
           <fieldset className="border-none flex flex-col gap-4 mt-5">
             <legend className="sr-only">put your task information</legend>
             <label 
+              aria-label="enter the task title"
               htmlFor="title"
               className={`flex relative flex-col gap-2 font-bold text-xs 
               ${theme === "light" 
@@ -151,7 +160,13 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
                 {errors.title && "Can’t be empty"}
               </span>
             </label>
-            <label htmlFor="description" className={`flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+            <label 
+            aria-label="enter the task description"
+            htmlFor="description" 
+            className={`flex flex-col gap-2 font-bold text-xs 
+            ${theme === "light" 
+            ? "text-_gray" 
+            : "text-_white"}`}>
               Description
               <textarea 
                 value={description}
@@ -168,7 +183,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
             <div className="subtask flex flex-col gap-4">
             {
               subtasks.map((task, index) => (
-                <label key={task.id} htmlFor={`subtasks${task.id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+                <label aria-label="enter the task subtask" key={task.id} htmlFor={`subtasks${task.id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
                   <input
                     {...register(`subtasks.${index}`, { required: true })}
                     value={task.title}
@@ -187,6 +202,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
                     type="button"
                     onClick={() => handleRemoveSubtask(task.id)}
                     className="w-10 grid place-content-center"
+                    aria-label="remove input"
                   >
                     <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
                   </button>
@@ -195,6 +211,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
             }
             </div>
             <Button 
+              ariaLabel="Add new subtask"
               size="small" 
               label="+ Add New Subtask" 
               textColor="#635FC7" 
@@ -204,6 +221,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
             <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Status</h3>
             <label htmlFor="status">
               <select 
+                aria-label="select task status"
                 value={status} 
                 onChange={(e) => setStatus(e.currentTarget.value)} 
                 className={`px-4 py-2 h-10 font-medium text-sm/6 border-1 border rounded-lg 
@@ -231,6 +249,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ closeModal, task }) => {
               backgroundColor="#635FC7" 
               textColor="#FFF" 
               type="submit"
+              ariaLabel="save changes"
             />
           </fieldset>
         </form>

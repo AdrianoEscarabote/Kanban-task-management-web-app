@@ -79,6 +79,9 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
   return (
     <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
       <section 
+        role="dialog" 
+        aria-label="Edit Board" 
+        aria-describedby="modal-content" 
         className={`${style.modal} max-w-md overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md 
         ${theme === "light" 
         ? "bg-_white" 
@@ -96,6 +99,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
           <fieldset>
             <legend className="sr-only">enter information to edit the table</legend>
             <label 
+              aria-label="enter the name of the board"
               htmlFor="name" 
               className={`flex relative flex-col my-3 gap-2 font-bold text-xs 
               ${theme === "light" 
@@ -131,7 +135,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
             <div className="flex flex-col gap-3 py-3">
               {
                 columns.map(({ id, value }) => (
-                  <label key={id} htmlFor={`subtasks${id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+                  <label aria-label="enter the name of the column" key={id} htmlFor={`subtasks${id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
 
                     <input 
                       {...register(`columns.${id}.value`, { required: true })}
@@ -163,6 +167,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
             <div className="flex flex-col items-center gap-4">
               <Button 
                 size="small" 
+                ariaLabel="Add New Column"
                 label="+ Add New Column" 
                 textColor="#635FC7" 
                 backgroundColor={`
@@ -173,6 +178,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
                 onClick={handleAddInput} 
               />
               <Button 
+                ariaLabel="Save Changes"
                 size="small" 
                 type="submit"
                 label="Save Changes" 

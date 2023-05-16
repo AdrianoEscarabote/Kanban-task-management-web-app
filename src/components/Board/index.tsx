@@ -41,9 +41,13 @@ const Board = () => {
                 return <Column key={index} colIndex={index} />;
               })}
               <button 
-                  style={{ height: "84vh" }} 
-                  className={`${theme === "light" ? "col-gradient" : "col-gradient-dark"} font-bold text-2xl/8 text-center text-_gray flex flex-col items-center justify-center gap-5 w-72 rounded-md relative top-8`}
-                  onClick={() => setEditBoardOpen(!editBoardOpen)}
+                aria-label="edit board"
+                style={{ height: "84vh" }} 
+                className={`
+                ${theme === "light" 
+                ? "col-gradient" 
+                : "col-gradient-dark"} font-bold text-2xl/8 text-center text-_gray flex flex-col items-center justify-center gap-5 w-72 rounded-md relative top-8`}
+                onClick={() => setEditBoardOpen(!editBoardOpen)}
                 >
                   + New Column
                 </button>

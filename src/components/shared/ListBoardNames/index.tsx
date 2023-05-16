@@ -36,6 +36,7 @@ const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
             boardData.boards.map((board, index) => (
               <li key={index} className="w-full p-0">
                 <button 
+                aria-label={`see board ${board.name}`}
                 onClick={(ev) => handleClickButton(ev.currentTarget.innerText)} 
                 className={`${nameBoard === board.name ? "bg-purple_Dark text-_white" : "" } pl-5 w-full mr-3 ${theme === "light" ? "hover:text-purple_Dark hover:bg-purple_superLight" : "hover:text-purple_Dark hover:bg-_white"} rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12`}>
                   <Image src="/assets/icon-board.svg" height="16" alt="" width="16" />
@@ -45,7 +46,10 @@ const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
             ))
           }
           <li className="w-full p-0">
-            <button onClick={handleClickButtonModalBoard} className="pl-5 w-full mr-3 text-purple_Dark hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
+            <button 
+            aria-label="create new board"
+            onClick={handleClickButtonModalBoard} 
+            className="pl-5 w-full mr-3 text-purple_Dark hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
               <Image className="filter_purple" src="/assets/icon-board.svg" height="16" alt="" width="16" />
               + Create New Board
             </button>

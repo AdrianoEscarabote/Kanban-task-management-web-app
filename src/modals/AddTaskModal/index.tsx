@@ -74,16 +74,29 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
   return (
     <div onClick={() => closeModal()} className={`parent_modal overflow-y-scroll fixed top-0 left-0 flex items-center p-4 justify-center z-50 h-screen w-full bg-modalParentBgLight`}>
 
-      <section onClick={(e) => e.stopPropagation()} className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg ${theme === "light" ? "bg-_white" : "bg-almost_Dark"}`}>
+      <section 
+        role="dialog" 
+        aria-label="Add Task" 
+        aria-describedby="modal-content"  
+        onClick={(e) => e.stopPropagation()} 
+        className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full max-w-lg 
+        ${theme === "light" 
+        ? "bg-_white" 
+        : "bg-almost_Dark"}`}
+        >
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add New Task</h2>
         <form onSubmit={onSubmit}>
           <fieldset className="border-none flex flex-col gap-4 mt-5">
-
-            <legend className="sr-only">put your task information</legend>
-
-            <label htmlFor="title" className={`relative flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+            <legend className="sr-only">Put your task information</legend>
+            <label
+              aria-label="enter task name"
+              htmlFor="title" 
+              className={`relative flex flex-col gap-2 font-bold text-xs 
+              ${theme === "light" 
+              ? "text-_gray" 
+              : "text-_white"}`}
+            >
               Title
-
               <input 
                 {...register("title", { required: true })}
                 value={title}
@@ -110,7 +123,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
               </span>
             </label>
 
-            <label htmlFor="description" className={`flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
+            <label aria-label="enter task description" htmlFor="description" className={`flex flex-col gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
               Description
               <textarea 
                 value={description}
@@ -127,8 +140,15 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
             <div className="subtask flex flex-col gap-4">
               {
                 subtasks.map((task, index) => (
-                  <label key={task.id} htmlFor={`subtasks${task.id}`} className={`flex gap-2 font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>
-
+                  <label 
+                    aria-label="Put the title of your subtask"
+                    key={task.id} 
+                    htmlFor={`subtasks${task.id}`} 
+                    className={`flex gap-2 font-bold text-xs 
+                    ${theme === "light" 
+                    ? "text-_gray" 
+                    : "text-_white"}`}
+                  >
                     <input
                       {...register(`subtasks.${index}.value`, { required: true })}
                       value={task.value}
@@ -146,16 +166,30 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                       : "border-medium_Gray text-_white"} 
                       `} 
                     />
-                    <button type="button" className={`${style.button_remove_input} w-10 grid place-content-center`} onClick={() => handleRemoveSubtask(task.id)}>
+                    <button 
+                    aria-label="remove input"
+                    type="button" 
+                    className={`${style.button_remove_input} w-10 grid place-content-center`} onClick={() => handleRemoveSubtask(task.id)}
+                    >
                       <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
                     </button>
                   </label>
                 ))
               }
             </div>
-            <Button size="small" label="+ Add New Subtask" textColor="#635FC7" backgroundColor={`${theme === "light" ? "#635fc719" : "#FFF"}`} onClick={handleAddSubtask} />
+            <Button 
+              ariaLabel="Add new input"
+              size="small" 
+              label="+ Add New Subtask" 
+              textColor="#635FC7" 
+              backgroundColor={`
+              ${theme === "light" 
+              ? "#635fc719" 
+              : "#FFF"}`} 
+              onClick={handleAddSubtask} 
+            />
             <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Status</h3>
-            <label htmlFor="status">
+            <label htmlFor="status" aria-label="enter the status of your subtask">
               <select
                 {...register("status", { required: true })}
                 value={status}
@@ -206,6 +240,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
               label="Create Task"
               backgroundColor="#635FC7" 
               textColor="#FFF"
+              ariaLabel="Create Task"
             />
           </fieldset>
         </form>

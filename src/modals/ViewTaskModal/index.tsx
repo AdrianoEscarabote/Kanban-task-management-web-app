@@ -61,7 +61,16 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
       closeModal()
     }} className={`parent_modal fixed top-0 left-0 flex items-center justify-center z-50 p-4 h-screen w-full bg-modalParentBgLight`}>
   
-      <section className={`${style.modal} max-w-md h-auto overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
+      <section 
+        role="dialog"    
+        aria-label="View Task" 
+        aria-describedby="modal-content" 
+        className={`${style.modal} max-w-md h-auto overflow-y-scroll w-full flex flex-col gap-4 p-8 rounded-md 
+        ${theme === "light" 
+        ? "bg-_white" 
+        : "bg-dark_Gray"}`} 
+        onClick={(e) => e.stopPropagation()}
+      >
 
         {
           sideTasks.map((task, index) => (
@@ -77,7 +86,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
               <div className="flex flex-col gap-2 my-4">
                 {
                   subtasks.map((sub, index) => (
-                    <label key={index} className={`cursor-pointer py-3 px-3 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"} flex items-center gap-4`} htmlFor={`radio-${index}`}>
+                    <label aria-label="subtask title" key={index} className={`cursor-pointer py-3 px-3 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"} flex items-center gap-4`} htmlFor={`radio-${index}`}>
                       <input 
                         type="checkbox" 
                         style={{ accentColor: "#635fc7" }}
@@ -95,7 +104,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                 }
               </div>
               <h3 className={`font-medium text-sm mb-4 ${theme === "light" ? "text-_gray" : "text-_white"}`}>Current Status</h3>
-              <label htmlFor="status" className="my-10 cursor-pointer">
+              <label aria-label="select task status" htmlFor="status" className="my-10 cursor-pointer">
                 <select
                 defaultValue={status}
                 onChange={(e) => {
@@ -118,6 +127,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
               </label>
               <div className="mt-5">
                 <Button 
+                  ariaLabel="Save changes"
                   label="Save" 
                   size="small"
                   backgroundColor="#635FC7" 

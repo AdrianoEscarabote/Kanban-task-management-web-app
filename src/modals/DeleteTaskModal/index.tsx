@@ -29,7 +29,16 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({ closeModal, NameToDel
   return (
     <>
       <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
-        <section className={`${style.modal} max-w-lg flex flex-col gap-4 p-8 rounded-md ${theme === "light" ? "bg-_white" : "bg-dark_Gray"}`} onClick={(e) => e.stopPropagation()}>
+        <section 
+          className={`${style.modal} max-w-lg flex flex-col gap-4 p-8 rounded-md 
+          ${theme === "light" 
+          ? "bg-_white" 
+          : "bg-dark_Gray"}`} 
+          onClick={(e) => e.stopPropagation()}
+          role="dialog" 
+          aria-label="Delete Task" 
+          aria-describedby="modal-content" 
+        >
           <h3 className="text-_red font-bold text-lg/6">Delete this task ?</h3>
           <p className={`text-_gray font-medium text-sm/6`}>Are you sure you want to delete the ‘{NameToDelete}’ task and its subtasks? This action cannot be reversed.</p>
           <div className="flex items-center gap-5">
@@ -39,6 +48,7 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({ closeModal, NameToDel
               hover={style.hover_destructive}
               size="small" 
               textColor="#FFF" 
+              ariaLabel="Delete Task"
               onClick={handleClickDeleteTask} 
             />
             <Button 
@@ -46,6 +56,7 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({ closeModal, NameToDel
               textColor="#635FC7" 
               label="Cancel" 
               size="small" 
+              ariaLabel="Cancel"
               hover={`${theme === "light" }`}
               onClick={() => closeModal()} 
             />
