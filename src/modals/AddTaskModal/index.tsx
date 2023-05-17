@@ -196,9 +196,8 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                 onChange={(e) => setStatus(e.currentTarget.value)}
                 className={`cursor-pointer px-4 py-2 h-10 font-medium text-sm/6 border-1 border rounded-lg 
                 ${theme === "light" 
-                ? "border-light_Blue text-_gray" 
-                : "border-medium_Gray text-_white"
-                } w-full bg-transparent
+                ? "border-light_Blue text-_dark" 
+                : "border-medium_Gray text-_white"} w-full bg-transparent
                 `}
                 name="status"
                 id="status"

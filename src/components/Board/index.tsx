@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import EditBoard from "../../modals/EditBoard/index";
 import Column from "../../components/Column/index";
 import Head from "next/head";
+import Button from "../shared/Button";
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ const Board = () => {
     }
   }, []);
 
+  const handleOpenEditBoardModal = () => {
+    setEditBoardOpen(!editBoardOpen)
+  }
+
   return (
     <>
       <Head>
@@ -34,26 +39,40 @@ const Board = () => {
       ${theme === "light" 
       ? "bg-almost_White" 
       : "bg-almost_Dark" }`}>
-        <section className='h-full flex items-start gap-6 p-5'>
-          {columns?.length ? (
-            <>
-              {columns.map((col, index) => {
-                return <Column key={index} colIndex={index} />;
-              })}
-              <button 
-                aria-label="edit board"
-                style={{ height: "84vh" }} 
-                className={`
-                ${theme === "light" 
-                ? "col-gradient" 
-                : "col-gradient-dark"} font-bold text-2xl/8 text-center text-_gray flex flex-col items-center justify-center gap-5 w-72 rounded-md relative top-8`}
-                onClick={() => setEditBoardOpen(!editBoardOpen)}
-                >
-                  + New Column
-                </button>
-            </>
-          ) : null}
-        </section>
+        {columns && columns.length > 0 ? (
+          <section className='relative h-full w-full flex items-start gap-6 p-5'>
+            {columns.map((col, index) => {
+              return <Column key={index} colIndex={index} />;
+            })}
+            <button 
+              aria-label="edit board"
+              style={{ height: "84vh", minWidth: "280px" }} 
+              className={`
+              ${theme === "light" 
+              ? "col-gradient" 
+              : "col-gradient-dark"} font-bold text-2xl/8 text-center text-_gray flex flex-col items-center justify-center gap-5 rounded-md relative top-8`}
+              onClick={() => setEditBoardOpen(!editBoardOpen)}
+              >
+                + New Column
+              </button>
+          </section>
+          ) : 
+          <section className="relative h-full w-full flex justify-center items-center gap-6 p-5">
+            <div className='flex flex-col self-center justify-center items-center gap-6 p-6'>
+              <h2 className='font-bold text-lg/6 text-_gray'>This board is empty. Create a new column to get started.</h2>
+              <div style={{ maxWidth: "174px", width: "100%" }}>
+                <Button 
+                  backgroundColor='#635FC7' 
+                  label='+ Add New Column' 
+                  size='small' 
+                  textColor='#FFF' 
+                  hover="#A8A4FF" 
+                  onClick={handleOpenEditBoardModal}
+                  />
+              </div>
+            </div>
+          </section>
+        }
       </main>
       {editBoardOpen 
       ? <EditBoard closeModal={() => setEditBoardOpen(false)} /> 

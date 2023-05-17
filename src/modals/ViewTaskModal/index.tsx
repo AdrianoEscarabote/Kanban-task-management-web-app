@@ -80,13 +80,23 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                 <EllipsisTask openEditTaskModal={() => openEditTaskModal()} openDeleteTaskModal={openDeleteTaskModal} closeModal={closeModal} />
               </div>
               {
-                task.description ? <p className={`mb-4 font-medium text-sm text-_gray`}>{task.description}</p> : null
+                task.description ? <p className={`font-medium text-sm text-_gray`}>{task.description}</p> : null
               }
-              <p className={`${theme === "light" ? "text-_gray" : "text-_white"} font-medium text-sm text-_gray`}>Subtask ({checkboxCheckedCount} of {task.subtasks.length})</p>
-              <div className="flex flex-col gap-2 my-4">
+              <p className={`
+              ${theme === "light" 
+              ? "text-_gray" 
+              : "text-_white"} mt-4 font-medium text-sm text-_gray`}>Subtask ({checkboxCheckedCount} of {task.subtasks.length})</p>
+              <div className="flex flex-col gap-2 mt-4">
                 {
                   subtasks.map((sub, index) => (
-                    <label aria-label="subtask title" key={index} className={`cursor-pointer py-3 px-3 ${theme === "light" ? "bg-almost_White" : "bg-almost_Dark"} flex items-center gap-4`} htmlFor={`radio-${index}`}>
+                    <label 
+                    aria-label="subtask title" 
+                    key={index} 
+                    className={`cursor-pointer py-3 px-2 
+                    ${theme === "light" 
+                    ? "bg-almost_White" 
+                    : "bg-almost_Dark"} flex items-center gap-4 pl-4`} 
+                    htmlFor={`radio-${index}`}>
                       <input 
                         type="checkbox" 
                         style={{ accentColor: "#635fc7" }}
@@ -103,14 +113,14 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                   ))
                 }
               </div>
-              <h3 className={`font-medium text-sm mb-4 ${theme === "light" ? "text-_gray" : "text-_white"}`}>Current Status</h3>
-              <label aria-label="select task status" htmlFor="status" className="my-10 cursor-pointer">
+              <h3 className={`font-medium text-sm mt-4 ${theme === "light" ? "text-_gray" : "text-_white"}`}>Current Status</h3>
+              <label aria-label="select task status" htmlFor="status" className="cursor-pointer">
                 <select
                 defaultValue={status}
                 onChange={(e) => {
                   setStatus(e.currentTarget.value)
                 }}
-                className={`cursor-pointer px-4 py-2 h-10 font-medium text-sm/6 border-1 border rounded-lg ${theme === "light" ? "border-light_Blue text-_dark" : "border-medium_Gray text-_white"} w-full bg-transparent`} 
+                className={`cursor-pointer px-4 mt-4 h-10 font-medium text-sm/6 border-1 border rounded-lg ${theme === "light" ? "border-light_Blue text-_dark" : "border-medium_Gray text-_white"} w-full bg-transparent`} 
                 name="status" 
                 id="status">
                   {

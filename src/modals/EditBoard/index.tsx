@@ -131,7 +131,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
                 {errors.nameBoard && "Can’t be empty"}
               </span>
             </label>
-            <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
+            <h3 className={`font-bold mt-4 text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
             <div className="flex flex-col gap-3 py-3">
               {
                 columns.map(({ id, value }) => (

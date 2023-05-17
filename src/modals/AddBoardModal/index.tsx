@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { AddBoardModalProps, FormData } from "./AddBoardModalProps"
+import { useEffect, useRef, useState } from "react"
+import { AddBoardModalProps, FormData, Columns } from "./AddBoardModalProps"
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
 import Image from "next/image"
@@ -12,11 +12,22 @@ import { useForm } from "react-hook-form";
 import { setNameBoard } from "../../redux/nameBoard/actions"
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
-  const [columns, setColumns] = useState([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
+  const [columns, setColumns] = useState<Columns[]>([])
   const [nameInput, setNameInput] = useState<string>("");
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const dispatch = useDispatch()
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
+
+  const effectRan = useRef(false)
+
+  useEffect(() => {
+    if (effectRan.current) {
+      setColumns((prevState) => [...prevState, {id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
+    }
+    return () => {
+      effectRan.current = true
+    }
+  }, [])
 
   const handleAddNewBoard = () => {
     const arrFormatted = columns.map(item => {
@@ -41,29 +52,29 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   }, []);
 
   const handleChangeInput = (id: number, value: string) => {
-    const updatedColumns = columns.map(task => {
-      if (task.id === id) {
+    const updatedColumns = columns.map((col) => {
+      if (col.id === id) {
         return {
-          ...task,
-          value: value,
+          ...col,
+          value: value
         }
       }
-      return task
+      return col
     })
     setColumns(updatedColumns)
   }
 
   const handleAddColumn = () => {
-    const newId = columns.length + 1
-    const newColumns = { id: newId, value: ""}
-    setColumns([...columns, newColumns])
-  }
+    const newId = columns.length + (Math.random() * 9)
+    const newInput = {id: newId, value: ""}
+    setColumns([...columns, newInput])
+  }  
 
   const handleRemoveColumn = (id: number) => {
-    const newColumns = columns.filter((col) => col.id !== id) 
-    setColumns(newColumns)
-  } 
-  
+    const updatedColumns = columns.filter(col => col.id !== id)
+    setColumns(updatedColumns)
+  }
+
   const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>()  
 
   const onSubmit = handleSubmit(() => {
@@ -89,7 +100,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
           <fieldset>
             <legend className="sr-only">enter board details</legend>
             <label htmlFor="name" 
-            className={`relative flex flex-col my-4 gap-2 font-bold text-xs 
+            className={`relative flex flex-col mt-4 gap-2 font-bold text-xs 
               ${theme === "light" 
               ? "text-_gray" 
               : "text-_white"}`
@@ -126,48 +137,43 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
                 {errors.nameInput && "Can’t be empty"}
               </span>
             </label>
-            <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
+            
+            <div className="flex flex-col mt-1">
+              <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
+              {columns.map(({ id, value }) => (
+                <label 
+                  aria-label="Put the subtask name" 
+                  key={id} 
+                  htmlFor={`columns${id}`} 
+                  className={`mt-4 gap-2 font-bold text-xs 
+                  ${theme === "light" ? "text-_gray" : "text-_white"}`}
+                >
+                  <div className="flex items-center my-2">
+                    <input 
+                      {...register(`columns.${id}`, { required: true })}
+                      value={value} 
+                      onChange={(ev) => {
+                        setValue(`columns.${id}`, ev.currentTarget.value);
+                        handleChangeInput(id, ev.currentTarget.value)
+                      }} 
+                      className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
+                      ${theme === "light" ? "border-light_Blue text-_dark" : "border-medium_Gray text-_white"} `} 
+                      type="text" 
+                      id={`columns${id}`} 
+                    />
 
-            {columns.map(({ id, value }, index) => (
-              <label 
-                aria-label="Put the subtask name" 
-                key={id} 
-                htmlFor={`subtasks${id}`} 
-                className={`my-4 gap-2 font-bold text-xs 
-                ${theme === "light" 
-                ? "text-_gray" 
-                : "text-_white"}`}
-              >
-                <div className="flex items-center my-2">
-                  <input 
-                    {...register(`columns.${index}`, { required: true })}
-                    value={value} 
-                    onChange={(ev) => {
-                      setValue(`columns.${index}`, ev.currentTarget.value);
-                      handleChangeInput(id, ev.currentTarget.value)
-                    }} 
-                    className={`px-4 py-2 rounded-md bg-transparent h-10 w-full border border-1 
-                    ${theme === "light" 
-                    ? "border-light_Blue text-_dark" 
-                    : "border-medium_Gray text-_white"} `} 
-                    type="text" 
-                    id={`subtasks${id}`} 
-                  />
-
-                  <button
-                    type="button" 
-                    className="w-10 grid place-content-center" 
-                    onClick={() => handleRemoveColumn(id)}
-                    aria-label="remove input"
-                  >
-                    <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
-                  </button>
-                  {errors[`columns.${index}` as keyof FormData] && (
-                    <span className="text-red-500">This field is required</span>
-                  )}
-                </div>
-              </label>
-            ))}
+                    <button
+                      type="button" 
+                      className="w-10 grid place-content-center" 
+                      onClick={() => handleRemoveColumn(id)}
+                      aria-label="remove input"
+                    >
+                      <Image src="/assets/icon-cross.svg" width="15" height="15" alt="" />
+                    </button>
+                  </div>
+                </label>
+              ))}
+            </div>
 
             <div className="mt-4 flex flex-col gap-4">
               <Button 

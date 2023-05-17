@@ -16,4 +16,9 @@ type FormData = {
   columns: string[];
 };
 
-export { AddBoardModalProps, ActionProps, FormData }
+interface Columns {
+  id: number;
+  value: string;
+}
+
+export { Columns, AddBoardModalProps, ActionProps, FormData }
