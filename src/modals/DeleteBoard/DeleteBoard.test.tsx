@@ -7,12 +7,20 @@ import DeleteModal from "."
 const mockStore = configureMockStore()
 
 describe("Delete Board Component", () => {
+  let store: any;
+
+  beforeEach(() => {
+    const mockState = getMockState()
+    const state = mockStore(mockState)
+
+    store = state
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
 
   it("should render correctly", () => {
-
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
 
     render(
       <Provider store={store}>

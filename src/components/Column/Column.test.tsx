@@ -8,12 +8,21 @@ const mockStore = configureMockStore();
 
 describe("Column Component", () => {
 
+  let store: any;
+
+  beforeEach(() => {
+    const mockState = getMockState() 
+    const state = mockStore(mockState)
+
+    store = state
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it("should render correctly", () => {
   
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
-
     render(
       <Provider store={store}>
         <Column key={1} colIndex={0} />

@@ -8,12 +8,21 @@ const mockStore = configureMockStore();
 
 describe("Task Component", () => {
 
+  let store: any;
+
+  beforeEach(() => {
+    const mockState = getMockState()
+    const state = mockStore(mockState)
+
+    store = state
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it("should render correctly", async () => {
     
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
-
     render(
       <Provider store={store}>
         <Column colIndex={0} />
@@ -27,10 +36,6 @@ describe("Task Component", () => {
   })
   
   it("should open view task modal when button is clicked", () => {
-
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
 
     render(
       <Provider store={store}> 

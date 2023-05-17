@@ -3,20 +3,29 @@ import configureMockStore from 'redux-mock-store';
 import getMockState from "@/testUtils/getMockState";
 import { render, screen } from "@testing-library/react";
 import EditTaskModal from ".";
+import { mockCloseModal } from "@/testUtils/mocks";
 
 const mockStore = configureMockStore();
 
 describe("Edit Task component", () => {
+  let store: any;
+
+  beforeEach(() => {
+    const mockState = getMockState() 
+    const state = mockStore(mockState)
+
+    store = state
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
 
   it("should render correctly", () => {
 
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
-
     render(
       <Provider store={store}>
-        <EditTaskModal task="Design settings and search pages" closeModal={() => {}} />
+        <EditTaskModal task="Design settings and search pages" closeModal={mockCloseModal} />
       </Provider>
     )
 
@@ -24,19 +33,11 @@ describe("Edit Task component", () => {
 
   it("should submit form correctly", () => {
 
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
-
     render(
       <Provider store={store}>
-        <EditTaskModal task="Design settings and search pages" closeModal={() => {}} />
+        <EditTaskModal task="Design settings and search pages" closeModal={mockCloseModal} />
       </Provider>
-    )
-
-    /* const form = screen.getByRole("form") */
-
-    
+    ) 
 
   })
 

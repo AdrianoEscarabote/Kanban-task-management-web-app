@@ -7,12 +7,20 @@ import MobileMenu from ".";
 const mockStore = configureMockStore();
 
 describe("Mobile Menu Component", () => {
+  let store: any;
+
+  beforeEach(() => {
+    const mockState = getMockState()
+    const state = mockStore(mockState)
+  
+    store = state
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
 
   it("should render correctly", () => {
-
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
 
     render(
       <Provider store={store}>
