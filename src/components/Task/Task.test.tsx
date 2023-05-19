@@ -48,9 +48,9 @@ describe("Task Component", () => {
 
     fireEvent.click(buttonElement)
 
-    const optionElement = screen.getByRole("option")
+    const optionElement = screen.getAllByRole("option")
 
-    expect(optionElement).toBeInTheDocument()
+    expect(optionElement[0]).toBeInTheDocument()
 
   })
 

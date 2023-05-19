@@ -29,6 +29,23 @@ describe("Add Board Modal", () => {
     )
   })
 
+  it("should close modal on click outside the content", async () => {
+
+    render(
+      <Provider store={store} >
+        <AddBoardModal closeModal={mockCloseModal} />
+      </Provider>
+    )
+
+    await act(async () => {
+      const modal = screen.getByTestId("modal")
+      fireEvent.click(modal, "{esc}");
+    })
+
+    expect(mockCloseModal).toBeCalled();
+
+  })
+
   it("should submit form correctly", async () => {
 
     render(
@@ -36,20 +53,44 @@ describe("Add Board Modal", () => {
         <AddBoardModal closeModal={mockCloseModal} />
       </Provider>
     )
-
-    const nameInput = screen.getByLabelText(/name/i);
-    const createButton = screen.getByLabelText(/create new board/i);
-
-    // Simulate user interaction, inserting a value into the input and clicking the submit button.
-
-    fireEvent.change(nameInput, { target: { value: 'My Board' } });
-    fireEvent.click(createButton);
-
-    await act(async () => {
-      expect(screen.getByLabelText(/add new board/i)).toBeInTheDocument();
-      expect(screen.getByLabelText(/name/i)).toHaveValue('My Board');
+    
+    await act(async () => { 
+      // inputs
+      const nameInput = screen.getByTestId("inputName");
+      const column1 = screen.getByTestId("column-1")
+      const column2 = screen.getByTestId("column-2")
+      
+      const submitButton = screen.getByLabelText(/create new board/i);
+      
+      // changing value
+      fireEvent.change(nameInput, { target: { value: "My Board" } });
+      fireEvent.click(submitButton);
+      
+      expect(nameInput).toHaveValue("My Board")
+      expect(column1).toHaveValue("Todo")
+      expect(column2).toHaveValue("Doing")
     });
 
+    
+    const actions = store.getActions()
+
+    expect(actions).toEqual([
+      {
+        type: "board/createNewBoard",
+        payload: {
+          name: "My Board",
+          columns: [
+            { name: "Todo", tasks: [] },
+            { name: "Doing", tasks: [] }
+          ]
+        }
+      },
+      {
+        type: "setBoard/name",
+        payload: "My Board"
+      }
+    ])
+    
     expect(mockCloseModal).toBeCalled();
 
   })

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { AddBoardModalProps, FormData, Columns } from "./AddBoardModalProps"
 import { useSelector } from "react-redux"
 import { rootState } from "@/redux/reduxTypes"
@@ -12,22 +12,11 @@ import { useForm } from "react-hook-form";
 import { setNameBoard } from "../../redux/nameBoard/actions"
 
 const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
-  const [columns, setColumns] = useState<Columns[]>([])
+  const [columns, setColumns] = useState<Columns[]>([{id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
   const [nameInput, setNameInput] = useState<string>("");
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const dispatch = useDispatch()
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
-
-  const effectRan = useRef(false)
-
-  useEffect(() => {
-    if (effectRan.current) {
-      setColumns((prevState) => [...prevState, {id: 1, value: "Todo"}, {id: 2, value: "Doing"}])
-    }
-    return () => {
-      effectRan.current = true
-    }
-  }, [])
 
   const handleAddNewBoard = () => {
     const arrFormatted = columns.map(item => {
@@ -83,7 +72,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
   })
 
   return (
-    <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
+    <div data-testid="modal" onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
       <section 
         role="dialog" 
         aria-label="Add new Board" 
@@ -125,6 +114,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
                 name="name" 
                 id="name" 
                 placeholder="e.g. Web Design" 
+                data-testid="inputName"
               />
               {
                 boardData.boards.filter(board => board.name === nameInput).length === 0 ?
@@ -160,6 +150,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
                       ${theme === "light" ? "border-light_Blue text-_dark" : "border-medium_Gray text-_white"} `} 
                       type="text" 
                       id={`columns${id}`} 
+                      data-testid={`column-${id}`}
                     />
 
                     <button
@@ -178,7 +169,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
             <div className="mt-4 flex flex-col gap-4">
               <Button 
                 size="small" 
-                label="+ Add New Subtask" 
+                label="+ Add New Column" 
                 textColor="#635FC7" 
                 backgroundColor={`
                 ${theme === "light" 

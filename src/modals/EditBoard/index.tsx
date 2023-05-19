@@ -77,7 +77,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
   })  
   
   return (
-    <div onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
+    <div data-testid="modal" onClick={() => closeModal()} className={`parent_modal fixed top-0 left-0 flex items-center justify-center p-4 z-50 h-screen w-full bg-modalParentBgLight`}>
       <section 
         role="dialog" 
         aria-label="Edit Board" 
@@ -95,7 +95,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
         `}>
           Edit Board
         </h2>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} data-testid="edit-board-form">
           <fieldset>
             <legend className="sr-only">enter information to edit the table</legend>
             <label 
@@ -126,6 +126,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
                 type="text" 
                 name="name" 
                 id="name" 
+                data-testid="board-name-input"
               />
               <span className="absolute text-_red right-3 top-9">
                 {errors.nameBoard && "Can’t be empty"}
@@ -152,6 +153,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
                       name="subtask" 
                       id={`subtasks${id}`} 
                       placeholder="e.g. Make coffee" 
+                      data-testid={`board-column-input-${id}`}
                     />                  
                     <button 
                       type="button" 
