@@ -12,17 +12,37 @@ export default function getMockState() {
           name: "My Board", 
           columns: [
             {
-              name: "Column1",
+              name: "Todo",
               tasks: [
                 {
                   title: "Design settings and search pages",
                   description: "",
-                  status: "Doing",
+                  status: "Todo",
                   subtasks: [
                     {
                       title: "Settings - Account page",
                       isCompleted: true
                     },
+                  ]
+                }
+              ]
+            },
+            {
+              name: "Done",
+              tasks: [
+                {
+                  title: "Launch version one",
+                  description: "",
+                  status: "Done",
+                  subtasks: [
+                    {
+                      title: "Launch privately to our waitlist",
+                      isCompleted: true,
+                    },
+                    {
+                      title: "Launch publicly on PH, HN, etc.",
+                      isCompleted: true,
+                    }
                   ]
                 }
               ]
@@ -33,7 +53,7 @@ export default function getMockState() {
           name: "My Other Board", 
           columns: [
             {
-              name: "Column2",
+              name: "Doing",
               tasks: [
                 {
                   title: "Add account management endpoints",
