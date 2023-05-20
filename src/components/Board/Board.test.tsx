@@ -3,6 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import getMockState from "@/testUtils/getMockState";
 import Board from ".";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { dragTask } from "@/redux/board/reducer";
 
 const mockStore = configureMockStore();
 
@@ -48,5 +49,42 @@ describe("Board Component", () => {
     expect(legendElement).toBeInTheDocument()
 
   })
+
+  it('should drag correctly', async () => {
+    render(
+      <Provider store={store}>
+        <Board />
+      </Provider>
+    );
+
+    store.dispatch(
+      dragTask({
+        boardName: "My Board",
+        currentColIndex: 1,
+        prevColIndex: 0,
+        taskIndex: 0,
+      })
+    );
+  
+    const actions = store.getActions();
+
+    /* I am dispatching the redux action because the "dataTransfer" is not available in the Jest/react-testing-library test environment. */
+  
+    expect(actions).toEqual([
+      {
+        payload: 'Platform Launch',
+        type: 'setBoard/name',
+      },
+      {
+        payload: {
+          boardName: "My Board",
+          currentColIndex: 1,
+          prevColIndex: 0,
+          taskIndex: 0,
+        },
+        type: "board/dragTask",
+      }
+    ]);
+  });
 
 })
