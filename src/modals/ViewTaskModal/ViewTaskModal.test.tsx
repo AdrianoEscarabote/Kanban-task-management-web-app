@@ -36,7 +36,6 @@ describe("View Task Modal", () => {
 
   })
 
-
   it("should mark the input checkbox correctly and dispatch the action to redux", () => {
 
     render(
@@ -50,7 +49,7 @@ describe("View Task Modal", () => {
       </Provider>
     )
 
-    // Encontrar o input checkbox pelo título
+    // Find input checkbox by title
     const input = screen.getByRole("checkbox");
 
     fireEvent.click(input)
@@ -85,10 +84,11 @@ describe("View Task Modal", () => {
       </Provider>
     )
 
-    // Encontrar o select
+    
+    // find the select
     const selectElement = screen.getByRole('combobox');
 
-    // evento
+    // event
     fireEvent.change(selectElement, { target: { value: 'Done' } });
     expect(selectElement).toHaveValue("Done")
     

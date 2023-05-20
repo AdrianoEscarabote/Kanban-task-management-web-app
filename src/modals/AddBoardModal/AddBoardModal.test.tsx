@@ -70,7 +70,6 @@ describe("Add Board Modal", () => {
       expect(column1).toHaveValue("Todo")
       expect(column2).toHaveValue("Doing")
     });
-
     
     const actions = store.getActions()
 

@@ -4,8 +4,6 @@ import { fireEvent, render, screen } from "@testing-library/react"
 import { Provider } from "react-redux"
 import EditBoard from "."
 import { mockCloseModal } from "@/testUtils/mocks"
-import { editBoard } from "@/redux/board/reducer"
-import { setNameBoard } from "@/redux/nameBoard/actions"
 import { act } from "react-dom/test-utils"
 
 const mockStore = configureMockStore()
@@ -55,7 +53,6 @@ describe("Edit Board Modal", () => {
     })
 
     const actions = store.getActions()
-
 
     expect(actions).toEqual([
       {

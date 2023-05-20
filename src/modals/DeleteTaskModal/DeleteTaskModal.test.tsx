@@ -23,15 +23,13 @@ describe("Delete Task Modal", () => {
   })
 
   it("should render correctly", () => {
-    const mockState = getMockState()
-
-    const store = mockStore(mockState)
 
     render(
       <Provider store={store}> 
         <DeleteTaskModal NameToDelete="Design settings and search pages" closeModal={mockCloseModal}/>
       </Provider>
     )
+    
   })
 
   it("should call handleClickDeleteTask and dispatch deleteTask action when delete button is clicked", () => {
