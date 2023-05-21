@@ -57,7 +57,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
 
   const { register, setValue, handleSubmit, formState: { errors } } = useForm<formData>()
 
-  const onSubmit =  handleSubmit(() => {
+  const onSubmit = handleSubmit(() => {
     const obj: createNewTask = {
       nameColumn: nameBoard,
       Task: {
@@ -85,7 +85,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
         : "bg-almost_Dark"}`}
         >
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add New Task</h2>
-        <form onSubmit={onSubmit}>
+        <form role="form" onSubmit={onSubmit}>
           <fieldset className="border-none flex flex-col gap-4 mt-5">
             <legend className="sr-only">Put your task information</legend>
             <label
@@ -117,6 +117,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                 id="title" 
                 name="title" 
                 placeholder="e.g. Take coffee break" 
+                data-testid="title"
               />
               <span className="absolute text-_red right-3 top-9">
                 {errors.title && "Can’t be empty"}
@@ -133,7 +134,8 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                 ? "border-light_Blue text-_dark" 
                 : "border-medium_Gray text-_white"} `} 
                 name="description" id="description" 
-                placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.">
+                placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
+                data-testid="description">
               </textarea>
             </label>
             <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Subtasks</h3>
@@ -165,6 +167,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                       ? "border-light_Blue text-_dark" 
                       : "border-medium_Gray text-_white"} 
                       `} 
+                      data-testid={`subtask-${task.id}`}
                     />
                     <button 
                     aria-label="remove input"
@@ -201,6 +204,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                 `}
                 name="status"
                 id="status"
+                data-testid="select"
               >
                 <option 
                   value="" 
@@ -226,6 +230,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({ closeModal }) => {
                         ? "text-_dark" 
                         : "text-_white"
                       }`}
+                      data-testid={`option-${index}`}
                     >
                       {col.name}
                     </option>
