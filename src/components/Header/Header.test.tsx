@@ -4,6 +4,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import configureMockStore from 'redux-mock-store';
 import getMockState from "@/testUtils/getMockState";
+import { act } from "react-dom/test-utils";
 
 const mockStore = configureMockStore();
 
@@ -31,7 +32,7 @@ describe("Header Component", () => {
     
   })
 
-  it("should open the modal when button 'add new task' clicked", () => {
+  it("should open the modal when button 'add new task' clicked", async () => {
 
     render(
       <Provider store={store}>
@@ -39,23 +40,53 @@ describe("Header Component", () => {
       </Provider>
     )
 
-    const button = screen.getByText("+ Add new Task")
+    // opening modal
+    await act(async () => {
+      const buttonOpenAddTaskModal = screen.getByText("+ Add new Task")
+  
+      fireEvent.click(buttonOpenAddTaskModal)
+    })
 
-    fireEvent.click(button)
+    const buttonEditTaskModal = await screen.findByText("Create Task")
 
-    /* const TaskModalElement = screen.getByText("put your task information")
+    expect(buttonEditTaskModal).toBeInTheDocument()
 
-    expect(TaskModalElement).toBeInTheDocument()
+    // closing modal
+    await act(async () => {
+      const buttonOpenAddTaskModal = screen.getByText("+ Add new Task")
+  
+      fireEvent.click(buttonOpenAddTaskModal)
+    })
 
-    fireEvent.click(button) */
-
-    /* const TaskModalElementNotToBe = screen.queryByText("put your task information")
-
-    expect(TaskModalElementNotToBe).not.toBeInTheDocument() */
+    expect(buttonEditTaskModal).not.toBeInTheDocument()
 
   })
 
+  it("should find mobile menu button", async () => {
+
+    render(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    )
+    
+    const button = await screen.findByTestId("mobile-menu-button")
+
+    expect(button).toBeInTheDocument()
+
+    // opening the modal on mobile 
+    await act(async () => {
+      const buttonOpenAddTaskModal = screen.getByText("+ Add new Task")
   
+      fireEvent.click(buttonOpenAddTaskModal)
+    })
+
+    const buttonEditTaskModal = await screen.findByText("Create Task")
+
+    expect(buttonEditTaskModal).toBeInTheDocument()
+
+  }) 
+
 })
 
 export default {}

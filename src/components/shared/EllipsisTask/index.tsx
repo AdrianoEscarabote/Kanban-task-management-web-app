@@ -29,7 +29,8 @@ const ElipsisTask: React.FC<EllipsisTaskProps> = ({ openDeleteTaskModal, closeMo
       aria-label="open options"
       onClick={handleClickOptions} 
       className="bg-cover bg-center w-10 h-10 flex items-center justify-center" 
-      style={{background: `url('/assets/icon-vertical-ellipsis.svg') no-repeat right `}}></button>
+      style={{background: `url('/assets/icon-vertical-ellipsis.svg') no-repeat right `}}
+      data-testid="button-ellipsis-task"></button>
       <>
         {
           optionsOpen ? (
@@ -37,13 +38,15 @@ const ElipsisTask: React.FC<EllipsisTaskProps> = ({ openDeleteTaskModal, closeMo
               <button 
               aria-label="open edit task"
               className={`text-_gray`} 
-              onClick={handleEditTask}>
+              onClick={handleEditTask}
+              data-testid="btn-edit-modal">
                 Edit Task
               </button>
               <button 
               aria-label="delete task"
               className={`text-_red`} 
-              onClick={handleDeleteTask}>
+              onClick={handleDeleteTask}
+              data-testid="btn-delete-modal">
                 Delete Task
               </button>
             </div>

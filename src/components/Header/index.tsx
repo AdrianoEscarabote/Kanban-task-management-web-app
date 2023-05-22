@@ -13,7 +13,7 @@ const Header = () => {
   const { theme } = useSelector((rootReducer: rootState) => rootReducer.themeReducer)
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard)
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
 
   const buttonDisabled = boardData.boards.length === 0
   
@@ -25,8 +25,8 @@ const Header = () => {
     }
   }
 
-  const handleOpenSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
+  const handleOpenMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
   }
 
   return (
@@ -36,7 +36,7 @@ const Header = () => {
         <Sidebar />
 
         {
-          sidebarOpen ? <MobileMenu handleModal={handleOpenSidebar} /> : null
+          mobileMenuOpen ? <MobileMenu handleModal={handleOpenMobileMenu} /> : null
         }
 
         <picture className="my-5 mx-5 h-auto">
@@ -56,17 +56,19 @@ const Header = () => {
           <h2 className={`${style.h2} text-2xl font-bold ${theme === "light" ? "text-black" : "text-white"}`}>{!nameBoard ? boardData.boards[0]?.name : nameBoard }</h2>
 
           <button 
-            aria-label={`${sidebarOpen ? "close Sidebar" : "open Sidebar"}`}
-            onClick={handleOpenSidebar}
+            aria-label={`${mobileMenuOpen ? "close Sidebar" : "open Sidebar"}`}
+            onClick={handleOpenMobileMenu}
             className={`${style.button_sidebar} text-2xl font-bold items-center gap-2
             ${theme === "light" 
             ? "text-black" 
             : "text-white"}`
-            } >
+            } 
+            data-testid="mobile-menu-button"
+            >
               <span className={style.text_button}>{!nameBoard ? boardData.boards[0]?.name : nameBoard }</span>
               <Image 
                 className="mt-1"
-                src={sidebarOpen ? "/assets/icon-chevron-up.svg" : "/assets/icon-chevron-down.svg"} 
+                src={mobileMenuOpen ? "/assets/icon-chevron-up.svg" : "/assets/icon-chevron-down.svg"} 
                 width={8}
                 height={5.59}
                 alt=""
