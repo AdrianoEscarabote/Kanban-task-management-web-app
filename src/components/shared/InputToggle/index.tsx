@@ -38,6 +38,7 @@ const InputToggle = () => {
             className="sr-only"
             checked={isToggled}
             onChange={handleChangeTheme}
+            data-testid="toggleBtn"
           />
           <div
             className={`absolute left-1 w-4 h-4 bg-white rounded-full top-1 transform transition-all duration-200 ${isToggled ? 'translate-x-4' : ''}`}

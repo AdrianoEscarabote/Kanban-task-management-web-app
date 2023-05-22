@@ -43,21 +43,30 @@ const Ellipsis = () => {
       ${buttonDisabled 
       ? "disabled" 
       : ""} bg-cover bg-center w-10 h-10 flex items-center justify-center`} 
-      style={{background: `url('/assets/icon-vertical-ellipsis.svg') no-repeat center `}}></button>
+      style={{background: `url('/assets/icon-vertical-ellipsis.svg') no-repeat center `}}
+      data-testid="button-ellipsis-board"></button>
       <>
         {
           optionsOpen ? (
-            <div className={`h-24 w-48 pl-4 flex items-start justify-center flex-col gap-2 rounded-lg absolute right-3 top-20 ${theme === "light" ? "bg-_white" : "bg-almost_Dark" }`} style={{ boxShadow:  '0px 10px 20px rgba(54, 78, 126, 0.25)' }} >
+            <div 
+              className={`h-24 w-48 pl-4 flex items-start justify-center flex-col gap-2 rounded-lg absolute right-3 top-20 
+              ${theme === "light" 
+              ? "bg-_white" 
+              : "bg-almost_Dark" }`} 
+              style={{ boxShadow:  '0px 10px 20px rgba(54, 78, 126, 0.25)' }} 
+            >
               <button 
               aria-label="open edit board"
               className={`text-_gray`} 
-              onClick={handleClickEditModal}>
+              onClick={handleClickEditModal}
+              data-testid="btn-edit-board">
                 Edit Board
               </button>
               <button 
               aria-label="open delete modal"
               className={`text-_red`} 
-              onClick={handleClickDeleteModal}>
+              onClick={handleClickDeleteModal}
+              data-testid="btn-delete-board">
                 Delete Board
               </button>
             </div>

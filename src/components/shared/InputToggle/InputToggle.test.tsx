@@ -1,6 +1,6 @@
 import configureMockStore from "redux-mock-store"
 import getMockState from "@/testUtils/getMockState"
-import { render } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { Provider } from "react-redux"
 import InputToggle from "."
 
@@ -27,6 +27,29 @@ describe("Input Toggle Component", () => {
         <InputToggle />
       </Provider>
     )
+
+  })
+  
+  it("should dispatch redux action and change theme", () => {
+
+    render(
+      <Provider store={store}>
+        <InputToggle />
+      </Provider>
+    )
+
+    const toggleBtn = screen.getByTestId("toggleBtn")
+
+    fireEvent.click(toggleBtn)
+
+    const actions = store.getActions()
+
+    expect(actions).toEqual([
+      {
+        payload: "light",
+        type: "theme/light",
+      },
+    ])
 
   })
 
