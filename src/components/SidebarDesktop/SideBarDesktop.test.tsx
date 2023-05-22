@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import getMockState from '@/testUtils/getMockState';
 import { Provider } from 'react-redux';
 import SidebarDesktop from '.';
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 const mockStore = configureMockStore();
 
@@ -27,6 +27,45 @@ describe("Sidebar Component", () => {
         <SidebarDesktop />
       </Provider>
     )
+
+  })
+
+  it("should close sidebar when button is clicked", async () => {
+
+    render(
+      <Provider store={store} >
+        <SidebarDesktop />
+      </Provider>
+    )
+
+    // closing sidebar
+    const btnHideSidebar = await screen.findByTestId("btn-hide-sidebar")
+    fireEvent.click(btnHideSidebar)
+    
+    const btnShowSidebar = await screen.findByTestId("btn-show-sidebar")
+
+    // checking if the open sidebar button is present
+    expect(btnShowSidebar).toBeInTheDocument()
+  
+  })
+
+  it("should open sidebar when button is clicked", async () => {
+
+    render(
+      <Provider store={store} >
+        <SidebarDesktop />
+      </Provider>
+    )
+
+    // closing sidebar
+    const btnHideSidebar = await screen.findByTestId("btn-hide-sidebar")
+    fireEvent.click(btnHideSidebar)
+
+    // opening sidebar 
+    const btnShowSidebar = await screen.findByTestId("btn-show-sidebar")
+    fireEvent.click(btnShowSidebar)
+
+    expect(btnHideSidebar).not.toBeInTheDocument()
 
   })
 
