@@ -1,6 +1,9 @@
+.header {
+  height: 6rem;
+}
+
 .buttonMobile {
   display: none !important;
-
 }
 
 .button_sidebar {
@@ -49,8 +52,8 @@
     max-width: 12.5rem;
     font-size: 1.125rem !important;
     line-height: 1.5rem !important;
-    white-space: nowrap; /* Evita que o texto quebre em várias linhas */
-    overflow: hidden; /* Esconde o texto que ultrapassa os limites da caixa */
+    white-space: nowrap; 
+    overflow: hidden; 
     text-overflow: ellipsis;
   }
 }

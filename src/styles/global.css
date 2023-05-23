@@ -95,12 +95,12 @@ select {
 }
 
 .sidebarOpen {
-  margin-left: 170px;
-  border-left: 0px;
+  margin-left: 9.125rem;
+  border-left: 0rem;
 }
 
 .mainSidebarOpen {
-  margin-left: 320px;
+  margin-left: 18.125rem;
 }
 
 .body_dark {
@@ -124,10 +124,10 @@ select {
 .todo::before {
   content: "";
   position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 15px;
-  height: 15px;
+  top: 0rem;
+  left: 0rem;
+  width: 0.9375rem;
+  height: 0.9375rem;
   border-radius: 50%;
 }
 
@@ -147,14 +147,14 @@ select {
   filter: invert(36%) sepia(73%) saturate(830%) hue-rotate(211deg) brightness(88%) contrast(82%);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .mainSidebarOpen {
-    margin-left: 260px;
-    padding-top: 95px;
+    margin-left: 16.25rem;
+    padding-top: 5.9375rem;
     overflow-y: scroll;
   }
   .sidebarOpen {
-    margin-left: 126px;
+    margin-left: 7.875rem;
   }
 }
 
@@ -182,7 +182,7 @@ select {
 }
 
 .error_input {
-  border: 1px solid #EA5555 !important;
+  border: 0.0625rem solid #EA5555 !important;
 }
 
 .disabled {

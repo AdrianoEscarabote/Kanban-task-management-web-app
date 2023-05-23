@@ -29,9 +29,9 @@ const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
   }
 
   return (
-    <section className={`py-3 right-6 ${style.section} h-full`}>
-      <p className="pl-5 text-_gray font-bold text-xs">ALL BOARDS ( { boardsCount } )</p>    
-      <ul className={`${style.list} flex items-start flex-col gap-2 mt-4 font-bold text-sm/5 text-_gray`}>
+    <section className={`pt-5 pb-3 right-6 ${style.section} h-full`}>
+      <p className={`${style.boards_number} pl-8 text-_gray font-bold text-xs`}>ALL BOARDS ( { boardsCount } )</p>    
+      <ul className={`${style.list} flex items-start flex-col mt-5 font-bold text-sm/5 text-_gray`}>
           {
             boardData.boards.map((board, index) => (
               <li key={index} className="w-full p-0">
@@ -39,17 +39,23 @@ const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
                   aria-label={`see board ${board.name}`}
                   onClick={(ev) => handleClickButton(board.name)} 
                   className={`
+                  ${style.button}
                   ${nameBoard === board.name 
                   ? "bg-purple_Dark text-_white" 
                   : "" }
-                  pl-5 w-full mr-3 
+                  pl-8 w-full font-bold
                   ${theme === "light" 
                   ? "hover:text-purple_Dark hover:bg-purple_superLight" 
                   : "hover:text-purple_Dark hover:bg-_white"
                   } rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12`}
                   data-testid={`btn-name-board-${index}`}
                 >
-                  <Image src="/assets/icon-board.svg" height="16" alt="" width="16" />
+                  <Image
+                    src="/assets/icon-board.svg" 
+                    height="16" 
+                    alt="" 
+                    width="16" 
+                  />
                   {board.name}
                 </button>
               </li>
@@ -59,7 +65,7 @@ const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
             <button 
             aria-label="create new board"
             onClick={handleClickButtonModalBoard} 
-            className="pl-5 w-full mr-3 text-purple_Dark hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
+            className="pl-8 w-full mr-3 text-purple_Dark hover:text-_white hover:bg-purple_Dark rounded-r-3xl rounded-br-3xl flex items-center gap-4 h-12">
               <Image className="filter_purple" src="/assets/icon-board.svg" height="16" alt="" width="16" />
               + Create New Board
             </button>

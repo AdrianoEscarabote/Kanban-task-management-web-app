@@ -1,4 +1,14 @@
-@media (max-width: 620px) {
+.boards_number {
+  letter-spacing: 0.15rem;
+}
+
+.button {
+  width: 17.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.1875rem;
+}
+
+@media (max-width: 38.75rem) {
   .section {
     text-align: start;
   } 
@@ -9,13 +19,13 @@
   overflow-y: scroll;
 }
 
-@media (max-height: 980px) {
+@media (max-height: 61.25rem) {
   .list {
     height: 64vh;
   }
 }
 
-@media (max-height: 790px) {
+@media (max-height: 49.375rem) {
   .list {
     height: 54vh;
   }

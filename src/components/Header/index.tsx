@@ -76,20 +76,27 @@ const Header = () => {
             </button>
 
           <div className="wrapper_buttons flex items-center justify-center">
-            <button onClick={handleClickOpenModal} className={`${style.buttonDesktop} 
+            <button 
+            onClick={handleClickOpenModal} 
+            className={`${style.buttonDesktop} 
             ${buttonDisabled 
             ? "disabled" 
-            : ""} bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-5 text-sm font-bold hover:bg-purple_Light`}>+ Add new Task</button>
+            : ""} bg-purple_Dark text-_white w-40 h-12 rounded-3xl mr-1 text-sm font-bold hover:bg-purple_Light`}>
+              + Add new Task
+            </button>
             
             <button 
-            aria-label={modalOpen 
+              aria-label={modalOpen 
               ? "close add task modal" 
               : "open add task modal"}
-            onClick={handleClickOpenModal}
-            className={`${style.buttonMobile}
-            ${buttonDisabled 
-            ? "disabled" 
-            : ""} flex place-content-center bg-purple_Dark text-_white w-12 h-8 rounded-3xl mr-2 pb-1 text-sm font-bold hover:bg-purple_Light`}>+</button>
+              onClick={handleClickOpenModal}
+              className={`${style.buttonMobile}
+              ${buttonDisabled 
+              ? "disabled" 
+              : ""} flex place-content-center bg-purple_Dark text-_white w-12 h-8 rounded-3xl mr-2 pb-1 text-sm font-bold hover:bg-purple_Light`}
+            >
+              +
+            </button>
 
             <Ellipsis />
 

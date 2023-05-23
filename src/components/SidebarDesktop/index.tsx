@@ -30,12 +30,25 @@ const SidebarDesktop = () => {
     {
       sidebarOpen ? (
           <div className={style.parent} onClick={() => handleClickOpenSidebar()}>
-            <div onClick={(e) => e.stopPropagation()} className={`${style.sidebar} fixed left-0 top-0 min-h-full w-80 flex flex-col ${theme === "light" ? "bg-_white border-r border-light_Blue" : "bg-dark_Gray border-r border-medium_Gray"}`} >
-              <Image className={`${style.logo} my-8 mx-5`} src={theme === "light" ? "/assets/logo-dark.svg" : "/assets/logo-light.svg"} height="25" width="152" alt="Kanban - Home" />
+            <div 
+            onClick={(e) => e.stopPropagation()} 
+            className={`${style.sidebar} fixed left-0 top-0 min-h-full flex flex-col 
+            ${theme === "light" 
+            ? "bg-_white border-r border-light_Blue" 
+            : "bg-dark_Gray border-r border-medium_Gray"}`} >
+              <Image 
+                className={`${style.logo} my-8 ml-8`} 
+                src={theme === "light" 
+                ? "/assets/logo-dark.svg" 
+                : "/assets/logo-light.svg"} 
+                height="25" 
+                width="152" 
+                alt="Kanban - Home" 
+              />
 
               <ListBoardNames />
 
-              <div className={`${style.parent_buttons} w-full absolute bottom-5 flex flex-col gap-6 items-center justify-center`}>
+              <div className={`${style.parent_buttons} w-full absolute bottom-8 flex flex-col gap-2 items-center justify-center`}>
                 
                 <InputToggle />
 

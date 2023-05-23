@@ -5,6 +5,7 @@ import ViewTaskModal from "../../modals/ViewTaskModal";
 import DeleteTaskModal from "../../modals/DeleteTaskModal";
 import EditTaskModal from "../EditTask";
 import { TaskProps } from "./TaskProps";
+import style from "./style.module.css"
 
 const Task: React.FC<TaskProps> = ({ taskIndex, colIndex, taskName}) => {
   const { nameBoard } = useSelector((rootReducer: any) => rootReducer.reducerNameBoard)
@@ -40,16 +41,16 @@ const Task: React.FC<TaskProps> = ({ taskIndex, colIndex, taskName}) => {
           draggable
           onDragStart={handleOnDrag}
           style={{ boxShadow: "0px 4px 6px rgba(54, 78, 126, 0.101545)" }}  
-          className={`rounded-lg py-6 px-4 w-full mb-5 text-start
-        ${theme === "light" 
-        ? "bg-_white" 
-        : "bg-dark_Gray"}` }
+          className={`${style.button} rounded-lg w-full mb-5 text-start
+          ${theme === "light" 
+          ? "bg-_white" 
+          : "bg-dark_Gray"}`}
           onClick={() => {
             setViewTaskModalOpen(!viewTaskModalOpen)
           }}
         >
           <div className="flex flex-col gap-2">
-              <p className={`text-start font-bold text-base/5 
+              <p className={`${style.title} text-start font-bold 
               ${theme === "light" 
               ? "text-_dark" 
               : "text-_white"}`}>

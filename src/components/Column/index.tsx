@@ -4,6 +4,7 @@ import { dragTask } from "../../redux/board/reducer";
 import { useSelector } from "react-redux";
 import { rootState } from "@/redux/reduxTypes";
 import { useDispatch } from "react-redux";
+import style from "./style.module.css"
 
 const Column: React.FC<ColumnProps> = ({ colIndex }) => {
   const dispatch = useDispatch();
@@ -38,11 +39,11 @@ const Column: React.FC<ColumnProps> = ({ colIndex }) => {
   };
 
   return (
-    <div className='flex flex-col gap-4 h-full'
+    <div className='flex flex-col mt-1 gap-4 h-full'
     key={colIndex + 1}
     style={{minHeight: "87vh"}}>
       <h3 
-        className={`font-bold z-10 uppercase tracking-wide text-xs/4 
+        className={`${style.tasks_count} font-bold z-10 uppercase 
         ${theme === "light" 
         ? "text-_dark" 
         : "text-_white"} 
@@ -56,10 +57,10 @@ const Column: React.FC<ColumnProps> = ({ colIndex }) => {
         ? "done relative pl-6"
         : ""}
         `}>
-          {col?.name} ( {col?.tasks ? col.tasks.length : 0 } )
+          {col?.name} ({col?.tasks ? col.tasks.length : 0 })
         </h3>
       <ul 
-        className={`h-full rounded-md flex flex-col
+        className={`h-full rounded-md mt-2 flex flex-col
         ${col?.tasks?.length === 0 || !col?.tasks 
         ? theme === "light" 
         ? "col-gradient" 

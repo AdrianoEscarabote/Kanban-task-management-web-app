@@ -1,3 +1,8 @@
+.sidebar {
+  width: 18.75rem;
+  min-height: 100vh;
+}
+
 @media (max-width: 48rem) {
   .sidebar {
     max-width: 16.5rem !important;
