@@ -16,7 +16,7 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
 
   const board = boardData.boards.filter(board => board.name === nameBoard)
-  const buttonDisabled = board[0].columns.length === 0
+  const buttonDisabled = board[0]?.columns.length === 0
   
   const handleClickOpenModal = () => {
     if (buttonDisabled) {

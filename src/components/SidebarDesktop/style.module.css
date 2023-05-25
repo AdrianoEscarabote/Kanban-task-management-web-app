@@ -4,6 +4,11 @@
   transition: 0s !important;
 }
 
+.parent {
+  height: 100vh;
+  transition: 0s !important;
+}
+
 @media (max-width: 48rem) {
   .sidebar {
     max-width: 16.5rem !important;
