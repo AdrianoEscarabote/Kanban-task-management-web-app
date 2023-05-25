@@ -1,6 +1,7 @@
 .sidebar {
   width: 18.75rem;
-  min-height: 100vh;
+  height: 100vh !important;
+  transition: 0s !important;
 }
 
 @media (max-width: 48rem) {

@@ -1,5 +1,6 @@
 .header {
   height: 6rem;
+  transition: 0s !important;
 }
 
 .buttonMobile {
