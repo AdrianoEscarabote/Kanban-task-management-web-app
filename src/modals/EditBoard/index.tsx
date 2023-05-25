@@ -96,7 +96,7 @@ const EditBoard: React.FC<EditBoardProps> = ({ closeModal }) => {
           Edit Board
         </h2>
         <form onSubmit={onSubmit} data-testid="edit-board-form">
-          <fieldset>
+          <fieldset className="flex flex-col gap-4">
             <legend className="sr-only">enter information to edit the table</legend>
             <label 
               aria-label="enter the name of the board"

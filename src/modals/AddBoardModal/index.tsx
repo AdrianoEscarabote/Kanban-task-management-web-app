@@ -78,7 +78,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
         aria-label="Add new Board" 
         aria-describedby="modal-content" 
         onClick={(e) => e.stopPropagation()} 
-        className={`${style.modal} overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full 
+        className={`${style.modal} flex flex-col gap-2 overflow-y-scroll font-bold text-lg/6 p-8 rounded-md w-full 
         ${theme === "light" 
         ? "bg-_white" 
         : "bg-almost_Dark"}`
@@ -86,10 +86,10 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
       >
         <h2 className={`${theme === "light" ? "text-_dark" : "text-_white"}`}>Add new board</h2>
         <form onSubmit={onSubmit}> 
-          <fieldset>
+          <fieldset className="flex flex-col gap-2">
             <legend className="sr-only">enter board details</legend>
             <label htmlFor="name" 
-            className={`relative flex flex-col mt-4 gap-2 font-bold text-xs 
+            className={`relative flex flex-col gap-2 font-bold text-xs 
               ${theme === "light" 
               ? "text-_gray" 
               : "text-_white"}`
@@ -128,7 +128,7 @@ const AddBoardModal: React.FC<AddBoardModalProps> = ({ closeModal }) => {
               </span>
             </label>
             
-            <div className="flex flex-col mt-1">
+            <div className="flex flex-col gap-4 mt-1">
               <h3 className={`font-bold text-xs ${theme === "light" ? "text-_gray" : "text-_white"}`}>Columns</h3>
               {columns.map(({ id, value }) => (
                 <label 

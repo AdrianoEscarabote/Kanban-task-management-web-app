@@ -15,7 +15,8 @@ const Header = () => {
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice)
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
 
-  const buttonDisabled = boardData.boards.length === 0
+  const board = boardData.boards.filter(board => board.name === nameBoard)
+  const buttonDisabled = board[0].columns.length === 0
   
   const handleClickOpenModal = () => {
     if (buttonDisabled) {

@@ -74,7 +74,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
 
         {
           sideTasks.map((task, index) => (
-            <div key={index}>
+            <div key={index} className="flex flex-col gap-3">
               <div className="flex items-center relative w-full overflow-visible justify-between">
                 <h2 className={`mb-4 font-bold text-lg ${theme === "light" ? "text-_dark" : "text-_white"}`}>{task.title}</h2>
                 <EllipsisTask openEditTaskModal={() => openEditTaskModal()} openDeleteTaskModal={openDeleteTaskModal} closeModal={closeModal} />
@@ -91,9 +91,15 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                   subtasks.map((sub, index) => (
                     <label 
                     aria-label="subtask title" 
+                    style={{ backgroundColor: 
+                      sub.isCompleted 
+                      ? "#6460c740" 
+                      : "" }}
                     key={index} 
-                    className={`cursor-pointer py-3 px-2 
-                    ${theme === "light" 
+                    className={`
+                    ${style.subtask}
+                    rounded-md cursor-pointer px-2 
+                    ${theme === "light"
                     ? "bg-almost_White" 
                     : "bg-almost_Dark"} flex items-center gap-4 pl-4`} 
                     htmlFor={`radio-${index}`}>
@@ -108,7 +114,20 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                         id={`radio-${index}`}
                         key={`checkbox-${index}`}
                       />
-                      <span className={`${theme === "light" ? "text-_dark" : "text-_white"} font-bold text-xs/4 ${sub.isCompleted ? "text-opacity-50 line-through" : ""}`}>{sub.title}</span>
+                      <span style={{
+                        textDecoration: 
+                        sub.isCompleted 
+                        ? "line-through" 
+                        : "",
+                        opacity: sub.isCompleted ? "0.5" : "" }} className={`
+                        ${theme === "light" 
+                        ? "text-_dark" 
+                        : "text-_white"} font-bold
+                        ${style.span}`}
+
+                      >
+                        {sub.title}
+                      </span>
                     </label>
                   ))
                 }
@@ -135,30 +154,28 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({ openEditTaskModal, closeM
                   }
                 </select>
               </label>
-              <div className="mt-5">
-                <Button 
-                  ariaLabel="Save changes"
-                  label="Save" 
-                  size="small"
-                  backgroundColor="#635FC7" 
-                  textColor="#fff" 
-                  onClick={() => {
-                    if (initialStatus !== status) {
-                      dispatch(
-                        changeStatus({
-                          boardName: nameBoard,
-                          name: taskTarget,
-                          status: status,
-                          description: description,
-                          subtasks: subtasks,
-                        })
-                      );
-                      setInitialStatus(status);
-                    }
-                    closeModal();
-                  }} 
-                />
-              </div>
+              <Button 
+                ariaLabel="Save changes"
+                label="Save" 
+                size="small"
+                backgroundColor="#635FC7" 
+                textColor="#fff" 
+                onClick={() => {
+                  if (initialStatus !== status) {
+                    dispatch(
+                      changeStatus({
+                        boardName: nameBoard,
+                        name: taskTarget,
+                        status: status,
+                        description: description,
+                        subtasks: subtasks,
+                      })
+                    );
+                    setInitialStatus(status);
+                  }
+                  closeModal();
+                }} 
+              />
             </div>
           ))
         }
