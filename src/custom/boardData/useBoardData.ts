@@ -14,14 +14,18 @@ const useBoardData = () => {
         if (localStorage.getItem("board")) {
           const obj = JSON.parse(localStorage.getItem("board") as string)
           dispatch(setBoards(obj))
-          setLoading(false)
+          setTimeout(() => {
+            setLoading(false)
+          }, 600)
         } else {
           const response = await axios.get("data/data.json");
           // Calls the setBoards action to update the state in Redux with the received data
           dispatch(setBoards(response.data))
           localStorage.setItem("board", JSON.stringify(response.data))
           dispatch(setNameBoard(response.data.boards[0].name))
-          setLoading(false)
+          setTimeout(() => {
+            setLoading(false)
+          }, 600)
         }
       } catch (err) {
         return null
