@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import store from "../../../redux/store";
 
 export default {
-  title: "shared/Ellipsis",
+  title: "shared/Ellipsis Board",
   component: Ellipsis,
   parameters: {
     layout: 'fullscreen',
