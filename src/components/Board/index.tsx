@@ -7,10 +7,12 @@ import EditBoard from "../../modals/EditBoard/index";
 import Column from "../../components/Column/index";
 import Head from "next/head";
 import Button from "../shared/Button";
+import { useTheme } from "../../custom/theme/index";
 
 const Board = () => {
-  const dispatch = useDispatch();
+  useTheme()
   useBoardData();
+  const dispatch = useDispatch();
   const { nameBoard } = useSelector((rootReducer: rootState) => rootReducer.reducerNameBoard);
   const boardData = useSelector((rootReducer: rootState) => rootReducer.boardSlice);
   const board = boardData.boards.find((board) => board.name === nameBoard);

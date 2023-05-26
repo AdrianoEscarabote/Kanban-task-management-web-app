@@ -1,13 +1,6 @@
 import themeActionTypes from "./action-types";
 import { initialStateProps, ActionProps } from "./themeProps";
 
-/* const localStorageTheme = typeof window !== 'undefined' && window.localStorage.getItem("theme");
-
-const initialState = {
-  theme: localStorageTheme ? localStorageTheme : "dark"
-} */
-
-
 const initialState = {
   theme: "dark"
 }

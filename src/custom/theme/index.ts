@@ -1,5 +1,5 @@
 import { rootState } from "@/redux/reduxTypes";
-import { setLocalStorageValue } from "@/redux/theme/actions";
+import { setLocalStorageValue } from "../../redux/theme/actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
