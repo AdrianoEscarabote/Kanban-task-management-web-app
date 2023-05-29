@@ -56,7 +56,9 @@ const ListBoardNames: React.FC<ListBoardNamesProps> = ({ closeModal }) => {
                     alt="" 
                     width="16" 
                   />
-                  {board.name}
+                  <span className={style.nameBoard}>
+                    {board.name}
+                  </span>
                 </button>
               </li>
             ))

@@ -1,0 +1,15 @@
+@media (max-width: 38.75rem) {
+  .main {
+    top: 3.75rem !important; 
+  }
+}
+.main::-webkit-scrollbar {
+  width: 0.1em;
+  background-color: transparent;
+}
+.main::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+.main::-webkit-scrollbar-track {
+  background-color: transparent;
+}

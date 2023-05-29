@@ -1,30 +1,41 @@
 .boards_number {
   letter-spacing: 0.15rem;
 }
-
 .button {
   width: 17.25rem;
   font-size: 0.9375rem;
   line-height: 1.1875rem;
 }
-
+.nameBoard {
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  max-width: 12.5rem;
+}
+@media (max-width: 48rem) {
+  .nameBoard {
+    max-width: 8.75rem;
+  }
+}
+@media (max-width: 48rem) and (min-width: 38.75rem) {
+  .button  {
+    max-width: 15.625rem;
+  }
+}
 @media (max-width: 38.75rem) {
   .section {
     text-align: start;
   } 
 }
-
 .list {
   height: 70vh;
   overflow-y: scroll;
 }
-
 @media (max-height: 61.25rem) {
   .list {
     height: 64vh;
   }
 }
-
 @media (max-height: 49.375rem) {
   .list {
     height: 54vh;
