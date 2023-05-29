@@ -68,7 +68,7 @@ const Column: React.FC<ColumnProps> = ({ colIndex }) => {
         : "" }`} 
         onDrop={handleOnDrop} 
         onDragOver={handleOnDragOver}
-        style={{ width: "280px", minHeight: "87vh" }} 
+        style={{ width: "280px", minHeight: "80vh" }} 
       >
         {col?.tasks.map((task, index: number) => {
           return (

@@ -14,15 +14,13 @@ const SidebarDesktop = () => {
   };
   
   useEffect(() => {
-    sidebarOpen ?
+    if (sidebarOpen) {
       document.querySelector(".content")?.classList.add("sidebarOpen")
-    : 
-    document.querySelector(".content")?.classList.remove("sidebarOpen") 
-
-    sidebarOpen ? 
-    document.querySelector("main")?.classList.add("mainSidebarOpen")
-    :
-    document.querySelector("main")?.classList.remove("mainSidebarOpen")
+      document.querySelector("main")?.classList.add("mainSidebarOpen")
+    } else {
+      document.querySelector(".content")?.classList.remove("sidebarOpen") 
+      document.querySelector("main")?.classList.remove("mainSidebarOpen")
+    }
   })
   
   return (
@@ -66,7 +64,7 @@ const SidebarDesktop = () => {
                   <span className="font-bold text-sm/5">Hide Sidebar</span>
                 </button>
               </div>
-              </div>  
+            </div>
           </div>
         ) : (
           <button 

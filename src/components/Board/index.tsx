@@ -37,18 +37,18 @@ const Board = () => {
       <Head>
         <title>Frontend Mentor | Kanban task management web app</title>
       </Head>
-      <main className={`flex overflow-x-scroll gap-6 py-6 px-4 pt-24 transition min-h-screen duration-0
+      <main className={`flex overflow-x-scroll relative top-24 gap-6 px-4 transition duration-0
       ${theme === "light" 
       ? "bg-almost_White" 
       : "bg-almost_Dark" }`}>
         {columns && columns.length > 0 ? (
-          <section className='relative h-full w-full flex items-start gap-6 p-5'>
+          <section className='relative h-full w-full flex items-start gap-6 p-5 pb-0'>
             {columns.map((col, index) => {
               return <Column key={index} colIndex={index} />;
             })}
             <button 
               aria-label="edit board"
-              style={{ height: "84vh", minWidth: "280px" }} 
+              style={{ height: "80vh", minWidth: "280px" }} 
               className={`
               ${theme === "light" 
               ? "col-gradient" 
