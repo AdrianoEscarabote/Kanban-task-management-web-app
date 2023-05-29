@@ -95,7 +95,7 @@ select {
   border-left: 0rem;
 }
 .mainSidebarOpen {
-  margin-left: 18.125rem;
+  margin-left: 19.375rem;
 }
 .body_dark {
   background-color: #20212C;
@@ -132,11 +132,9 @@ select {
 .filter_purple {
   filter: invert(36%) sepia(73%) saturate(830%) hue-rotate(211deg) brightness(88%) contrast(82%);
 }
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .mainSidebarOpen {
-    margin-left: 16.25rem;
-    padding-top: 5.9375rem;
-    overflow-y: scroll;
+    margin-left: 16.75rem;
   }
   .sidebarOpen {
     margin-left: 7.875rem;
@@ -148,7 +146,6 @@ select {
   }
   .mainSidebarOpen {
     margin-left: 0px;
-    padding-top: 60px;
   } 
 }
 .parent_modal {
