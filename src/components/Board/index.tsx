@@ -52,7 +52,7 @@ const Board = () => {
               className={`
               ${theme === "light" 
               ? "col-gradient" 
-              : "col-gradient-dark"} font-bold text-2xl/8 text-center text-_gray flex flex-col items-center justify-center gap-5 rounded-md relative top-8`}
+              : "col-gradient-dark"} font-bold text-2xl/8 text-center text-_gray flex flex-col items-center justify-center gap-5 rounded-md relative top-10`}
               onClick={() => setEditBoardOpen(!editBoardOpen)}
               >
                 + New Column
