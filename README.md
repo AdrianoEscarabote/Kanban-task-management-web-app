@@ -1,6 +1,6 @@
 - Active application: [here](https://kanban-task-management-web-app-adrianoescarabote.vercel.app/)
 
-https://github.com/AdrianoEscarabote/Kanban-task-management-web-app/assets/101136987/8f150953-fb75-46ea-90a3-b041fe76d1e8
+[https://github.com/AdrianoEscarabote/Kanban-task-management-web-app/assets/101136987/8f150953-fb75-46ea-90a3-b041fe76d1e8](https://github.com/AdrianoEscarabote/Kanban-task-management-web-app/assets/101136987/305b794e-9557-4228-8f2e-1b385b3c1d61)
 
 # Frontend Mentor - Kanban task management web app solution
 
