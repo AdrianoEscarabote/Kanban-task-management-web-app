@@ -10,7 +10,6 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [Continued development](#continued-development)
@@ -32,10 +31,6 @@ Users should be able to:
 - **Bonus**: Allow users to drag and drop tasks to change their status and re-order them in a column
 - **Bonus**: Keep track of any changes, even after refreshing the browser!
 
-### Screenshot
-
-![](./screenshot.jpg)
-
 ## My process
 
 ### Built with
@@ -55,7 +50,9 @@ Users should be able to:
 
 ### Continued development
 
-//
+I'm so glad I completed this amazing challenge! I've learned a lot along the way and I feel my development has benefited from this challenging project. While it took a little longer than expected due to my familiarity with some technology, I'm thrilled to finally have it done!
+
+I faced several challenges during the project, especially regarding organization, which was a challenging aspect to maintain. However, I believe I managed to do a good job in this regard. It was my first time working on such a large project with multiple technologies, which made it difficult to organize everything and keep the code clean. Even so, I'm confident I did a good job!
 
 ## Author
 
